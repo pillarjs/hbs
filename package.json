@@ -1,15 +1,19 @@
 {
   "name": "hbs",
   "description": "Express.js template engine wrapper for Handlebars",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Don Park <donpark@docuverse.com>",
   "contributors": [ 
     { "name": "Don Park", "email": "donpark@docuverse.com" }
   ],
   "dependencies": {},
   "keywords": ["express", "template", "engine"],
-  "directories": {},
+  "directories": {
+    "lib":"./lib"
+  },
   "scripts": {},
   "bin": {},
-  "engines": { "node": ">= 0.2.0" }
+  "engines": {
+    "node": ">= 0.2.0"
+  }
 }
