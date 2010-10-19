@@ -38,14 +38,18 @@ and once for layout).
 ## Tricks ##
 
 Handlebars support view helper functions which comes in handy. For example, following
-code allow view templates to set page title which is typically rendered from layout
+code allow view templates to affect head section which is typically rendered from layout
 template.
 
 ### layout.hbs ###
 	
 	<html>
 		<head>
-			<title>{{title}}</title>
+			<title>{{page_title}}</title>
+			<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/{{app_name}}.js" type="text/javascript" charset="utf-8"></script>
+			<link type="text/css" rel="stylesheet" href="common.css">
+			<link type="text/css" rel="stylesheet" href="{{app_name}}.css">
 		</head>
 		<body>
 		{{{body}}}
@@ -54,7 +58,11 @@ template.
 		
 ### myview.hbs ###
 	
-	{{#title}}My View{{/title}}
+	{{#properties}}
+		"app_name": "myapp",
+		"page_title": "My View"
+	{{/properties}}
+	<div>blah</div>
 	...
 		
 ### view rendering code ###
@@ -64,10 +72,15 @@ template.
 		compile: true,
 		locals {
 			...
-			title: function (context, fn) {
-				context.title = fn(this);
-				return "";
-			}
+      properties: function (context, fn) {
+          var props = JSON.parse("{" + fn(this) + "}");
+          for (var prop in props) {
+              if (props.hasOwnProperty(prop)) {
+                  context[prop] = props[prop];
+              }
+          }
+          return "";
+      }
 		}
 	};
 	res.render("myview", options);
