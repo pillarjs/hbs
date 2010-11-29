@@ -12,12 +12,8 @@ adds Express.js view engine support directly.
 	
 ## Installation ##
 
-*hbs* can be added to an Express.js app as a Node.js module or you can use my [fork
-of Express.js](http://github.com/donpark/express) which:
-	
-* contains *hbs* as a submodule
-* extends Express.js to support compile phase in view engine.
-	
+	npm install hbs
+
 ## Usage ##
 
 To set *hbs* as default view engine:
