@@ -23,18 +23,7 @@ of Express.js](http://github.com/donpark/express) which:
 To set *hbs* as default view engine:
 	
 	app.set("view engine", "hbs");
-	
-If you are using my fork of Express.js, compile phase is enabled only in production
-mode. To force enable compile phase in non-production mode:
 
-	var options = {
-		cache: true,
-		compile: true
-	};
-	
-If cache is not enabled, compilation will occur *twice* per render (once for view
-and once for layout).
-	
 ## Tricks ##
 
 Handlebars support view helper functions which comes in handy. For example, following
@@ -66,21 +55,27 @@ template.
 	...
 		
 ### view rendering code ###
-	
+  
 	var options = {
 		cache: true,
 		compile: true,
 		locals {
 			...
-      properties: function (context, fn) {
-          var props = JSON.parse("{" + fn(this) + "}");
-          for (var prop in props) {
-              if (props.hasOwnProperty(prop)) {
-                  context[prop] = props[prop];
-              }
-          }
-          return "";
-      }
+		},
+		blockHelpers: {
+			properties: function (context, fn) {
+					var props = JSON.parse("{" + fn(this) + "}");
+					for (var prop in props) {
+							if (props.hasOwnProperty(prop)) {
+									context[prop] = props[prop];
+							}
+					}
+					return "";
+			}
 		}
 	};
 	res.render("myview", options);
+
+## Migrating from 0.0.3 from 0.0.2 ##
+
+Handlebars' block-helpers now needs to be in `blockHelpers` (see example above) instead of `locals`.
