@@ -18,15 +18,15 @@ adds Express.js view engine support directly.
 
 To set *hbs* as default view engine:
 	
-  app.set("view engine", "hbs");
+    app.set("view engine", "hbs");
 	
 To your own version of Handlebars:
 
-  require('hbs').handlebars = require('/path/to/handlebars');
+    require('hbs').handlebars = require('/path/to/handlebars');
 
 or
 
-  require('hbs').handlebarsPath = '/path/to/handlebars';
+    require('hbs').handlebarsPath = '/path/to/handlebars';
 
 ## Tricks ##
 
