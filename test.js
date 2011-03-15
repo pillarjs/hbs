@@ -1,9 +1,7 @@
 var hbs = require("./lib/hbs");
 
 var options = {
-    locals: {
-        message: "foobar"
-    }
+    message: "foobar"
 };
 
 var source = "testing {{message}}";
