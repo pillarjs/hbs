@@ -1,8 +1,8 @@
 var assert = require('assert');
 var hbs = require("./lib/hbs");
 
-//var handlebars = hbs.handlebars;
-//assert.ok(handlebars != null);
+var handlebars = hbs.handlebars;
+assert.ok(handlebars != null);
 
 var options = {
     message: "foobar"
