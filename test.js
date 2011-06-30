@@ -54,9 +54,16 @@ assert.notEqual(hbs.handlebars, FakeHandlebars, "Didn't change it back")
 
 // Partials
 var sourceWithPartial = "testing {{>partial}}"
-hbs.Handlebars.registerPartial("partial", "inner {{message}}")
+hbs.registerPartial("partial", "inner {{message}}")
 var template = hbs.compile(sourceWithPartial, options);
 var rendered = hbs.render(template, options);
 assert.equal('testing inner foobar', rendered);
 
 // Helpers
+var sourceWithHelper = "testing {{help message}}"
+hbs.registerHelper("help", function(message) {
+    return "hi " + message
+})
+var template = hbs.compile(sourceWithHelper, options);
+var rendered = hbs.render(template, options);
+assert.equal('testing hi foobar', rendered);
