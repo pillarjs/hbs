@@ -67,3 +67,26 @@ hbs.registerHelper("help", function(message) {
 var template = hbs.compile(sourceWithHelper, options);
 var rendered = hbs.render(template, options);
 assert.equal('testing hi foobar', rendered);
+
+
+// Partials from directory
+
+hbs.partials(__dirname + "/test/partials", function(err) {
+    assert.ifError(err)
+    
+    var template = hbs.compile("testing {{>test}}", options);
+    var rendered = hbs.render(template, options);
+    assert.equal('testing partial foobar', rendered);
+})
+
+// Helpers from a module
+
+hbs.helpers(require('./test/manyHelpers'))
+var template = hbs.compile("testing {{hello message}}", options);
+var rendered = hbs.render(template, options);
+assert.equal('testing hello foobar', rendered);
+
+var template = hbs.compile("testing {{#bold}}asdf{{/bold}}", options);
+var rendered = hbs.render(template, options);
+assert.equal('testing <b>asdf</b>', rendered);
+
