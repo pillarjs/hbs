@@ -26,7 +26,7 @@ See `test/server` source code.
 
 ## Issues ##
 
-Block Helper support is broken currently.
+`__get__` function is not supported within block helper functions.
 
 ## Migrating to 1.0.0 ##
 
