@@ -4,14 +4,18 @@
  */
 
 var express = require('express');
+var util = require('util');
 
+var test_local_hbs = true;
+var hbs = require(test_local_hbs ? '../../lib/hbs' : 'hbs');
 /**
  *  HACK: Install local `hbs` view engine for testing purpose.
  *  
  *  This shouldn't be necessary for normal use of `hbs`.
  */
-var hbs = require('../../lib/hbs');
-express.view.register('.hbs', hbs);
+if (test_local_hbs) {
+  express.view.register('.hbs', hbs);
+}
 
 var app = module.exports = express.createServer();
 
@@ -44,13 +48,14 @@ hbs.registerHelper('link_to2', function(title, context) {
   return "<a href='/posts" + context.url + "'>" + title + "</a>"
 });
 
-hbs.registerHelper('link', function(context, fn) {
-  return '<a href="/people/' + this.__get__("id") + '">' + fn(this) + '</a>';
+hbs.registerHelper('list', function(items, fn) {
+  var out = "<ul>";
+  for(var i=0, l=items.length; i<l; i++) {
+    out = out + "<li>" + fn(items[i]) + "</li>";
+  }
+  return out + "</ul>";
 });
-/*
-<h3>Handlebars Block Helper Test</h3>
-<ul>{{#people}}<li>{{#link}}{{name}}{{/link}}</li>{{/people}}</ul>
-*/
+
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
 
 // Routes
@@ -70,13 +75,22 @@ app.get('/', function(req, res){
     posts: [{url: "/hello-world", body: "Hello World!"}],
     // helper with string
     posts2: [{url: "/hello-world", body: "Hello World!"}],
-    // block helper
+    // for block helper test
     people: [
+      {firstName: "Yehuda", lastName: "Katz"},
+      {firstName: "Carl", lastName: "Lerche"},
+      {firstName: "Alan", lastName: "Johnson"}
+    ],
+    people2: [
+      { name: { firstName: "Yehuda", lastName: "Katz" } },
+      { name: { firstName: "Carl", lastName: "Lerche" } },
+      { name: { firstName: "Alan", lastName: "Johnson" } }
+    ],
+    // for partial test
+    people3: [
       { "name": "Alan", "id": 1 },
       { "name": "Yehuda", "id": 2 }
-    ],
-    // partial
-    
+    ]
   });
 });
 

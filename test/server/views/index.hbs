@@ -26,5 +26,11 @@
 <h3>Handlebars Helper with String Test</h3>
 <ul>{{#posts2}}<li>{{{link_to2 "Post" this}}}</li>{{/posts2}}</ul>
 
+<h3>Handlebars Block Helper Test</h3>
+<ul>{{#list people}}{{firstName}} {{lastName}}{{/list}}</ul>
+
+<h3>Handlebars 'with' Block Helper Test</h3>
+<ul>{{#list people2}}{{#with name}}{{firstName}} {{lastName}}{{/with}}{{/list}}</ul>
+
 <h3>Handlebars Partial Test</h3>
-<ul>{{#people}}<li>{{> link2}}</li>{{/people}}</ul>
+<ul>{{#people3}}<li>{{> link2}}</li>{{/people3}}</ul>
