@@ -1,3 +1,17 @@
+# Status #
+
+This project is **frozen** because I am no longer using `Handlebars` as primary template
+engine.
+
+## Alternates ##
+
+*If you are interested in supporting this project, please message me the link to your
+fork or rewrite to be added below.*
+
+*[TBD]*
+
+===
+
 # hbs #
 
 [Express.js](http://github.com/visionmedia/express) view engine wrapper for
