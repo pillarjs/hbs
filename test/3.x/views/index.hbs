@@ -1,0 +1,36 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<h3>Basic Test</h3>
+<p>
+  Hello, my name is {{name}}. I am from {{hometown}}.
+  I have {{kids.length}} kids:
+</p>
+<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>
+
+<h3>Path Test</h3>
+<p><code>person.name = </code>
+{{person.name}}</p>
+<p><code>../company.name = </code>
+{{#person}}{{name}} - {{../company.name}}{{/person}}</p>
+
+<h3>Escape Test</h3>
+<table>
+<tr><td>Unescaped:</td><td>{{escapee}}</td></tr>
+<tr><td>Escaped:</td><td>{{{escapee}}}</td></tr>
+</table>
+
+<h3>Handlebars Helper Test</h3>
+<ul>{{#posts}}<li>{{{link_to this}}}</li>{{/posts}}</ul>
+
+<h3>Handlebars Helper with String Test</h3>
+<ul>{{#posts2}}<li>{{{link_to2 "Post" this}}}</li>{{/posts2}}</ul>
+
+<h3>Handlebars Block Helper Test</h3>
+<ul>{{#list people}}{{firstName}} {{lastName}}{{/list}}</ul>
+
+<h3>Handlebars 'with' Block Helper Test</h3>
+<ul>{{#list people2}}{{#with name}}{{firstName}} {{lastName}}{{/with}}{{/list}}</ul>
+
+<h3>Handlebars Partial Test</h3>
+<ul>{{#people3}}<li>{{> link2}}</li>{{/people3}}</ul>

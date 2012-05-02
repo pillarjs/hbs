@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>Express Handlebars Test</title>
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+</head>
+<body>
+<h1>Express Handlebars Test</h1>
+<p>Welcome to Express Handlebars Test</p>
+
+<h3>Basic Test</h3>
+<p>
+  Hello, my name is Alan. I am from Somewhere, TX.
+  I have 2 kids:
+</p>
+<ul><li>Jimmy is 12</li><li>Sally is 4</li></ul>
+
+<h3>Path Test</h3>
+<p><code>person.name = </code>
+Alan</p>
+<p><code>../company.name = </code>
+Alan - Rad, Inc.</p>
+
+<h3>Escape Test</h3>
+<table>
+<tr><td>Unescaped:</td><td>&lt;jail&gt;escaped&lt;/jail&gt;</td></tr>
+<tr><td>Escaped:</td><td><jail>escaped</jail></td></tr>
+</table>
+
+<h3>Handlebars Helper Test</h3>
+<ul><li><a href='/hello-world'>Hello World!</a></li></ul>
+
+<h3>Handlebars Helper with String Test</h3>
+<ul><li><a href='/posts/hello-world'>Post</a></li></ul>
+
+<h3>Handlebars Block Helper Test</h3>
+<ul><ul><li>Yehuda Katz</li><li>Carl Lerche</li><li>Alan Johnson</li></ul></ul>
+
+<h3>Handlebars 'with' Block Helper Test</h3>
+<ul><ul><li>Yehuda Katz</li><li>Carl Lerche</li><li>Alan Johnson</li></ul></ul>
+
+<h3>Handlebars Partial Test</h3>
+<ul><li><a href="/people/1">Alan</a></li><li><a href="/people/2">Yehuda</a></li></ul>
+
+</body>
+</html>

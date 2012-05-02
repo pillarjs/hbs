@@ -1,44 +1,25 @@
+// builtin
+var fs = require('fs');
+var assert = require('assert');
 
-/**
- * Module dependencies.
- */
-
+// 3rd party
 var express = require('express');
-var util = require('util');
+var request = require('request');
 
-var test_local_hbs = true;
-var hbs = require(test_local_hbs ? '../../lib/hbs' : 'hbs');
-/**
- *  HACK: Install local `hbs` view engine for testing purpose.
- *  
- *  This shouldn't be necessary for normal use of `hbs`.
- */
-if (test_local_hbs) {
-  express.view.register('.hbs', hbs);
-}
+// local
+var hbs = require('../../');
 
-var app = module.exports = express.createServer();
+var app = express();
 
-// Configuration
+// manually set render engine, under normal circumstances this
+// would not be needed as hbs would be installed through npm
+app.engine('hbs', hbs.__express);
 
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'hbs');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
+// set the view engine to use handlebars
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
 
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler()); 
-});
-
-// Handlebars Test Helpers and Partials
+app.use(express.static(__dirname + '/public'));
 
 hbs.registerHelper('link_to', function(context) {
   return "<a href='" + context.url + "'>" + context.body + "</a>";
@@ -57,8 +38,6 @@ hbs.registerHelper('list', function(items, fn) {
 });
 
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
-
-// Routes
 
 app.get('/', function(req, res){
   res.render('index', {
@@ -94,5 +73,18 @@ app.get('/', function(req, res){
   });
 });
 
-app.listen(3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+test('index', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
+
+    request('http://localhost:3000', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
