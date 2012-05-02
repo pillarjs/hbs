@@ -1,17 +1,3 @@
-# Status #
-
-This project is **frozen** because I am no longer using `Handlebars` as primary template
-engine.
-
-## Alternates ##
-
-*If you are interested in supporting this project, please message me the link to your
-fork or rewrite to be added below.*
-
-*[TBD]*
-
-===
-
 # hbs #
 
 [Express.js](http://github.com/visionmedia/express) view engine wrapper for
@@ -23,20 +9,24 @@ fork or rewrite to be added below.*
 While Handlbars.js is already a Node.js module, it cannot be used directly as
 an Express.js view engine. This module will fill that role until Handlebars.js
 adds Express.js view engine support directly.
-	
+
 ## Installation ##
 
-	npm install hbs
+```
+npm install hbs
+```
 
 ## Usage ##
 
 To set *hbs* as default view engine:
-	
-    app.set("view engine", "hbs");
-    
+
+```javascript
+app.set("view engine", "hbs");
+```
+
 ## Examples ##
 
-See `test/server` source code.
+See `test/2.x/app.js` or `test/3.x/app.js` depending on your version of express.
 
 ## Issues ##
 
