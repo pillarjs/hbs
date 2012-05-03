@@ -4,6 +4,8 @@
 [handlebars.js](http://github.com/wycats/handlebars.js), an extension of
 [Mustache](http://mustache.github.com/) template language.
 
+[![Build Status](https://secure.travis-ci.org/donpark/hbs.png)](http://travis-ci.org/donpark/hbs)
+
 ## Why ##
 
 While Handlbars.js is already a Node.js module, it cannot be used directly as
