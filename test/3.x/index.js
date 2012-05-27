@@ -6,6 +6,7 @@ test('setup3.x', function(done) {
         npm.commands.install(['express@>=3.0.0alpha2'], function() {
             // run tests
             require('./app');
+            require('./async_helpers');
             done();
         });
     });
