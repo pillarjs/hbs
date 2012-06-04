@@ -18,7 +18,7 @@ hbs.registerHelper('extend', function(name, context) {
         block = blocks[name] = [];
     }
 
-    block.push(context());
+    block.push(context(this));
 });
 
 hbs.registerHelper('block', function(name) {
