@@ -15,6 +15,10 @@ var app = express();
 // would not be needed as hbs would be installed through npm
 app.engine('hbs', hbs.__express);
 
+// render html files using hbs as well
+// tests detecting the view engine extension
+app.engine('html', hbs.__express);
+
 // set the view engine to use handlebars
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
@@ -73,12 +77,62 @@ app.get('/', function(req, res){
   });
 });
 
+app.get('/html', function(req, res) {
+  res.render('index.html', {
+    title: 'Express Handlebars Test',
+    // basic test
+    name: 'Alan',
+    hometown: "Somewhere, TX",
+    kids: [{"name": "Jimmy", "age": "12"}, {"name": "Sally", "age": "4"}],
+    // path test
+    person: { "name": "Alan" }, company: {"name": "Rad, Inc." },
+    // escapee test
+    escapee: '<jail>escaped</jail>',
+    // helper test
+    posts: [{url: "/hello-world", body: "Hello World!"}],
+    // helper with string
+    posts2: [{url: "/hello-world", body: "Hello World!"}],
+    // for block helper test
+    people: [
+      {firstName: "Yehuda", lastName: "Katz"},
+      {firstName: "Carl", lastName: "Lerche"},
+      {firstName: "Alan", lastName: "Johnson"}
+    ],
+    people2: [
+      { name: { firstName: "Yehuda", lastName: "Katz" } },
+      { name: { firstName: "Carl", lastName: "Lerche" } },
+      { name: { firstName: "Alan", lastName: "Johnson" } }
+    ],
+    // for partial test
+    people3: [
+      { "name": "Alan", "id": 1 },
+      { "name": "Yehuda", "id": 2 }
+    ]
+  });
+});
+
 test('index', function(done) {
   var server = app.listen(3000, function() {
 
     var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
 
     request('http://localhost:3000', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('html extension', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
+
+    request('http://localhost:3000/html', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
     });
