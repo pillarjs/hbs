@@ -30,8 +30,22 @@ hbs.registerAsyncHelper('async', function(context, cb) {
   });
 });
 
+var count = 0;
+
+// fake async helper, returns immediately
+// although a regular helper could have been used we should support this use case
+hbs.registerAsyncHelper('fake-async', function(context, cb) {
+  cb('instant' + count++);
+});
+
 app.get('/', function(req, res){
   res.render('async', {
+    layout: false
+  });
+});
+
+app.get('/fake-async', function(req, res) {
+  res.render('fake-async', {
     layout: false
   });
 });
@@ -42,6 +56,22 @@ test('async', function(done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/async.html', 'utf8');
 
     request('http://localhost:3000', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('async', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/fake-async.html', 'utf8');
+
+    request('http://localhost:3000/fake-async', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
     });
