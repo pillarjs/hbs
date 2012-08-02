@@ -9,7 +9,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "handlebars": ">= 1.0.0"
+    "handlebars": "1.0.5beta"
   },
   "devDependencies": {
     "mocha": "1.2.x",
