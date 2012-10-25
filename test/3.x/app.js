@@ -111,6 +111,10 @@ app.get('/html', function(req, res) {
   });
 });
 
+app.get('/syntax-error', function(req, res) {
+  res.render('syntax-error');
+});
+
 test('index', function(done) {
   var server = app.listen(3000, function() {
 
@@ -134,6 +138,22 @@ test('html extension', function(done) {
 
     request('http://localhost:3000/html', function(err, res, body) {
       assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('syntax error', function(done) {
+  var server = app.listen(3000, function() {
+
+    request('http://localhost:3000/syntax-error', function(err, res, body) {
+      assert.equal(res.statusCode, 500);
+      assert.equal(body.split('\n')[0], 'Error: ' + __dirname + '/views/syntax-error.hbs: Parse error on line 1:');
+      //assert.equal(bod);
       server.close();
     });
   });

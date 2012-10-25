@@ -74,6 +74,10 @@ app.get('/', function(req, res){
   });
 });
 
+app.get('/syntax-error', function(req, res) {
+  res.render('syntax-error');
+});
+
 test('index', function(done) {
   app.listen(3000, function() {
 
@@ -85,7 +89,22 @@ test('index', function(done) {
     });
   });
 
-  app.on('close', function() {
+  app.once('close', function() {
+    done();
+  });
+});
+
+test('syntax error', function(done) {
+  app.listen(3000, function() {
+
+    request('http://localhost:3000/syntax-error', function(err, res, body) {
+      assert.equal(res.statusCode, 500);
+      assert.equal(body.split('\n')[0], 'Error: Parse error on line 1:');
+      app.close();
+    });
+  });
+
+  app.once('close', function() {
     done();
   });
 });
