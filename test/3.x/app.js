@@ -33,10 +33,10 @@ hbs.registerHelper('link_to2', function(title, context) {
   return "<a href='/posts" + context.url + "'>" + title + "</a>"
 });
 
-hbs.registerHelper('list', function(items, fn) {
+hbs.registerHelper('list', function(items, context) {
   var out = "<ul>";
-  for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<li>" + fn(items[i]) + "</li>";
+  for(var i=0; i<items.length; ++i) {
+    out = out + "<li>" + context.fn(items[i]) + "</li>";
   }
   return out + "</ul>";
 });

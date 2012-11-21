@@ -9,12 +9,12 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "handlebars": "1.0.5beta"
+    "handlebars": "1.0.7"
   },
   "devDependencies": {
-    "mocha": "~1.5.0",
+    "mocha": "~1.7.0",
     "npm": "~1.1.62",
-    "request": ">=2.9.202"
+    "request": "~2.9.202"
   },
   "scripts": {
     "test": "mocha"
