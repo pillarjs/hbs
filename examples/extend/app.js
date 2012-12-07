@@ -18,11 +18,7 @@ hbs.registerHelper('extend', function(name, context) {
         block = blocks[name] = [];
     }
 
-	if (typeof context.fn != 'undefined') { // new version of handlebars (1.0+ I believe)
-		block.push(context.fn(this));
-	} else { // old version of handlebars
-		block.push(context(this));
-	}
+	block.push(context.fn(this));
 });
 
 hbs.registerHelper('block', function(name) {
