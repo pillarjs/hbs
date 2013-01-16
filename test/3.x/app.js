@@ -115,6 +115,10 @@ app.get('/syntax-error', function(req, res) {
   res.render('syntax-error');
 });
 
+app.get('/escape', function(req, res) {
+  res.render('escape', { title: 'foobar', layout: false });
+});
+
 test('index', function(done) {
   var server = app.listen(3000, function() {
 
@@ -162,3 +166,20 @@ test('syntax error', function(done) {
     done();
   });
 });
+
+test('escape for frontend', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/escape.html', 'utf8');
+
+    request('http://localhost:3000/escape', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
