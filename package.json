@@ -12,7 +12,7 @@
     "handlebars": "1.0.7"
   },
   "devDependencies": {
-    "mocha": "~1.7.0",
+    "mocha": "1.6.0",
     "npm": "~1.1.62",
     "request": "~2.9.202"
   },
