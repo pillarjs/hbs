@@ -41,6 +41,18 @@ hbs.registerPartial('partial_name', 'partial value');
 
 See the [handlebars.js](http://github.com/wycats/handlebars.js) README and docs for more information.
 
+## handlebars
+
+The handlebars require used by hbs can be accessed via the `handlebars` property on the `hbs` module.
+
+If you wish to use handlebars methods like `SafeString` please do so on this property. Do not register 
+helpers or partials in this way.
+
+```
+// hbs.handlebars is the handlebars module
+hbs.handlebars === require('handlebars');
+```
+
 ## Recipes ##
 
 ### extra scripts or styles
