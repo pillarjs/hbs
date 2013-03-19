@@ -3,10 +3,6 @@
 [Express.js](http://github.com/visionmedia/express) view engine for
 [handlebars.js](http://github.com/wycats/handlebars.js)
 
-## Why ##
-
-Because Handlebars.js is a nifty and simple templating language and makes a great fit for express templates.
-
 ## Installation ##
 
 ```
