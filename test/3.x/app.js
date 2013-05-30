@@ -42,6 +42,7 @@ hbs.registerHelper('list', function(items, context) {
 });
 
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
+hbs.registerPartials(__dirname + '/views/partials');
 
 app.get('/', function(req, res){
   res.render('index', {
@@ -115,6 +116,10 @@ app.get('/syntax-error', function(req, res) {
   res.render('syntax-error');
 });
 
+app.get('/partials', function(req, res) {
+  res.render('partials', { layout: false });
+});
+
 app.get('/escape', function(req, res) {
   res.render('escape', { title: 'foobar', layout: false });
 });
@@ -125,6 +130,22 @@ test('index', function(done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
 
     request('http://localhost:3000', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('partials', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = 'Test Partial 1\nTest Partial 2';
+
+    request('http://localhost:3000/partials', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
     });

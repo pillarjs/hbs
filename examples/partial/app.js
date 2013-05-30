@@ -9,6 +9,7 @@ var hbs = require('hbs');
 var app = express();
 
 hbs.registerPartial('partial', fs.readFileSync(__dirname + '/views/partial.hbs', 'utf8'));
+hbs.registerPartials(__dirname + '/views/partials');
 
 // set the view engine to use handlebars
 app.set('view engine', 'hbs');

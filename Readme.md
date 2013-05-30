@@ -35,6 +35,23 @@ hbs.registerHelper('helper_name', function(...) { ... });
 hbs.registerPartial('partial_name', 'partial value');
 ```
 
+For convenience, `registerPartials` provides a quick way to load all partials from a specific directory:
+
+```javascript
+var hbs = require('hbs');
+
+hbs.registerPartials(__dirname + '/views/partials');
+```
+
+Partials that are loaded from a directory are named based on their filename, where spaces and hyphens are replaced with an underscore character:
+
+```
+template.html      -> {{> template}}
+template 2.html    -> {{> template_2}}
+login view.hbs     -> {{> login_view}}
+template-file.html -> {{> template_file}}
+```
+
 See the [handlebars.js](http://github.com/wycats/handlebars.js) README and docs for more information.
 
 ## handlebars ##
