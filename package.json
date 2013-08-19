@@ -23,6 +23,12 @@
   "engines": {
     "node": ">= 0.4.0"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.github.com/donpark/hbs/master/LICENSE"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/donpark/hbs.git"
