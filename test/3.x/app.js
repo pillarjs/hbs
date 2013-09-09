@@ -143,10 +143,10 @@ test('index', function(done) {
 test('partials', function(done) {
   var server = app.listen(3000, function() {
 
-    var expected = 'Test Partial 1\nTest Partial 2';
+    var expected = 'Test Partial 1\nTest Partial 2\nTest Partial 3\n';
 
     request('http://localhost:3000/partials', function(err, res, body) {
-      assert.equal(body, expected);
+      assert.equal(body.trim(), expected.trim());
       server.close();
     });
   });
