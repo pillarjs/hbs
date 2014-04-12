@@ -89,3 +89,6 @@ We can take advantage of the fact that our body template is processed before the
 
 See examples/extend for a working example. Note how the index.hbs file defines extra stylesheets and scripts to be injected into the layout. They are put into the head section and at the end of the body respectively. If this was not done, the stylesheet would be in the body and the script would print `foo bar` too soon.
 
+## Helpful Modules ##
+
+- **[hbs-utils](https://github.com/dpolivy/hbs-utils)**: A small utility library that provides helpers for registering and compiling partials, including automatic updates when partials are changed.
