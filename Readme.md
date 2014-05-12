@@ -54,6 +54,29 @@ template-file.html -> {{> template_file}}
 
 See the [handlebars.js](http://github.com/wycats/handlebars.js) README and docs for more information.
 
+## Exposing locals as template data ##
+
+hbs has the ability to expose the application and request locals within any context inside a view. To enable this functionality, simply call the `localsAsTemplateData` method and pass in your Express application instance.
+
+```javascript
+var hbs = require('hbs');
+var express = require('express');
+
+var app = express();
+hbs.localsAsTemplateData(app);
+
+app.locals.foo = "bar";
+```
+
+The local data can then be accessed using the `@property` syntax:
+
+```
+top level: {{@foo}}
+{{#each items}}
+  {{label}}: {{@foo}}
+{{/each}}
+```
+
 ## handlebars ##
 
 The handlebars require used by hbs can be accessed via the `handlebars` property on the `hbs` module.
