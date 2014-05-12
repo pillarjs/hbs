@@ -44,6 +44,9 @@ hbs.registerHelper('list', function(items, context) {
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
 hbs.registerPartials(__dirname + '/views/partials');
 
+// provide app and response locals in views
+hbs.provideLocals(app);
+
 app.get('/', function(req, res){
   res.render('index', {
     title: 'Express Handlebars Test',
@@ -122,6 +125,14 @@ app.get('/partials', function(req, res) {
 
 app.get('/escape', function(req, res) {
   res.render('escape', { title: 'foobar', layout: false });
+});
+
+app.get('/locals', function(req, res) {
+  res.locals.person = 'Alan';
+  res.render('locals', {
+    layout: false,
+    kids: [{ name: 'Jimmy' }, { name: 'Sally' }],
+  });
 });
 
 test('index', function(done) {
@@ -204,3 +215,18 @@ test('escape for frontend', function(done) {
   });
 });
 
+test('response locals', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/locals.html', 'utf8');
+
+    request('http://localhost:3000/locals', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
