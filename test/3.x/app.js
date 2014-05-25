@@ -44,8 +44,8 @@ hbs.registerHelper('list', function(items, context) {
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
 hbs.registerPartials(__dirname + '/views/partials');
 
-// provide app and response locals in views
-hbs.provideLocals(app);
+// expose app and response locals in views
+hbs.localsAsTemplateData(app);
 
 app.get('/', function(req, res){
   res.render('index', {
