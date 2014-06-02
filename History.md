@@ -1,4 +1,4 @@
-# unreleased
+# 2.7.0 (2014-06-02)
 
  * fix registering directories of partials on windows
  * add api to expose locals as template data
