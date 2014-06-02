@@ -1,3 +1,8 @@
+# unreleased
+
+ * fix registering directories of partials on windows
+ * add api to expose locals as template data
+
 # 2.5.0 / 2014-02-19
 
  * updated handlebars to 1.3.0
