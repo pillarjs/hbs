@@ -43,6 +43,7 @@ hbs.registerHelper('list', function(items, context) {
 
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
 hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartialsSync(__dirname + '/views/partialsSync');
 
 // expose app and response locals in views
 hbs.localsAsTemplateData(app);
@@ -123,6 +124,10 @@ app.get('/partials', function(req, res) {
   res.render('partials', { layout: false });
 });
 
+app.get('/partialsSync', function(req, res) {
+  res.render('partialsSync', { layout: false });
+});
+
 app.get('/escape', function(req, res) {
   res.render('escape', { title: 'foobar', layout: false });
 });
@@ -157,6 +162,22 @@ test('partials', function(done) {
     var expected = 'Test Partial 1\nTest Partial 2\nTest Partial 3\n';
 
     request('http://localhost:3000/partials', function(err, res, body) {
+      assert.equal(body.trim(), expected.trim());
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('partialsSync', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = 'Test Partial Sync 1\nTest Partial Sync 2\nTest Partial Sync 3\n';
+
+    request('http://localhost:3000/partialsSync', function(err, res, body) {
       assert.equal(body.trim(), expected.trim());
       server.close();
     });
