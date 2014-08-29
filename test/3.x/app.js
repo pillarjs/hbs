@@ -24,6 +24,10 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
+app.use(app.router);
+app.use(function(err, req, res, next) {
+  res.status(500).send(err.stack.toString());
+});
 
 hbs.registerHelper('link_to', function(context) {
   return "<a href='" + context.url + "'>" + context.body + "</a>";
@@ -189,7 +193,6 @@ test('syntax error', function(done) {
     request('http://localhost:3000/syntax-error', function(err, res, body) {
       assert.equal(res.statusCode, 500);
       assert.equal(body.split('\n')[0], 'Error: ' + __dirname + '/views/syntax-error.hbs: Parse error on line 1:');
-      //assert.equal(bod);
       server.close();
     });
   });

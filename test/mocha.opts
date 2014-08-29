@@ -1,4 +1,5 @@
 --ui qunit
+--bail
 --globals d
 --globals pref
 --globals depth
