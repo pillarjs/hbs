@@ -1,7 +1,4 @@
 --ui qunit
+--reporter list
 --bail
---globals d
---globals pref
---globals depth
---globals params
 --timeout 16000

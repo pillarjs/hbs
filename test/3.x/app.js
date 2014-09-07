@@ -7,7 +7,7 @@ var express = require('express');
 var request = require('request');
 
 // local
-var hbs = require('../../');
+var hbs = require('../../').create();
 
 var app = express();
 
