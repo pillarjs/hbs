@@ -1,3 +1,7 @@
+# UNRELEASED
+
+ * update to handlebars 2.x
+
 # 2.7.0 (2014-06-02)
 
  * fix registering directories of partials on windows
