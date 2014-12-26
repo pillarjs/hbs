@@ -1,4 +1,4 @@
-# UNRELEASED
+# 2.8.0 (2014-12-26)
 
  * update to handlebars 2.x
 
