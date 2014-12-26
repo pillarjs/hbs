@@ -158,7 +158,7 @@ test('index', function(done) {
 test('partials', function(done) {
   var server = app.listen(3000, function() {
 
-    var expected = 'Test Partial 1\nTest Partial 2\nTest Partial 3\n';
+    var expected = 'Test Partial 1Test Partial 2Test Partial 3';
 
     request('http://localhost:3000/partials', function(err, res, body) {
       assert.equal(body.trim(), expected.trim());
