@@ -21,7 +21,7 @@ app.engine('html', hbs.__express);
 
 // set the view engine to use handlebars
 app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
+app.set('views', [__dirname + '/views', __dirname + '/views_secondary']);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -135,6 +135,10 @@ app.get('/locals', function(req, res) {
   });
 });
 
+app.get('/secondary', function(req, res) {
+  res.render('secondary', { text: '  index body :)', title: 'Express Handlebars Test' });
+});
+
 app.use(function(err, req, res, next) {
   res.status(500).send(err.stack.toString());
 });
@@ -225,6 +229,22 @@ test('response locals', function(done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/locals.html', 'utf8');
 
     request('http://localhost:3000/locals', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('multiple views directories', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
+
+    request('http://localhost:3000/secondary', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
     });
