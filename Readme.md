@@ -1,4 +1,4 @@
-# hbs [![Build Status](https://secure.travis-ci.org/donpark/hbs.png)](http://travis-ci.org/donpark/hbs) #
+# hbs [![Build Status](https://travis-ci.org/donpark/hbs.svg?branch=master)](https://travis-ci.org/donpark/hbs)
 
 [Express.js](http://github.com/visionmedia/express) view engine for
 [handlebars.js](http://github.com/wycats/handlebars.js)
