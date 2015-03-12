@@ -7,6 +7,7 @@ test('setup3.x', function(done) {
             // run tests
             require('./app');
             require('./async_helpers');
+            require('./view_engine');
             done();
         });
     });
