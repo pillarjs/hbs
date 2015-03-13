@@ -1,3 +1,7 @@
+# UNRELEASED
+
+ * honor custom extension when using view engine layouts
+
 # 3.0.0 (2015-03-09)
 
  * update handlebars to 3.x
