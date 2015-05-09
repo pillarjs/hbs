@@ -50,6 +50,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 // expose app and response locals in views
 hbs.localsAsTemplateData(app);
+app.locals.father = 'Alan';
 
 app.get('/', function(req, res){
   res.render('index', {
@@ -139,6 +140,13 @@ app.get('/locals', function(req, res) {
   });
 });
 
+app.get('/globals', function(req, res) {
+  res.render('globals', {
+    layout: 'layout_globals',
+    kids: [{ name: 'Jimmy' }, { name: 'Sally' }],
+  });
+});
+
 test('index', function(done) {
   var server = app.listen(3000, function() {
 
@@ -224,6 +232,22 @@ test('response locals', function(done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/locals.html', 'utf8');
 
     request('http://localhost:3000/locals', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('response globals', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/globals.html', 'utf8');
+
+    request('http://localhost:3000/globals', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
     });
