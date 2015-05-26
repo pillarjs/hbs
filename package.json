@@ -17,6 +17,7 @@
     "npm": "1.3.6",
     "request": "2.25.0"
   },
+  "license": "MIT",
   "scripts": {
     "test": "mocha"
   },
