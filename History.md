@@ -1,3 +1,7 @@
+# UNRELEASED
+
+ * make @data available to layouts
+
 # 3.0.1 (2015-03-12)
 
  * honor custom extension when using view engine layouts
