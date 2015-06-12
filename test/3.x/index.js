@@ -6,6 +6,7 @@ test('setup3.x', function(done) {
         npm.commands.install(['express@~3.16.8'], function() {
             // run tests
             require('./app');
+            require('./default_partials');
             require('./async_helpers');
             require('./view_engine');
             done();

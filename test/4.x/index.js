@@ -9,6 +9,7 @@ test('setup4.x', function(done) {
             }
             // run tests
             require('./app');
+            require('./default_partials');
             require('./async_helpers');
             require('./view_engine');
             done();
