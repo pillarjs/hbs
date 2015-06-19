@@ -76,6 +76,7 @@ top level: {{@foo}}
   {{label}}: {{@foo}}
 {{/each}}
 ```
+Note: In partials and templates, local data can be accessed without using `@` prefix.
 
 ## handlebars ##
 
