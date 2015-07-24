@@ -136,6 +136,15 @@ app.get('/locals', function(req, res) {
   });
 });
 
+app.get('/locals-cached', function(req, res) {
+  res.locals.person = 'Alan';
+  res.render('locals', {
+    layout: false,
+    cache: true,
+    kids: [{ name: 'Jimmy' }, { name: 'Sally' }],
+  });
+});
+
 app.get('/globals', function(req, res) {
   res.render('globals', {
     layout: 'layout_globals',
@@ -242,6 +251,27 @@ test('response locals', function(done) {
     request('http://localhost:3000/locals', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('response locals cached', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/locals.html', 'utf8');
+
+    request('http://localhost:3000/locals-cached', function(err, res, body) {
+      assert.equal(body, expected);
+
+      // Request the second time, so it is cached
+      request('http://localhost:3000/locals-cached', function(err, res, body) {
+        assert.equal(body, expected);
+        server.close();
+      });
     });
   });
 
