@@ -1,5 +1,6 @@
 // builtin
 var fs = require('fs');
+var path = require('path');
 var assert = require('assert');
 
 // 3rd party
@@ -207,7 +208,7 @@ test('syntax error', function(done) {
 
     request('http://localhost:3000/syntax-error', function(err, res, body) {
       assert.equal(res.statusCode, 500);
-      assert.equal(body.split('\n')[0], 'Error: ' + __dirname + '/views/syntax-error.hbs: Parse error on line 1:');
+      assert.equal(body.split('\n')[0], 'Error: ' + __dirname + path.sep + 'views' + path.sep + 'syntax-error.hbs: Parse error on line 1:');
       //assert.equal(bod);
       server.close();
     });
