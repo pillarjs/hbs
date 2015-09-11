@@ -1,3 +1,7 @@
+# UNRELEASED
+
+ * fix localsAsTemplateData when cache is enabled
+
 # 3.1.0 (2015-06-10)
 
  * make @data available to layouts
