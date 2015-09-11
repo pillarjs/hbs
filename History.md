@@ -1,4 +1,4 @@
-# UNRELEASED
+# 3.1.1 (2015-09-11)
 
  * fix localsAsTemplateData when cache is enabled
 
