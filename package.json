@@ -13,9 +13,9 @@
     "walk": "2.3.9"
   },
   "devDependencies": {
-    "request": "2.25.0"
     "mocha": "2.3.3",
     "npm": "3.3.8",
+    "request": "2.65.0"
   },
   "license": "MIT",
   "scripts": {
