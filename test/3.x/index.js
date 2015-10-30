@@ -8,6 +8,7 @@ test('setup3.x', function(done) {
             require('./app');
             require('./async_helpers');
             require('./view_engine');
+            require('./no_layout_app');
             done();
         });
     });

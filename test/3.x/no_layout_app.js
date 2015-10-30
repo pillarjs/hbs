@@ -1,6 +1,8 @@
 // builtin
 var fs = require('fs');
 var assert = require('assert');
+var root = process.cwd();
+var path = require('path');
 
 // 3rd party
 var express = require('express');
@@ -27,14 +29,31 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
   res.render('no_layout', {
-    title: 'Express Handlebars Test',
+    title: 'Express Handlebars Test'
   });
 });
 
 app.get('/with_layout', function(req, res){
   res.render('blank', {
-    layout: 'layout'
+    layout: 'layout',
+    title: 'Express Handlebars Test'
   });
+});
+
+app.get('/layout_cache', function(req, res, next) {
+    res.render('blank', {
+        layout: 'layout',
+        cache: true,
+        title: 'Express Handlebars Test'
+    }, function(error, body){
+        var file = path.join(root, 'test', '3.x', 'views', 'layout.hbs');
+        if (hbs.cache[file]) {
+            res.send(body);
+        }
+        else {
+            res.send('not cached!');
+        }
+    });
 });
 
 suite('no layout');
@@ -69,5 +88,21 @@ test('index w/layout', function(done) {
   server.on('close', function() {
     done();
   });
+});
+
+test('index layout cache', function(done) {
+    var server = app.listen(3000, function() {
+
+        var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
+
+        request('http://localhost:3000/layout_cache', function(err, res, body) {
+            assert.equal(body, expected);
+            server.close();
+        });
+    });
+
+    server.on('close', function() {
+        done();
+    });
 });
 
