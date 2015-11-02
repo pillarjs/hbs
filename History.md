@@ -1,4 +1,4 @@
-# UNRELEASED
+# 4.0.0 (2015-11-02)
 
  * update handlebars to v4
  * fix caching of non default filename layouts
