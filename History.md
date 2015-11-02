@@ -1,3 +1,8 @@
+# UNRELEASED
+
+ * update handlebars to v4
+ * fix caching of non default filename layouts
+
 # 3.1.1 (2015-09-11)
 
  * fix localsAsTemplateData when cache is enabled
