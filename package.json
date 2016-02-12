@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "handlebars": "4.0.3",
-    "walk": "2.2.1"
+    "walk": "2.3.9"
   },
   "devDependencies": {
     "mocha": "1.6.0",
