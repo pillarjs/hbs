@@ -30,6 +30,12 @@ hbs.registerAsyncHelper('async', function(context, cb) {
   });
 });
 
+hbs.registerAsyncHelper('async-with-params', function(a, b, ctx, cb) {
+  process.nextTick(function() {
+    cb(a + b);
+  });
+});
+
 var count = 0;
 
 // fake async helper, returns immediately
@@ -46,6 +52,12 @@ app.get('/', function(req, res){
 
 app.get('/fake-async', function(req, res) {
   res.render('fake-async', {
+    layout: false
+  });
+});
+
+app.get('/async-with-params', function(req, res) {
+  res.render('async-with-params', {
     layout: false
   });
 });
@@ -72,6 +84,22 @@ test('async', function(done) {
     var expected = fs.readFileSync(__dirname + '/../fixtures/fake-async.html', 'utf8');
 
     request('http://localhost:3000/fake-async', function(err, res, body) {
+      assert.equal(body, expected);
+      server.close();
+    });
+  });
+
+  server.on('close', function() {
+    done();
+  });
+});
+
+test('async-with-params', function(done) {
+  var server = app.listen(3000, function() {
+
+    var expected = fs.readFileSync(__dirname + '/../fixtures/async-with-params.html', 'utf8');
+
+    request('http://localhost:3000/async-with-params', function(err, res, body) {
       assert.equal(body, expected);
       server.close();
     });
