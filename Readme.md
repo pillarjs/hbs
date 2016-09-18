@@ -40,7 +40,7 @@ For convenience, `registerPartials` provides a quick way to load all partials fr
 ```javascript
 var hbs = require('hbs');
 
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + '/views/partials' [, callback]);
 ```
 
 Partials that are loaded from a directory are named based on their filename, where spaces and hyphens are replaced with an underscore character:
@@ -53,6 +53,8 @@ template-file.html -> {{> template_file}}
 ```
 
 See the [handlebars.js](http://github.com/wycats/handlebars.js) README and docs for more information.
+
+**Note:** This method is async; meaning that the directory is walked in a non-blocking manner to app startup.
 
 ## Exposing locals as template data ##
 
