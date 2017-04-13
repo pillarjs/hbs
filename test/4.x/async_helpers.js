@@ -27,6 +27,7 @@ before(function () {
   app.engine('hbs', hbs.__express)
 
   // set the view engine to use handlebars
+  app.set('view cache', true)
   app.set('view engine', 'hbs')
   app.set('views', path.join(__dirname, 'views'))
 
@@ -34,10 +35,11 @@ before(function () {
 
   // value for async helper
   // it will be called a few times from the template
+  var indx = 0
   var vals = ['foo', 'bar', 'baz']
   hbs.registerAsyncHelper('async', function (context, cb) {
     process.nextTick(function () {
-      cb(vals.shift())
+      cb(vals[indx++ % 3])
     })
   })
 
@@ -89,6 +91,13 @@ test('async', function(done) {
     .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'fake-async.html'), 'utf8'))
     .end(done)
 });
+
+test('cached', function (done) {
+  request(app)
+    .get('/')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'async.html'), 'utf8'))
+    .end(done)
+})
 
 test('async-with-params', function(done) {
   request(app)
