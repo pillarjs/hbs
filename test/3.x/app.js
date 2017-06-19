@@ -180,7 +180,7 @@ test('index', function(done) {
 test('partials', function(done) {
   request(app)
     .get('/partials')
-    .expect(shouldHaveFirstLineEqual('Test Partial 1Test Partial 2Test Partial 3'))
+    .expect(shouldHaveFirstLineEqual('Test Partial 1Test Partial 2Test Partial 3Test Partial 4'))
     .end(done)
 });
 
