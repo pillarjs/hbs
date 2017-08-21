@@ -9,7 +9,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "handlebars": "4.0.5",
+    "handlebars": "4.0.8",
     "walk": "2.3.9"
   },
   "devDependencies": {
