@@ -1,7 +1,7 @@
 {
   "name": "hbs",
   "description": "Express.js template engine plugin for Handlebars",
-  "version": "4.0.1",
+  "version": "4.0.11",
   "homepage": "https://github.com/pillarjs/hbs",
   "author": "Don Park <donpark@docuverse.com> (http://blog.docuverse.com)",
   "main": "lib/hbs.js",
@@ -22,7 +22,7 @@
     "test": "mocha"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "repository": {
     "type": "git",
