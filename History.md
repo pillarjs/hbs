@@ -1,3 +1,7 @@
+# 4.0.11 (2018-02-21)
+
+ * update handlebars to v4.0.11
+
 # 4.0.1 (2016-09-18)
 
  * update references of donpark to pillarjs (repo move)
