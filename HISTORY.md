@@ -2,6 +2,7 @@ unreleased
 ==========
 
   * Fix async helpers not working when cache enabled
+  * Fix handling of exceptions when cache enabled
   * deps: handlebars@4.1.2
   * deps: walk@2.3.14
 

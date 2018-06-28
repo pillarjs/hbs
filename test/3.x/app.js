@@ -140,7 +140,9 @@ before(function () {
   })
 
   app.get('/syntax-error', function (req, res) {
-    res.render('syntax-error')
+    res.render('syntax-error', {
+      cache: true
+    })
   })
 
   app.get('/partials', function (req, res) {
@@ -204,6 +206,14 @@ test('syntax error', function(done) {
     .expect(shouldHaveFirstLineEqual('Error: ' + path.join(__dirname, 'views', 'syntax-error.hbs') + ': Parse error on line 1:'))
     .end(done)
 });
+
+test('syntax error cached', function (done) {
+  request(app)
+    .get('/syntax-error')
+    .expect(500)
+    .expect(shouldHaveFirstLineEqual('Error: ' + path.join(__dirname, 'views', 'syntax-error.hbs') + ': Parse error on line 1:'))
+    .end(done)
+})
 
 test('escape for frontend', function(done) {
   request(app)
