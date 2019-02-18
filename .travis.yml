@@ -4,5 +4,3 @@ node_js:
     - "0.10"
     - "4"
     - "6"
-before_install:
-    - npm install -g npm
