@@ -1,4 +1,4 @@
-# UNRELEASED
+# 4.0.2 (2019-02-18)
 
  * Update handlebars dependency to fix npm advisory 755
 
