@@ -4,6 +4,9 @@
   "version": "4.0.2",
   "homepage": "https://github.com/pillarjs/hbs",
   "author": "Don Park <donpark@docuverse.com> (http://blog.docuverse.com)",
+  "contributors": [
+    "Roman Shtylman <shtylman@gmail.com>"
+  ],
   "main": "lib/hbs.js",
   "directories": {
     "lib": "./lib"
