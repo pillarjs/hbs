@@ -16,15 +16,16 @@
     "walk": "2.3.9"
   },
   "devDependencies": {
+    "istanbul": "0.4.5",
     "mocha": "1.21.5",
     "npm": "3.10.6",
     "request": "2.74.0"
   },
   "license": "MIT",
-  "scripts": {
-    "test": "mocha"
-  },
   "engines": {
     "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "istanbul cover node_modules/mocha/bin/_mocha"
   }
 }

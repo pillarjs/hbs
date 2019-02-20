@@ -3,6 +3,7 @@
 [![NPM Version][npm-version-image]][npm-url]
 [![NPM Downloads][npm-downloads-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 [Express.js](http://github.com/visionmedia/express) view engine for
 [handlebars.js](http://github.com/wycats/handlebars.js)
@@ -123,6 +124,8 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 
 - **[hbs-utils](https://github.com/dpolivy/hbs-utils)**: A small utility library that provides helpers for registering and compiling partials, including automatic updates when partials are changed.
 
+[coveralls-image]: https://badgen.net/coveralls/c/github/pillarjs/hbs/master
+[coveralls-url]: https://coveralls.io/r/pillarjs/hbs?branch=master
 [node-image]: https://badgen.net/npm/node/hbs
 [node-url]: https://nodejs.org/en/download/
 [npm-downloads-image]: https://badgen.net/npm/dm/hbs
