@@ -1,68 +1,77 @@
+var path = require('path')
+
 // builtin
 var fs = require('fs');
 var assert = require('assert');
 
 // 3rd party
-var express = require('express');
 var request = require('request');
 
-// local
-var hbs = require('../../').create();
+var app = null
 
-var app = express();
+before(function () {
+  var express = require('express')
+  var hbs = require('../../').create()
 
-// manually set render engine, under normal circumstances this
-// would not be needed as hbs would be installed through npm
-app.engine('hbs', hbs.__express);
+  app = express()
 
-// set the view engine to use handlebars
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
+  // manually set render engine, under normal circumstances this
+  // would not be needed as hbs would be installed through npm
+  app.engine('hbs', hbs.__express)
 
-app.use(express.static(__dirname + '/public'));
+  // set the view engine to use handlebars
+  app.set('view engine', 'hbs')
+  app.set('views', path.join(__dirname, 'views'))
 
-// value for async helper
-// it will be called a few times from the template
-var vals = ['foo', 'bar', 'baz'];
-hbs.registerAsyncHelper('async', function(context, cb) {
-  process.nextTick(function() {
-    cb(vals.shift());
-  });
-});
+  app.use(express.static(path.join(__dirname, 'public')))
 
-hbs.registerAsyncHelper('async-with-params', function(a, b, ctx, cb) {
-  process.nextTick(function() {
-    cb(a + b);
-  });
-});
+  // value for async helper
+  // it will be called a few times from the template
+  var vals = ['foo', 'bar', 'baz']
+  hbs.registerAsyncHelper('async', function (context, cb) {
+    process.nextTick(function () {
+      cb(vals.shift())
+    })
+  })
 
-var count = 0;
+  hbs.registerAsyncHelper('async-with-params', function (a, b, ctx, cb) {
+    process.nextTick(function () {
+      var val = a + b
+      cb(val)
+    })
+  })
 
-// fake async helper, returns immediately
-// although a regular helper could have been used we should support this use case
-hbs.registerAsyncHelper('fake-async', function(context, cb) {
-  cb('instant' + count++);
-});
+  var count = 0
 
-app.get('/', function(req, res){
-  res.render('async', {
-    layout: false
-  });
-});
+  // fake async helper, returns immediately
+  // although a regular helper could have been used we should support this use case
+  hbs.registerAsyncHelper('fake-async', function (context, cb) {
+    var val = 'instant' + count++
+    cb(val)
+  })
 
-app.get('/fake-async', function(req, res) {
-  res.render('fake-async', {
-    layout: false
-  });
-});
+  app.get('/', function (req, res) {
+    res.render('async', {
+      layout: false
+    })
+  })
 
-app.get('/async-with-params', function(req, res) {
-  res.render('async-with-params', {
-    layout: false
-  });
-});
+  app.get('/fake-async', function (req, res) {
+    res.render('fake-async', {
+      layout: false
+    })
+  })
 
-test('async', function(done) {
+  app.get('/async-with-params', function (req, res) {
+    res.render('async-with-params', {
+      layout: false
+    })
+  })
+})
+
+suite('express 4.x async helpers')
+
+test('index', function (done) {
   var server = app.listen(3000, function() {
 
     var expected = fs.readFileSync(__dirname + '/../fixtures/async.html', 'utf8');

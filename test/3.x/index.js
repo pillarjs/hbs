@@ -1,7 +1,9 @@
 var exec = require('child_process').exec
 var utils = require('../support/utils')
 
-test('setup3.x', function(done) {
+suite('express 3.x')
+
+before(function (done) {
   var env = utils.childEnvironment()
 
   exec('npm install --prefix . express@~3.16.8', { cwd: __dirname, env: env }, function (err, stderr) {
@@ -11,11 +13,11 @@ test('setup3.x', function(done) {
       return
     }
 
-    // run tests
-    require('./app')
-    require('./async_helpers')
-    require('./view_engine')
-    require('./no_layout_app')
     done()
   })
 });
+
+require('./app')
+require('./async_helpers')
+require('./view_engine')
+require('./no_layout_app')

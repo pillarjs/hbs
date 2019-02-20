@@ -5,58 +5,61 @@ var root = process.cwd();
 var path = require('path');
 
 // 3rd party
-var express = require('express');
 var request = require('request');
 
-// local
-var hbs = require('../../');
+var app = null
 
-var app = express();
+before(function () {
+  var express = require('express')
+  var hbs = require('../../')
 
-// manually set render engine, under normal circumstances this
-// would not be needed as hbs would be installed through npm
-app.engine('hbs', hbs.__express);
+  app = express()
 
-// set the view engine to use handlebars
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
+  // manually set render engine, under normal circumstances this
+  // would not be needed as hbs would be installed through npm
+  app.engine('hbs', hbs.__express)
 
-app.set('view options', {
-  layout: false
-});
+  // set the view engine to use handlebars
+  app.set('view engine', 'hbs')
+  app.set('views', path.join(__dirname, 'views'))
 
-app.use(express.static(__dirname + '/public'));
+  app.set('view options', {
+    layout: false
+  })
 
-app.get('/', function(req, res){
-  res.render('no_layout', {
-    title: 'Express Handlebars Test'
-  });
-});
+  app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/with_layout', function(req, res){
-  res.render('blank', {
-    layout: 'layout',
-    title: 'Express Handlebars Test'
-  });
-});
+  app.get('/', function (req, res) {
+    res.render('no_layout', {
+      title: 'Express Handlebars Test'
+    })
+  })
 
-app.get('/layout_cache', function(req, res, next) {
+  app.get('/with_layout', function (req, res) {
     res.render('blank', {
-        layout: 'layout',
-        cache: true,
-        title: 'Express Handlebars Test'
-    }, function(error, body){
-        var file = path.join(root, 'test', '3.x', 'views', 'layout.hbs');
-        if (hbs.cache[file]) {
-            res.send(body);
-        }
-        else {
-            res.send('not cached!');
-        }
-    });
-});
+      layout: 'layout',
+      title: 'Express Handlebars Test'
+    })
+  })
 
-suite('no layout');
+  app.get('/layout_cache', function (req, res, next) {
+    res.render('blank', {
+      layout: 'layout',
+      cache: true,
+      title: 'Express Handlebars Test'
+    }, function (error, body) {
+      if (error) return next(error)
+      var file = path.join(root, 'test', '3.x', 'views', 'layout.hbs')
+      if (hbs.cache[file]) {
+        res.send(body)
+      } else {
+        res.send('not cached!')
+      }
+    })
+  })
+})
+
+suite('express 3.x no layout')
 
 test('index', function(done) {
   var server = app.listen(3000, function() {

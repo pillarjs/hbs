@@ -1,42 +1,47 @@
+var path = require('path')
+
 // builtin
 var fs = require('fs');
 var assert = require('assert');
 
 // 3rd party
-var express = require('express');
 var request = require('request');
 
-// local
-var hbs = require('../../');
+var app = null
 
-var app = express();
+before(function () {
+  var express = require('express')
+  var hbs = require('../../')
 
-// manually set render engine, under normal circumstances this
-// would not be needed as hbs would be installed through npm
-app.engine('html', hbs.__express);
+  app = express()
 
-// set the view engine to use handlebars
-app.set('view engine', 'html');
-app.set('views', __dirname + '/views_view_engine');
+  // manually set render engine, under normal circumstances this
+  // would not be needed as hbs would be installed through npm
+  app.engine('html', hbs.__express)
 
-app.set('view options', {
-  layout: false
-});
+  // set the view engine to use handlebars
+  app.set('view engine', 'html')
+  app.set('views', path.join(__dirname, 'views_view_engine'))
 
-app.get('/', function(req, res){
-  res.render('no_layout', {
-    title: 'Express Handlebars Test',
-  });
-});
+  app.set('view options', {
+    layout: false
+  })
 
-app.get('/with_layout', function(req, res){
-  res.render('blank', {
-    title: 'Express Handlebars Test',
-    layout: 'layout'
-  });
-});
+  app.get('/', function (req, res) {
+    res.render('no_layout', {
+      title: 'Express Handlebars Test'
+    })
+  })
 
-suite('view engine');
+  app.get('/with_layout', function (req, res) {
+    res.render('blank', {
+      title: 'Express Handlebars Test',
+      layout: 'layout'
+    })
+  })
+})
+
+suite('express 4.x view engine')
 
 test('index', function(done) {
   var server = app.listen(3000, function() {
