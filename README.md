@@ -1,4 +1,8 @@
-# hbs [![Build Status](https://travis-ci.org/pillarjs/hbs.svg?branch=master)](https://travis-ci.org/pillarjs/hbs)
+# hbs
+
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Downloads][npm-downloads-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
 
 [Express.js](http://github.com/visionmedia/express) view engine for
 [handlebars.js](http://github.com/wycats/handlebars.js)
@@ -118,3 +122,11 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 ## Helpful Modules ##
 
 - **[hbs-utils](https://github.com/dpolivy/hbs-utils)**: A small utility library that provides helpers for registering and compiling partials, including automatic updates when partials are changed.
+
+[node-image]: https://badgen.net/npm/node/hbs
+[node-url]: https://nodejs.org/en/download/
+[npm-downloads-image]: https://badgen.net/npm/dm/hbs
+[npm-url]: https://npmjs.org/package/hbs
+[npm-version-image]: https://badgen.net/npm/v/hbs
+[travis-image]: https://badgen.net/travis/pillarjs/hbs/master
+[travis-url]: https://travis-ci.org/pillarjs/hbs
