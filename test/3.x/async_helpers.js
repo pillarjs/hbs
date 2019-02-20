@@ -1,11 +1,10 @@
 var path = require('path')
+var request = require('supertest')
+
+var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
 // builtin
 var fs = require('fs');
-var assert = require('assert');
-
-// 3rd party
-var request = require('request');
 
 var app = null
 
@@ -59,33 +58,15 @@ before(function () {
 suite('express 3.x async helpers')
 
 test('index', function (done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/async.html', 'utf8');
-
-    request('http://localhost:3000', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'async.html'), 'utf8'))
+    .end(done)
 });
 
 test('async', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/fake-async.html', 'utf8');
-
-    request('http://localhost:3000/fake-async', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/fake-async')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'fake-async.html'), 'utf8'))
+    .end(done)
 });

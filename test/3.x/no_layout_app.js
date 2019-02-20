@@ -1,11 +1,11 @@
+var path = require('path')
+var request = require('supertest')
+
+var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
+
 // builtin
 var fs = require('fs');
-var assert = require('assert');
 var root = process.cwd();
-var path = require('path');
-
-// 3rd party
-var request = require('request');
 
 var app = null
 
@@ -62,50 +62,23 @@ before(function () {
 suite('express 3.x no layout')
 
 test('index', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
-
-    request('http://localhost:3000', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index_no_layout.html'), 'utf8'))
+    .end(done)
 });
 
 test('index w/layout', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
-
-    request('http://localhost:3000/with_layout', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/with_layout')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index_no_layout.html'), 'utf8'))
+    .end(done)
 });
 
 test('index layout cache', function(done) {
-    var server = app.listen(3000, function() {
-
-        var expected = fs.readFileSync(__dirname + '/../fixtures/index_no_layout.html', 'utf8');
-
-        request('http://localhost:3000/layout_cache', function(err, res, body) {
-            assert.equal(body, expected);
-            server.close();
-        });
-    });
-
-    server.on('close', function() {
-        done();
-    });
+  request(app)
+    .get('/layout_cache')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index_no_layout.html'), 'utf8'))
+    .end(done)
 });
 

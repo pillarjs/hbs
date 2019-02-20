@@ -1,10 +1,11 @@
+var path = require('path')
+var request = require('supertest')
+
+var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
+
 // builtin
 var fs = require('fs');
-var path = require('path');
 var assert = require('assert');
-
-// 3rd party
-var request = require('request');
 
 // local
 var hbs = require('../../').create();
@@ -170,133 +171,70 @@ before(function () {
 })
 
 test('index', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
-
-    request('http://localhost:3000', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index.html'), 'utf8'))
+    .end(done)
 });
 
 test('partials', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = 'Test Partial 1Test Partial 2Test Partial 3';
-
-    request('http://localhost:3000/partials', function(err, res, body) {
-      assert.equal(body.trim(), expected.trim());
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/partials')
+    .expect(shouldHaveFirstLineEqual('Test Partial 1Test Partial 2Test Partial 3'))
+    .end(done)
 });
 
 test('html extension', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/index.html', 'utf8');
-
-    request('http://localhost:3000/html', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/html')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index.html'), 'utf8'))
+    .end(done)
 });
 
 test('syntax error', function(done) {
-  var server = app.listen(3000, function() {
-
-    request('http://localhost:3000/syntax-error', function(err, res, body) {
-      assert.equal(res.statusCode, 500);
-      assert.equal(body.split('\n')[0], 'Error: ' + __dirname + path.sep + 'views' + path.sep + 'syntax-error.hbs: Parse error on line 1:');
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/syntax-error')
+    .expect(500)
+    .expect(shouldHaveFirstLineEqual('Error: ' + path.join(__dirname, 'views', 'syntax-error.hbs') + ': Parse error on line 1:'))
+    .end(done)
 });
 
 test('escape for frontend', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/escape.html', 'utf8');
-
-    request('http://localhost:3000/escape', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/escape')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'escape.html'), 'utf8'))
+    .end(done)
 });
 
 test('response locals', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/locals.html', 'utf8');
-
-    request('http://localhost:3000/locals', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/locals')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'locals.html'), 'utf8'))
+    .end(done)
 });
 
 test('response locals cached', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/locals.html', 'utf8');
-
-    request('http://localhost:3000/locals-cached', function(err, res, body) {
-      assert.equal(body, expected);
-
-      // Request the second time, so it is cached
-      request('http://localhost:3000/locals-cached', function(err, res, body) {
-        assert.equal(body, expected);
-        server.close();
-      });
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/locals-cached')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'locals.html'), 'utf8'))
+    .end(function (error) {
+      if (error) return done(error)
+      request(app)
+        .get('/locals-cached')
+        .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'locals.html'), 'utf8'))
+        .end(done)
+    })
 });
 
 test('response globals', function(done) {
-  var server = app.listen(3000, function() {
-
-    var expected = fs.readFileSync(__dirname + '/../fixtures/globals.html', 'utf8');
-
-    request('http://localhost:3000/globals', function(err, res, body) {
-      assert.equal(body, expected);
-      server.close();
-    });
-  });
-
-  server.on('close', function() {
-    done();
-  });
+  request(app)
+    .get('/globals')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'globals.html'), 'utf8'))
+    .end(done)
 });
+
+function shouldHaveFirstLineEqual (str) {
+  return function (res) {
+    assert.strictEqual(res.text.split(/\r?\n/)[0], str)
+  }
+}
