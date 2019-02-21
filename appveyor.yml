@@ -1,0 +1,23 @@
+environment:
+  matrix:
+    - nodejs_version: "0.10"
+    - nodejs_version: "4.9"
+    - nodejs_version: "6.16"
+    - nodejs_version: "8.15"
+    - nodejs_version: "10.15"
+install:
+  # Install Node.js
+  - ps: >-
+      try { Install-Product node $env:nodejs_version -ErrorAction Stop }
+      catch { Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) }
+  # Install Node.js modules
+  - npm install
+build: off
+test_script:
+  # Output version data
+  - ps: |
+      node --version
+      npm --version
+  # Run test script
+  - npm test
+version: "{build}"

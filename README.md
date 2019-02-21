@@ -2,7 +2,8 @@
 
 [![NPM Version][npm-version-image]][npm-url]
 [![NPM Downloads][npm-downloads-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
+[![Linux Build][travis-image]][travis-url]
+[![Windows Build][appveyor-image]][appveyor-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
 [Express.js](http://github.com/visionmedia/express) view engine for
@@ -124,6 +125,8 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 
 - **[hbs-utils](https://github.com/dpolivy/hbs-utils)**: A small utility library that provides helpers for registering and compiling partials, including automatic updates when partials are changed.
 
+[appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/nodejs-hbs/master?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/dougwilson/nodejs-hbs
 [coveralls-image]: https://badgen.net/coveralls/c/github/pillarjs/hbs/master
 [coveralls-url]: https://coveralls.io/r/pillarjs/hbs?branch=master
 [node-image]: https://badgen.net/npm/node/hbs
@@ -131,5 +134,5 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 [npm-downloads-image]: https://badgen.net/npm/dm/hbs
 [npm-url]: https://npmjs.org/package/hbs
 [npm-version-image]: https://badgen.net/npm/v/hbs
-[travis-image]: https://badgen.net/travis/pillarjs/hbs/master
+[travis-image]: https://badgen.net/travis/pillarjs/hbs/master?label=linux
 [travis-url]: https://travis-ci.org/pillarjs/hbs
