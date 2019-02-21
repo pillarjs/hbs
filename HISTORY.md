@@ -1,43 +1,101 @@
-# 4.0.2 (2019-02-18)
+4.0.2 / 2019-02-18
+==================
 
- * Update handlebars dependency to fix npm advisory 755
+  * deps: handlebars@4.0.13
 
-# 4.0.1 (2016-09-18)
+4.0.1 / 2016-09-18
+==================
 
- * update references of donpark to pillarjs (repo move)
+  * Support params for async helper
+  * deps: handlebars@4.0.5
+  * deps: walk@2.3.9
 
-# 4.0.0 (2015-11-02)
+4.0.0 / 2015-11-02
+==================
 
- * update handlebars to v4
- * fix caching of non default filename layouts
+  * Fix caching of non default filename layouts
+  * deps: handlebars@4.0.3
 
-# 3.1.1 (2015-09-11)
+3.1.1 / 2015-09-11
+==================
 
- * fix localsAsTemplateData when cache is enabled
+  * Fix `localsAsTemplateData` when cache is enabled
 
-# 3.1.0 (2015-06-10)
+3.1.0 / 2015-06-10
+==================
 
- * make @data available to layouts
+  * Make `@data` available to layouts
 
-# 3.0.1 (2015-03-12)
+3.0.1 / 2015-03-12
+==================
 
- * honor custom extension when using view engine layouts
+  * Fix using custom extensions when using view engine layouts
 
-# 3.0.0 (2015-03-09)
+3.0.0 / 2015-03-09
+==================
 
- * update handlebars to 3.x
+  * deps: handlebars@3.0.0
 
-# 2.8.0 (2014-12-26)
+2.9.0 / 2015-03-06
+==================
 
- * update to handlebars 2.x
+  * Scope internal async tracker to per middleware
+  * Support multiple view folders from Express
 
-# 2.7.0 (2014-06-02)
+2.8.0 / 2014-12-26
+==================
 
- * fix registering directories of partials on windows
- * add api to expose locals as template data
+  * Scope internal async tracker to per hbs instance
+  * deps: handlebars@2.0.0
 
-# 2.5.0 / 2014-02-19
+2.7.0 / 2014-06-02
+==================
 
- * updated handlebars to 1.3.0
+  * Fix registering directories of partials on Windows
+  * Add API to expose locals as template data
 
-# 2.4.0 / 2013-09-13
+2.6.0 / 2014-04-06
+==================
+
+  * Fix support for custom handlebars instance
+
+2.5.0 / 2014-02-19
+==================
+
+  * deps: handlebars@1.3.0
+
+2.4.0 / 2013-09-13
+==================
+
+  * Add support for multi-level partial paths
+
+2.3.1 / 2013-08-01
+==================
+
+  * deps: after@0.8.1
+  * deps: handlebars@1.0.12
+
+2.3.0 / 2013-05-30
+==================
+
+  * Add `registerPartials`
+
+2.1.0 / 2013-03-19
+==================
+
+  * Add `create` for multiple instances
+
+2.0.2 / 2013-02-21
+==================
+
+  * deps: handlebars@1.0.9
+
+2.0.1 / 2012-11-30
+==================
+
+  * Ignore layout error when not using layout
+
+2.0.0 / 2012-11-21
+==================
+
+  * deps: handlebars@1.0.7
