@@ -6,8 +6,8 @@
 [![Windows Build][appveyor-image]][appveyor-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
-[Express.js](http://github.com/visionmedia/express) view engine for
-[handlebars.js](http://github.com/wycats/handlebars.js)
+[Express.js](https://expressjs.com/) view engine for
+[handlebars.js](https://handlebarsjs.com/)
 
 ## Install ##
 
@@ -58,7 +58,8 @@ login view.hbs     -> {{> login_view}}
 template-file.html -> {{> template_file}}
 ```
 
-See the [handlebars.js](http://github.com/wycats/handlebars.js) README and docs for more information.
+See the [handlebars.js documentation](https://handlebarsjs.com/) for more
+information.
 
 **Note:** This method is async; meaning that the directory is walked in a non-blocking manner to app startup.
 
@@ -123,7 +124,9 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 
 ## Helpful Modules ##
 
-- **[hbs-utils](https://github.com/dpolivy/hbs-utils)**: A small utility library that provides helpers for registering and compiling partials, including automatic updates when partials are changed.
+- **[hbs-utils](https://www.npmjs.com/package/hbs-utils)**: A small utility
+  library that provides helpers for registering and compiling partials
+  including automatic updates when partials are changed.
 
 [appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/nodejs-hbs/master?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/dougwilson/nodejs-hbs
