@@ -250,6 +250,14 @@ test('multiple views directories', function(done) {
     .end(done)
 });
 
+test('app.render', function (done) {
+  app.render('blank', function (err, str) {
+    if (err) return done(err)
+    assert.ok(/  index body :\)/.test(str))
+    done()
+  })
+})
+
 function shouldHaveFirstLineEqual (str) {
   return function (res) {
     assert.strictEqual(res.text.split(/\r?\n/)[0], str)
