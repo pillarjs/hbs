@@ -1,5 +1,5 @@
-unreleased
-==========
+4.0.3 / 2019-03-01
+==================
 
   * Fix path for partials multiple dirs deep on Windows
 
