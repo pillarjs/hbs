@@ -1,3 +1,5 @@
 coverage
 node_modules
 test
+.travis.yml
+appveyor.yml
