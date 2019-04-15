@@ -1,5 +1,5 @@
-unreleased
-==========
+4.0.4 / 2019-04-14
+==================
 
   * deps: handlebars@4.0.14
     - Block `constructor` property using `lookup`
