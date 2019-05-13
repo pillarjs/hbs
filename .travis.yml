@@ -4,7 +4,7 @@ node_js:
   - "0.10"
   - "4.9"
   - "6.17"
-  - "8.15"
+  - "8.16"
   - "10.15"
 after_script:
   - "test -e ./coverage/lcov.info && npm install coveralls@2 && coveralls < ./coverage/lcov.info"
