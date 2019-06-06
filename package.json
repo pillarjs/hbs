@@ -9,9 +9,6 @@
   "license": "MIT",
   "repository": "pillarjs/hbs",
   "main": "lib/hbs.js",
-  "directories": {
-    "lib": "./lib"
-  },
   "dependencies": {
     "handlebars": "4.0.14",
     "walk": "2.3.10"
