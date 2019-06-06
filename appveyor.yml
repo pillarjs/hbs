@@ -1,5 +1,6 @@
 environment:
   matrix:
+    - nodejs_version: "0.8"
     - nodejs_version: "0.10"
     - nodejs_version: "4.9"
     - nodejs_version: "6.17"
@@ -10,6 +11,10 @@ install:
   - ps: >-
       try { Install-Product node $env:nodejs_version -ErrorAction Stop }
       catch { Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) }
+  # Setup npm
+  - for /f "tokens=*" %%g in ('where npm') do (set npm_prefix=%%~dpg)
+  - if "%nodejs_version%" equ "0.8" npm config set strict-ssl false
+  - if "%nodejs_version%" equ "0.8" npm install -g --prefix "%npm_prefix:~0,-1%" npm@1.2.8000
   # Install Node.js modules
   - npm install
 build: off

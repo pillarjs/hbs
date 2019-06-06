@@ -1,10 +1,14 @@
 language: node_js
 sudo: false
 node_js:
+  - "0.8"
   - "0.10"
   - "4.9"
   - "6.17"
   - "8.16"
   - "10.16"
+before_install:
+  # Setup npm
+  - "test $TRAVIS_NODE_VERSION != '0.8' || npm install -g npm@1.2.8000"
 after_script:
   - "test -e ./coverage/lcov.info && npm install coveralls@2 && coveralls < ./coverage/lcov.info"
