@@ -6,6 +6,7 @@ suite('express 3.x')
 before(function (done) {
   var env = utils.childEnvironment()
 
+  this.timeout(30000)
   exec('npm install --prefix . express@~3.16.8', { cwd: __dirname, env: env }, function (err, stderr) {
     if (err) {
       err.message += stderr
