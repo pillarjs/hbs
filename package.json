@@ -11,7 +11,7 @@
   "main": "lib/hbs.js",
   "dependencies": {
     "handlebars": "4.0.14",
-    "walk": "2.3.10"
+    "walk": "2.3.14"
   },
   "devDependencies": {
     "istanbul": "0.4.5",
