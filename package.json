@@ -18,6 +18,12 @@
     "mocha": "1.21.5",
     "supertest": "1.1.0"
   },
+  "files": [
+    "lib/",
+    "HISTORY.md",
+    "LICENSE",
+    "README.md"
+  ],
   "engines": {
     "node": ">= 0.8",
     "npm": "1.2.8000 || >= 1.4.16"
