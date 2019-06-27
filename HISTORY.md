@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * deps: handlebars@4.1.2
   * deps: walk@2.3.14
 
 4.0.4 / 2019-04-14
