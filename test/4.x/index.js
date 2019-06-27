@@ -1,4 +1,6 @@
 var exec = require('child_process').exec
+var path = require('path')
+var rimraf = require('rimraf')
 var utils = require('../support/utils')
 
 suite('express 4.x')
@@ -17,6 +19,11 @@ before(function (done) {
     done()
   })
 });
+
+after(function (done) {
+  this.timeout(30000)
+  rimraf(path.join(__dirname, 'node_modules'), done)
+})
 
 require('./app')
 require('./async_helpers')
