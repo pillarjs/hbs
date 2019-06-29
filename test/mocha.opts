@@ -1,3 +1,2 @@
 --ui qunit
---reporter list
 --bail
