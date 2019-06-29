@@ -10,5 +10,6 @@ node_js:
 before_install:
   # Setup npm
   - "test $TRAVIS_NODE_VERSION != '0.8' || npm install -g npm@1.2.8000"
+  - "npm config set shrinkwrap false"
 after_script:
   - "test -e ./coverage/lcov.info && npm install coveralls@2 && coveralls < ./coverage/lcov.info"

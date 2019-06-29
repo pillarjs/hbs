@@ -15,6 +15,7 @@ install:
   - for /f "tokens=*" %%g in ('where npm') do (set npm_prefix=%%~dpg)
   - if "%nodejs_version%" equ "0.8" npm config set strict-ssl false
   - if "%nodejs_version%" equ "0.8" npm install -g --prefix "%npm_prefix:~0,-1%" npm@1.2.8000
+  - npm config set shrinkwrap false
   # Install Node.js modules
   - npm install
 build: off
