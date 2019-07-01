@@ -14,8 +14,8 @@
     "walk": "2.3.14"
   },
   "devDependencies": {
-    "istanbul": "0.4.5",
     "mocha": "2.5.3",
+    "nyc": "14.1.1",
     "rimraf": "2.7.1",
     "supertest": "1.1.0"
   },
@@ -30,6 +30,7 @@
     "npm": "1.2.8000 || >= 1.4.16"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter spec test/*/index.js"
+    "test": "mocha --reporter spec test/*/index.js",
+    "test-cov": "nyc --reporter=html --reporter=text npm test"
   }
 }

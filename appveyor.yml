@@ -16,6 +16,8 @@ install:
   - if "%nodejs_version%" equ "0.8" npm config set strict-ssl false
   - if "%nodejs_version%" equ "0.8" npm install -g --prefix "%npm_prefix:~0,-1%" npm@1.2.8000
   - npm config set shrinkwrap false
+  # Remove all non-test dependencies
+  - npm rm --silent --save-dev nyc
   # Install Node.js modules
   - npm install
 build: off
