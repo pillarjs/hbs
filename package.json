@@ -12,7 +12,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "handlebars": "4.0.14",
+    "handlebars": "4.1.2",
     "walk": "2.3.9"
   },
   "devDependencies": {
