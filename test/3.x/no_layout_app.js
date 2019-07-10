@@ -9,6 +9,8 @@ var root = process.cwd();
 
 var app = null
 
+suite('express 3.x no layout')
+
 before(function () {
   var express = require('express')
   var hbs = require('../../')
@@ -58,8 +60,6 @@ before(function () {
     })
   })
 })
-
-suite('express 3.x no layout')
 
 test('index', function(done) {
   request(app)

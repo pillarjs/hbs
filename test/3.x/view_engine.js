@@ -8,6 +8,8 @@ var fs = require('fs');
 
 var app = null
 
+suite('express 3.x view engine')
+
 before(function () {
   var express = require('express')
   var hbs = require('../../')
@@ -39,8 +41,6 @@ before(function () {
     })
   })
 })
-
-suite('express 3.x view engine')
 
 test('index', function(done) {
   request(app)

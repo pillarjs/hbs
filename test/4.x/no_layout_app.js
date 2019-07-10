@@ -10,6 +10,8 @@ var path = require('path');
 
 var app = null
 
+suite('express 4.x no layout')
+
 before(function () {
   var express = require('express')
   var hbs = require('../../')
@@ -61,8 +63,6 @@ before(function () {
     })
   })
 })
-
-suite('express 4.x no layout')
 
 test('index', function(done) {
   request(app)

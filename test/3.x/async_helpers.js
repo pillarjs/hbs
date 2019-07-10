@@ -8,6 +8,8 @@ var fs = require('fs');
 
 var app = null
 
+suite('express 3.x async helpers')
+
 before(function () {
   var express = require('express')
   var hbs = require('../../').create()
@@ -54,8 +56,6 @@ before(function () {
     })
   })
 })
-
-suite('express 3.x async helpers')
 
 test('index', function (done) {
   request(app)
