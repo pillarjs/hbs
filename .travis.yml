@@ -14,6 +14,11 @@ before_install:
   - "npm config set shrinkwrap false"
   # Setup Node.js version-specific dependencies
   - |
+    # eslint for linting
+    # - remove on Node.js < 6
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
+      npm rm --slient --save-dev eslint
+    fi
     # nyc for coverage
     # - remove for Node.js < 6
     if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
@@ -26,6 +31,11 @@ script:
       npm run test-cov
     else
       npm test
+    fi
+  # Run linting
+  - |
+    if npm -ps ls eslint | grep -q eslint; then
+      npm run lint
     fi
 after_script:
   - |

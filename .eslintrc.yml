@@ -1,0 +1,7 @@
+root: true
+rules:
+  eol-last: error
+  eqeqeq: ["error", "always", { "null": "ignore" }]
+  no-mixed-spaces-and-tabs: error
+  no-trailing-spaces: error
+  one-var: ["error", { "initialized": "never" }]

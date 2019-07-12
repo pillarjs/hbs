@@ -14,6 +14,7 @@
     "walk": "2.3.14"
   },
   "devDependencies": {
+    "eslint": "5.16.0",
     "mocha": "2.5.3",
     "nyc": "14.1.1",
     "rimraf": "2.7.1",
@@ -30,6 +31,7 @@
     "npm": "1.2.8000 || >= 1.4.16"
   },
   "scripts": {
+    "lint": "eslint .",
     "test": "mocha --reporter spec test/*/index.js",
     "test-cov": "nyc --reporter=html --reporter=text npm test"
   }
