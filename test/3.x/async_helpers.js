@@ -1,5 +1,6 @@
 var path = require('path')
 var request = require('supertest')
+var utils = require('../support/utils')
 
 var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
@@ -11,6 +12,11 @@ var app = null
 suite('express 3.x async helpers')
 
 before(function () {
+  if (utils.nodeVersionCompare(10.0) >= 0) {
+    this.skip()
+    return
+  }
+
   var express = require('express')
   var hbs = require('../../').create()
 

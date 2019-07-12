@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports.childEnvironment = childEnvironment
+module.exports.nodeVersionCompare = nodeVersionCompare
 
 function childEnvironment () {
   var env = Object.create(null)
@@ -13,4 +14,8 @@ function childEnvironment () {
   }
 
   return env
+}
+
+function nodeVersionCompare (version) {
+  return parseFloat(process.version.substr(1).split('.').slice(0, 2).join('.')) - version
 }

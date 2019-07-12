@@ -6,6 +6,11 @@ var utils = require('../support/utils')
 suite('express 4.x')
 
 before(function (done) {
+  if (utils.nodeVersionCompare(0.10) <= 0) {
+    this.skip()
+    return done()
+  }
+
   var env = utils.childEnvironment()
 
   this.timeout(30000)
