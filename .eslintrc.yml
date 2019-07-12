@@ -3,5 +3,6 @@ rules:
   eol-last: error
   eqeqeq: ["error", "always", { "null": "ignore" }]
   no-mixed-spaces-and-tabs: error
+  no-multiple-empty-lines: ["error", { "max": 1, "maxEOF": 0 }]
   no-trailing-spaces: error
   one-var: ["error", { "initialized": "never" }]

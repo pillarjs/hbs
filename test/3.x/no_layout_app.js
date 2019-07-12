@@ -87,4 +87,3 @@ test('index layout cache', function(done) {
     .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index_no_layout.html'), 'utf8'))
     .end(done)
 });
-
