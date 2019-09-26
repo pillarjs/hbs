@@ -205,7 +205,7 @@ test('syntax error', function(done) {
   request(app)
     .get('/syntax-error')
     .expect(500)
-    .expect(shouldHaveFirstLineEqual('Error: ' + path.join(__dirname, 'views', 'syntax-error.hbs') + ': Parse error on line 1:'))
+    .expect(shouldHaveFirstLineEqual('Error'))
     .end(done)
 });
 
