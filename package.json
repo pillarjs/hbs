@@ -12,13 +12,13 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "handlebars": "4.0.14",
-    "walk": "2.3.9"
+    "handlebars": "^4.3.1",
+    "walk": "^2.3.9"
   },
   "devDependencies": {
-    "istanbul": "0.4.5",
-    "mocha": "1.21.5",
-    "supertest": "1.1.0"
+    "istanbul": "^0.4.5",
+    "mocha": "^6.2.0",
+    "supertest": "^1.1.0"
   },
   "license": "MIT",
   "engines": {
