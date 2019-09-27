@@ -1,5 +1,5 @@
-unreleased
-==========
+4.0.5 / 2019-09-27
+==================
 
   * Fix async helpers not working when cache enabled
   * Fix handling of exceptions from layout
