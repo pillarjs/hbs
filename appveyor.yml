@@ -19,6 +19,19 @@ install:
   - npm config set shrinkwrap false
   # Remove all non-test dependencies
   - npm rm --silent --save-dev eslint nyc
+  # Setup Node.js version-specific dependencies
+  - ps: |
+      # mocha for testing
+      # - use 2.x for Node.js < 0.10
+      # - use 3.x for Node.js < 4
+      # - use 5.x for Node.js < 6
+      if ([int]$env:nodejs_version.split(".")[0] -eq 0 -and [int]$env:nodejs_version.split(".")[1] -lt 10) {
+        npm install --silent --save-dev mocha@2.5.3
+      } elseif ([int]$env:nodejs_version.split(".")[0] -lt 4) {
+        npm install --silent --save-dev mocha@3.5.3
+      } elseif ([int]$env:nodejs_version.split(".")[0] -lt 6) {
+        npm install --silent --save-dev mocha@5.2.0
+      }
   # Install Node.js modules
   - npm install
 build: off

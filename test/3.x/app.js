@@ -1,5 +1,6 @@
 var path = require('path')
 var request = require('supertest')
+var utils = require('../support/utils')
 
 var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
@@ -32,6 +33,11 @@ hbs.registerPartials(__dirname + '/views/partials');
 var app = null
 
 before(function () {
+  if (utils.nodeVersionCompare(10.0) >= 0) {
+    this.skip()
+    return
+  }
+
   var express = require('express')
 
   app = express()

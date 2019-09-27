@@ -19,6 +19,19 @@ before_install:
     if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
       npm rm --slient --save-dev eslint
     fi
+  - |
+    # mocha for testing
+    # - use 2.x for Node.js < 0.10
+    # - use 3.x for Node.js < 4
+    # - use 5.x for Node.js < 6
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -eq 0 && "$(cut -d. -f2 <<< "$TRAVIS_NODE_VERSION")" -lt 10 ]]; then
+      npm install --save-dev mocha@2.5.3
+    elif [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 4 ]]; then
+      npm install --save-dev mocha@3.5.3
+    elif [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
+      npm install --save-dev mocha@5.2.0
+    fi
+  - |
     # nyc for coverage
     # - remove for Node.js < 6
     if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
