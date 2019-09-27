@@ -144,6 +144,10 @@ before(function () {
     })
   })
 
+  app.get('/syntax-error-layout', function (req, res) {
+    res.render('blank', { layout: 'bad_layout' })
+  })
+
   app.get('/partials', function (req, res) {
     res.render('partials', { layout: false })
   })
@@ -222,6 +226,14 @@ test('syntax error cached', function (done) {
     .get('/syntax-error')
     .expect(500)
     .expect(shouldHaveFirstLineEqual('Error: ' + path.join(__dirname, 'views', 'syntax-error.hbs') + ': Parse error on line 1:'))
+    .end(done)
+})
+
+test('syntax error layout', function (done) {
+  request(app)
+    .get('/syntax-error-layout')
+    .expect(500)
+    .expect(shouldHaveFirstLineEqual('Error: ' + path.join(__dirname, 'views', 'bad_layout.hbs') + ': Parse error on line 3:'))
     .end(done)
 })
 
