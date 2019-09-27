@@ -14,7 +14,7 @@ var app = null
 suite('express 4.x no layout')
 
 before(function () {
-  if (utils.nodeVersionCompare(0.10) <= 0) {
+  if (utils.nodeVersionCompare(0.10) < 0) {
     this.skip()
     return
   }

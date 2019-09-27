@@ -6,7 +6,7 @@ var utils = require('../support/utils')
 suite('express 4.x')
 
 before(function (done) {
-  if (utils.nodeVersionCompare(0.10) <= 0) {
+  if (utils.nodeVersionCompare(0.10) < 0) {
     this.skip()
     return done()
   }

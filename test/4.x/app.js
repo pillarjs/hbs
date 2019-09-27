@@ -33,7 +33,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 var app = null
 
 before(function () {
-  if (utils.nodeVersionCompare(0.10) <= 0) {
+  if (utils.nodeVersionCompare(0.10) < 0) {
     this.skip()
     return
   }
