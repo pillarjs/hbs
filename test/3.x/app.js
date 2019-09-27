@@ -11,6 +11,10 @@ var assert = require('assert');
 // local
 var hbs = require('../../').create();
 
+hbs.registerHelper('make_error', function () {
+  throw new TypeError('oops!')
+})
+
 hbs.registerHelper('link_to', function(context) {
   return "<a href='" + context.url + "'>" + context.body + "</a>";
 });
@@ -139,6 +143,10 @@ before(function () {
     })
   })
 
+  app.get('/helper-error', function (req, res) {
+    res.render('error')
+  })
+
   app.get('/syntax-error', function (req, res) {
     res.render('syntax-error', {
       cache: true
@@ -191,6 +199,14 @@ test('partials', function(done) {
     .expect(shouldHaveFirstLineEqual('Test Partial 1Test Partial 2Test Partial 3Test Partial 4'))
     .end(done)
 });
+
+test('helper error', function (done) {
+  request(app)
+    .get('/helper-error')
+    .expect(500)
+    .expect(shouldHaveFirstLineEqual('TypeError: ' + path.join(__dirname, 'views', 'error.hbs') + ': oops!'))
+    .end(done)
+})
 
 test('html extension', function(done) {
   request(app)
