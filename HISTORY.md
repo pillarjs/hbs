@@ -4,7 +4,9 @@ unreleased
   * Fix async helpers not working when cache enabled
   * Fix handling of exceptions from layout
   * Fix handling of exceptions when cache enabled
-  * deps: handlebars@4.1.2
+  * deps: handlebars@4.3.3
+    - Block calling `helperMissing` and `blockHelperMissing` from templates
+    - Fix work-around for `constructor` blocking
   * deps: walk@2.3.14
 
 4.0.4 / 2019-04-14
