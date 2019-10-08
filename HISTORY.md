@@ -1,3 +1,9 @@
+unreleased
+==========
+
+  deps: handlebars@4.3.4
+    - Fix work-around for `constructor` blocking
+
 4.0.5 / 2019-09-27
 ==================
 
