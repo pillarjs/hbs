@@ -1,7 +1,7 @@
 4.0.6 / 2019-10-09
 ==================
 
-  deps: handlebars@4.3.5
+  * deps: handlebars@4.3.5
     - Fix error object inheritance
     - Fix work-around for `constructor` blocking
 
