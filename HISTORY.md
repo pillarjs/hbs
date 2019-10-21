@@ -1,3 +1,10 @@
+unreleased
+==========
+
+  * deps: handlebars@4.4.5
+    - Add support for iterable objects in `{{#each}}` helper
+    - Fix parsing of empty raw blocks
+
 4.0.6 / 2019-10-09
 ==================
 
