@@ -1,3 +1,9 @@
+4.0.7 / 2019-11-04
+
+  * deps: handlebars@4.5.1
+    - Bugfix: Contents of raw-blocks must be matched with non-eager regex-matching
+    - Bugfix: prevent zero length tokens in raw-blocks
+
 4.0.6 / 2019-10-09
 ==================
 
