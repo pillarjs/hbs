@@ -1,3 +1,10 @@
+unreleased
+==================
+  * deps: handlebars@4.5.2
+    - Fix security issues 
+    - https://www.npmjs.com/advisories/1300
+    - https://www.npmjs.com/advisories/1316
+
 4.0.6 / 2019-10-09
 ==================
 
