@@ -1,7 +1,21 @@
 unreleased
-==================
+==========
+
   * deps: handlebars@4.5.3
-    - Fix security issues 
+    - 4.5.3
+      - Fix: add "no-prototype-builtins" eslint-rule and fix all occurences
+      - Fix: add more properties required to be enumerable
+      - Security: The properties __proto__, __defineGetter__, __defineSetter__ and __lookupGetter__ have been added to the list of "properties that must be enumerable". If a property by that name is found and not enumerable on its parent, it will silently evaluate to undefined. This is done in both the compiled template and the "lookup"-helper. This will prevent new Remote-Code-Execution exploits that have been published recently.
+    - 4.5.2
+      - Fix: use String(field) in lookup when checking for "constructor"
+    - 4.5.1
+      - Fix: move "eslint-plugin-compat" to devDependencies
+    - 4.5.0
+      - Fix: Use objects for hash value tracking
+    - 4.4.5
+      - Fix: Contents of raw-blocks must be matched with non-eager regex-matching
+    - 4.4.4
+      - Fix: prevent zero length tokens in raw-blocks
     - https://www.npmjs.com/advisories/1300
     - https://www.npmjs.com/advisories/1316
     - https://www.npmjs.com/advisories/1324
