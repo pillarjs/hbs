@@ -1,5 +1,5 @@
-unreleased
-==========
+4.1.0 / 2020-01-14
+==================
 
   * deps: handlebars@4.5.3
     - Add `handlebars.parseWithoutProcessing`
