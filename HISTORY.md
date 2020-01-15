@@ -1,9 +1,14 @@
 unreleased
 ==========
 
-  * deps: handlebars@4.4.5
-    - Add support for iterable objects in `{{#each}}` helper
+  * deps: handlebars@4.5.3
+    - Add `handlebars.parseWithoutProcessing`
+    - Add support for iterable objects in `#each` helper
+    - Block access to non-enumerable special properties on objects
+    - Fix error when helper defined with array properties
     - Fix parsing of empty raw blocks
+    - Fix work-around for `constructor` blocking
+    - Validate arguments to `#if`, `#unless` and `#with` helpers
 
 4.0.6 / 2019-10-09
 ==================
