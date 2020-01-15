@@ -36,8 +36,8 @@ before_install:
     fi
   - |
     # nyc for coverage
-    # - remove for Node.js < 6
-    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
+    # - remove for Node.js < 8
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 8 ]]; then
       npm rm --silent --save-dev nyc
     fi
   - |
