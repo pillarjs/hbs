@@ -18,7 +18,7 @@ install:
   - if "%nodejs_version%" equ "0.8" npm install -g --prefix "%npm_prefix:~0,-1%" npm@1.2.8000
   - npm config set shrinkwrap false
   # Remove all non-test dependencies
-  - npm rm --silent --save-dev eslint nyc
+  - npm rm --silent --save-dev eslint eslint-plugin-markdown nyc
   # Setup Node.js version-specific dependencies
   - ps: |
       # mocha for testing

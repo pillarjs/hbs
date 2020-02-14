@@ -37,7 +37,7 @@ hbs exposes the `registerHelper` and `registerPartial` method from handlebars.
 ```javascript
 var hbs = require('hbs');
 
-hbs.registerHelper('helper_name', function(...) { ... });
+hbs.registerHelper('helper_name', function (options) { return 'helper value'; });
 hbs.registerPartial('partial_name', 'partial value');
 ```
 
@@ -46,7 +46,7 @@ For convenience, `registerPartials` provides a quick way to load all partials fr
 ```javascript
 var hbs = require('hbs');
 
-hbs.registerPartials(__dirname + '/views/partials' [, callback]);
+hbs.registerPartials(__dirname + '/views/partials', function (err) {});
 ```
 
 Partials that are loaded from a directory are named based on their filename, where spaces and hyphens are replaced with an underscore character:

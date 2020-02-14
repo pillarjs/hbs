@@ -17,7 +17,7 @@ before_install:
     # eslint for linting
     # - remove on Node.js < 6
     if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 6 ]]; then
-      npm rm --slient --save-dev eslint
+      npm rm --slient --save-dev eslint eslint-plugin-markdown
     fi
   - |
     # mocha for testing

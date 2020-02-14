@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "eslint": "5.16.0",
+    "eslint-plugin-markdown": "1.0.1",
     "mocha": "7.0.1",
     "nyc": "15.0.0",
     "rimraf": "2.7.1",
@@ -31,7 +32,7 @@
     "npm": "1.2.8000 || >= 1.4.16"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --plugin markdown --ext js,md .",
     "test": "mocha --reporter spec --ui qunit --bail test/*/index.js",
     "test-cov": "nyc --reporter=html --reporter=text npm test"
   }
