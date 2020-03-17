@@ -178,6 +178,14 @@ before(function () {
     })
   })
 
+  app.get('/locals-model', function (req, res) {
+    res.locals.person = new Person('Alan', 'Smith')
+    res.render('locals', {
+      layout: false,
+      kids: [new Person('Jimmy', 'Smith'), new Person('Sally', 'Smith')]
+    })
+  })
+
   app.get('/globals', function (req, res) {
     res.render('globals', {
       layout: 'layout_globals',
@@ -258,6 +266,13 @@ test('response locals cached', function(done) {
     })
 });
 
+test('response locals model', function(done) {
+  request(app)
+    .get('/locals-model')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'locals.html'), 'utf8'))
+    .end(done)
+});
+
 test('response globals', function(done) {
   request(app)
     .get('/globals')
@@ -277,4 +292,17 @@ function shouldHaveFirstLineEqual (str) {
   return function (res) {
     assert.strictEqual(res.text.split(/\r?\n/)[0], str)
   }
+}
+
+function Person (firstName, lastName) {
+  this.firstName = firstName
+  this.lastName = lastName
+}
+
+Person.prototype.toString = function toString () {
+  return this.name()
+}
+
+Person.prototype.name = function name () {
+  return this.firstName
 }
