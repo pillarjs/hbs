@@ -10,7 +10,7 @@
   "repository": "pillarjs/hbs",
   "main": "lib/hbs.js",
   "dependencies": {
-    "handlebars": "4.7.3",
+    "handlebars": "4.7.6",
     "walk": "2.3.14"
   },
   "devDependencies": {
