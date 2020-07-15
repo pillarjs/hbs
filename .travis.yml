@@ -16,9 +16,10 @@ before_install:
   # Setup Node.js version-specific dependencies
   - |
     # eslint for linting
-    # - remove on Node.js < 8
-    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 8 ]]; then
-      npm rm --slient --save-dev eslint eslint-plugin-markdown
+    # - remove on Node.js < 10
+    if [[ "$(cut -d. -f1 <<< "$TRAVIS_NODE_VERSION")" -lt 10 ]]; then
+      npm rm --slient --save-dev eslint
+      npm rm --slient --save-dev eslint-plugin-markdown
     fi
   - |
     # mocha for testing
