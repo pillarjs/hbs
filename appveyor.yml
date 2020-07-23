@@ -5,7 +5,7 @@ environment:
     - nodejs_version: "4.9"
     - nodejs_version: "6.17"
     - nodejs_version: "8.17"
-    - nodejs_version: "10.20"
+    - nodejs_version: "10.22"
     - nodejs_version: "12.18"
     - nodejs_version: "14.6"
 install:
