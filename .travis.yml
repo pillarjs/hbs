@@ -8,7 +8,7 @@ node_js:
   - "8.17"
   - "10.20"
   - "12.17"
-  - "14.2"
+  - "14.6"
 before_install:
   # Setup npm
   - "test $TRAVIS_NODE_VERSION != '0.8' || npm install -g npm@1.2.8000"
