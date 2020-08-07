@@ -16,7 +16,7 @@
   "devDependencies": {
     "eslint": "7.4.0",
     "eslint-plugin-markdown": "1.0.2",
-    "mocha": "7.2.0",
+    "mocha": "8.1.1",
     "nyc": "15.1.0",
     "rimraf": "2.7.1",
     "supertest": "4.0.2"
