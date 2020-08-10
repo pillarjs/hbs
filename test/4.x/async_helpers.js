@@ -38,8 +38,10 @@ before(function () {
   var indx = 0
   var vals = ['foo', 'bar', 'baz']
   hbs.registerAsyncHelper('async', function (context, cb) {
+    var prefix = this.prefix || ''
+
     process.nextTick(function () {
-      cb(vals[indx++ % 3])
+      cb(prefix + vals[indx++ % 3])
     })
   })
 
@@ -56,6 +58,15 @@ before(function () {
     })
   })
 
+  // access req data from res.locals
+  hbs.registerAsyncHelper('async-with-context', function (context, cb) {
+    var originalUrl = this.originalUrl
+
+    process.nextTick(function () {
+      cb('originalUrl: ' + originalUrl)
+    })
+  })
+
   var count = 0
 
   // fake async helper, returns immediately
@@ -67,7 +78,8 @@ before(function () {
 
   app.get('/', function (req, res) {
     res.render('async', {
-      layout: false
+      layout: false,
+      prefix: '* '
     })
   })
 

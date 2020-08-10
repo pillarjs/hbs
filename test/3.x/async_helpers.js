@@ -36,8 +36,18 @@ before(function () {
   // it will be called a few times from the template
   var vals = ['foo', 'bar', 'baz']
   hbs.registerAsyncHelper('async', function (context, cb) {
+    var prefix = this.prefix || ''
+
     process.nextTick(function () {
-      cb(vals.shift())
+      cb(prefix + vals.shift())
+    })
+  })
+
+  hbs.registerAsyncHelper('async-with-context', function (context, cb) {
+    var originalUrl = this.originalUrl
+
+    process.nextTick(function () {
+      cb('originalUrl: ' + originalUrl)
     })
   })
 
@@ -52,7 +62,8 @@ before(function () {
 
   app.get('/', function (req, res) {
     res.render('async', {
-      layout: false
+      layout: false,
+      prefix: '* '
     })
   })
 
