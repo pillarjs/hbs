@@ -19,7 +19,7 @@
     "mocha": "8.2.1",
     "nyc": "15.1.0",
     "rimraf": "2.7.1",
-    "supertest": "4.0.2"
+    "supertest": "6.1.1"
   },
   "files": [
     "lib/",
