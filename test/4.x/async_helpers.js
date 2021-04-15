@@ -76,6 +76,10 @@ before(function () {
       layout: false
     })
   })
+
+  app.get('/async-with-layout', function (req, res) {
+    res.render('async')
+  })
 })
 
 test('index', function (done) {
@@ -105,3 +109,10 @@ test('async-with-params', function(done) {
     .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'async-with-params.html'), 'utf8'))
     .end(done)
 });
+
+test('async-with-layout', function (done) {
+  request(app)
+    .get('/async-with-layout')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'async-with-layout.html'), 'utf8'))
+    .end(done)
+})
