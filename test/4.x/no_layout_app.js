@@ -7,7 +7,6 @@ var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 // builtin
 var fs = require('fs');
 var root = process.cwd();
-var path = require('path');
 
 var app = null
 
