@@ -203,6 +203,12 @@ before(function () {
     })
   })
 
+  app.get('/layout-no-exist', function (req, res) {
+    res.render('blank', {
+      layout: 'noexist_layout'
+    })
+  })
+
   app.use(function (err, req, res, next) {
     res.status(500).send(err.stack.toString())
   })
@@ -308,6 +314,14 @@ test('multiple views directories', function(done) {
     .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'index_no_layout.html'), 'utf8'))
     .end(done)
 });
+
+test('layout does not exist', function (done) {
+  request(app)
+    .get('/layout-no-exist')
+    .expect(500)
+    .expect(/Error: ENOENT.*noexist_layout\.hbs/)
+    .end(done)
+})
 
 test('app.render', function (done) {
   app.render('blank', function (err, str) {
