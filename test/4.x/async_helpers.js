@@ -43,6 +43,12 @@ before(function () {
     })
   })
 
+  hbs.registerAsyncHelper('async-title', function (context, cb) {
+    process.nextTick(function () {
+      cb('Async Title')
+    })
+  })
+
   hbs.registerAsyncHelper('async-with-params', function (a, b, ctx, cb) {
     process.nextTick(function () {
       var val = a + b
@@ -80,6 +86,12 @@ before(function () {
   app.get('/async-with-layout', function (req, res) {
     res.render('async')
   })
+
+  app.get('/layout-with-async', function (req, res) {
+    res.render('async', {
+      layout: 'layout_async'
+    })
+  })
 })
 
 test('index', function (done) {
@@ -114,5 +126,12 @@ test('async-with-layout', function (done) {
   request(app)
     .get('/async-with-layout')
     .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'async-with-layout.html'), 'utf8'))
+    .end(done)
+})
+
+test('layout-with-async', function (done) {
+  request(app)
+    .get('/layout-with-async')
+    .expect(fs.readFileSync(path.join(FIXTURES_DIR, 'layout-with-async.html'), 'utf8'))
     .end(done)
 })
