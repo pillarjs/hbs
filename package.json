@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "eslint": "7.24.0",
-    "eslint-plugin-markdown": "2.0.0",
+    "eslint-plugin-markdown": "2.0.1",
     "mocha": "8.3.2",
     "nyc": "15.1.0",
     "rimraf": "2.7.1",
