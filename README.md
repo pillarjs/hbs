@@ -2,7 +2,7 @@
 
 [![NPM Version][npm-version-image]][npm-url]
 [![NPM Downloads][npm-downloads-image]][npm-url]
-[![Linux Build][travis-image]][travis-url]
+[![Linux Build][github-actions-ci-image]][github-actions-ci-url]
 [![Windows Build][appveyor-image]][appveyor-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
@@ -132,10 +132,10 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 [appveyor-url]: https://ci.appveyor.com/project/dougwilson/nodejs-hbs
 [coveralls-image]: https://badgen.net/coveralls/c/github/pillarjs/hbs/master
 [coveralls-url]: https://coveralls.io/r/pillarjs/hbs?branch=master
+[github-actions-ci-image]: https://badgen.net/github/checks/pillarjs/hbsdb/master?label=ci
+[github-actions-ci-url]: https://github.com/pillarjs/hbs/actions?query=workflow%3Aci
 [node-image]: https://badgen.net/npm/node/hbs
 [node-url]: https://nodejs.org/en/download/
 [npm-downloads-image]: https://badgen.net/npm/dm/hbs
 [npm-url]: https://npmjs.org/package/hbs
 [npm-version-image]: https://badgen.net/npm/v/hbs
-[travis-image]: https://badgen.net/travis/pillarjs/hbs/master?label=linux
-[travis-url]: https://travis-ci.org/pillarjs/hbs
