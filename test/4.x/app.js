@@ -32,7 +32,7 @@ hbs.registerHelper('list', function(items, context) {
 });
 
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'))
 
 var app = null
 

@@ -1,14 +1,14 @@
-// 3rd party
 var express = require('express');
 var hbs = require('hbs');
+var path = require('path')
 
 var app = express();
 
 // set the view engine to use handlebars
 app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname, 'views'))
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')))
 
 var blocks = {};
 
