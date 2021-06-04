@@ -7,7 +7,7 @@ environment:
     - nodejs_version: "8.17"
     - nodejs_version: "10.24"
     - nodejs_version: "12.22"
-    - nodejs_version: "14.16"
+    - nodejs_version: "14.17"
     - nodejs_version: "16.3"
 install:
   # Install Node.js
