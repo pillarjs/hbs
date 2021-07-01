@@ -29,6 +29,7 @@ install:
       # - use 5.x for Node.js < 6
       # - use 6.x for Node.js < 8
       # - use 7.x for Node.js < 10
+      # - use 8.x for Node.js < 12
       if ([int]$env:nodejs_version.split(".")[0] -eq 0 -and [int]$env:nodejs_version.split(".")[1] -lt 10) {
         npm install --silent --save-dev mocha@2.5.3
       } elseif ([int]$env:nodejs_version.split(".")[0] -lt 4) {
@@ -39,6 +40,8 @@ install:
         npm install --silent --save-dev mocha@6.2.2
       } elseif ([int]$env:nodejs_version.split(".")[0] -lt 10) {
         npm install --silent --save-dev mocha@7.2.0
+      } elseif ([int]$env:nodejs_version.split(".")[0] -lt 12) {
+        npm install --silent --save-dev mocha@8.3.2
       }
   - ps: |
       # supertest for http calls
