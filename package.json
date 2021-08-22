@@ -14,7 +14,7 @@
     "walk": "2.3.14"
   },
   "devDependencies": {
-    "eslint": "7.28.0",
+    "eslint": "7.32.0",
     "eslint-plugin-markdown": "2.2.0",
     "mocha": "9.0.1",
     "nyc": "15.1.0",
