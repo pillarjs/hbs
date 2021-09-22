@@ -27,7 +27,10 @@ before(function (done) {
 
 after(function (done) {
   this.timeout(30000)
-  rimraf(path.join(__dirname, 'node_modules'), done)
+  rimraf(path.join(__dirname, 'node_modules'), function (err) {
+    if (err) return done(err)
+    rimraf(path.join(__dirname, 'package.json'), done)
+  })
 })
 
 require('./app')
