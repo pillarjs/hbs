@@ -43,18 +43,9 @@ before(function () {
     })
   })
 
-  hbs.registerAsyncHelper('async-with-context', function (context, cb) {
-    var originalUrl = this.originalUrl
-
-    process.nextTick(function () {
-      cb('originalUrl: ' + originalUrl)
-    })
-  })
-
-  var count = 0
-
   // fake async helper, returns immediately
   // although a regular helper could have been used we should support this use case
+  var count = 0
   hbs.registerAsyncHelper('fake-async', function (context, cb) {
     var val = 'instant' + count++
     cb(val)
