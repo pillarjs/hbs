@@ -23,7 +23,7 @@ hbs.registerHelper('link_to2', function(title, context) {
   return "<a href='/posts" + context.url + "'>" + title + "</a>"
 });
 
-hbs.registerHelper('list', function(items, context) {console.log(this)
+hbs.registerHelper('list', function(items, context) {
   var out = '<ul class="' + (this.listClassName || '') + '">'
 
   for(var i=0; i<items.length; ++i) {

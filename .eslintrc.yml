@@ -9,6 +9,7 @@ overrides:
 rules:
   eol-last: error
   eqeqeq: ["error", "always", { "null": "ignore" }]
+  no-console: error
   no-mixed-spaces-and-tabs: error
   no-multiple-empty-lines: ["error", { "max": 1, "maxEOF": 0 }]
   no-path-concat: error
