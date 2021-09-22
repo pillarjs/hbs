@@ -50,3 +50,9 @@ test('render waits on multiple register partials', function (done) {
     .expect('Test Partial 1Test Partial 2Test Partial 3Test Partial 4')
     .end(done)
 })
+
+test('register partials callback', function (done) {
+  var hbs = require('../../').create()
+
+  hbs.registerPartials(path.join(__dirname, 'views', 'partials'), done)
+})
