@@ -35,5 +35,6 @@ after(function (done) {
 
 require('./app')
 require('./async_helpers')
+require('./register_partials')
 require('./view_engine')
 require('./no_layout_app')
