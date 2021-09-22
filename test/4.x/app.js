@@ -23,8 +23,9 @@ hbs.registerHelper('link_to2', function(title, context) {
   return "<a href='/posts" + context.url + "'>" + title + "</a>"
 });
 
-hbs.registerHelper('list', function(items, context) {
-  var out = "<ul>";
+hbs.registerHelper('list', function(items, context) {console.log(this)
+  var out = '<ul class="' + (this.listClassName || '') + '">'
+
   for(var i=0; i<items.length; ++i) {
     out = out + "<li>" + context.fn(items[i]) + "</li>";
   }
@@ -83,6 +84,7 @@ before(function () {
       // escapee test
       escapee: '<jail>escaped</jail>',
       // helper test
+      listClassName: 'my-list',
       posts: [{ url: '/hello-world', body: 'Hello World!' }],
       // helper with string
       posts2: [{ url: '/hello-world', body: 'Hello World!' }],
@@ -120,6 +122,7 @@ before(function () {
       // escapee test
       escapee: '<jail>escaped</jail>',
       // helper test
+      listClassName: 'my-list',
       posts: [{ url: '/hello-world', body: 'Hello World!' }],
       // helper with string
       posts2: [{ url: '/hello-world', body: 'Hello World!' }],
