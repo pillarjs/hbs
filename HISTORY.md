@@ -3,6 +3,7 @@ unreleased
 
   * Ensure all partials are registered before rendering
   * Fix function context in async helpers
+  * deps: walk@2.3.15
 
 4.1.2 / 2021-04-15
 ==================
