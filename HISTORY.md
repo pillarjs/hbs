@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Add `rename` option to `registerPartials`
   * Ensure all partials are registered before rendering
   * Fix function context in async helpers
   * deps: walk@2.3.15
