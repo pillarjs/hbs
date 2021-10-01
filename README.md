@@ -149,7 +149,7 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 [appveyor-url]: https://ci.appveyor.com/project/dougwilson/nodejs-hbs
 [coveralls-image]: https://badgen.net/coveralls/c/github/pillarjs/hbs/master
 [coveralls-url]: https://coveralls.io/r/pillarjs/hbs?branch=master
-[github-actions-ci-image]: https://badgen.net/github/checks/pillarjs/hbsdb/master?label=ci
+[github-actions-ci-image]: https://badgen.net/github/checks/pillarjs/hbs/master?label=linux
 [github-actions-ci-url]: https://github.com/pillarjs/hbs/actions?query=workflow%3Aci
 [node-image]: https://badgen.net/npm/node/hbs
 [node-url]: https://nodejs.org/en/download/
