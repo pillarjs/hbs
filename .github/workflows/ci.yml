@@ -65,8 +65,14 @@ jobs:
       shell: bash -eo pipefail -l {0}
       run: |
         nvm install --default ${{ matrix.node-version }}
-        if [[ "${{ matrix.node-version }}" == 0.* ]]; then npm config set strict-ssl false; fi
-        if [[ "${{ matrix.node-version }}" == 0.8 ]]; then npm install -g npm@1.2.8000; fi
+        if [[ "${{ matrix.node-version }}" == 0.* && "$(cut -d. -f2 <<< "${{ matrix.node-version }}")" -lt 10 ]]; then
+          nvm install --alias=npm 0.10
+          npm install -g npm@1.2.8000
+          NPM=$(which npm)
+          nvm use ${{ matrix.node-version }}
+          ln -fs "$NPM" "$(which npm)"
+          sed -i '1s;^.*$;'"$(printf '#!%q' "$(nvm which npm)")"';' "$(readlink -f "$(which npm)")"
+        fi
         dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
 
     - name: Configure npm
