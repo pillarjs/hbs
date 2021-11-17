@@ -1,6 +1,7 @@
 5.x
 ===
 
+  * Drop support for Express.js 2.x
   * Drop support for Node.js 0.8
 
 4.2.0 / 2021-11-16
