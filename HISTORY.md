@@ -1,5 +1,5 @@
-unreleased
-==========
+4.2.0 / 2021-11-16
+==================
 
   * Add `rename` option to `registerPartials`
   * Ensure all partials are registered before rendering
