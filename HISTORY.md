@@ -1,3 +1,8 @@
+4.3.0
+==================
+
+  * Drop support for Express.js 2.x
+
 unreleased
 ==================
 
