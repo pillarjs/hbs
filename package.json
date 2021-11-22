@@ -11,6 +11,7 @@
   "main": "lib/hbs.js",
   "dependencies": {
     "handlebars": "4.7.7",
+    "uid-safe": "2.1.5",
     "walk": "2.3.15"
   },
   "devDependencies": {

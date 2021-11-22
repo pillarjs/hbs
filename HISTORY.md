@@ -3,6 +3,7 @@
 
   * Drop support for Express.js 2.x
   * Drop support for Node.js 0.8
+  * Use `uid-safe` for async helpers tracking
 
 4.2.0 / 2021-11-16
 ==================
