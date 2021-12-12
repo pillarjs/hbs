@@ -65,13 +65,13 @@ template-file.html -> {{> template_file}}
 See the [handlebars.js documentation](https://handlebarsjs.com/) for more
 information.
 
-The way the file is renamed to a partial name can be adjusted by providing a `rename` option. The function will recieve the file path relative to the registered directory and without the file extension. If the returned value contains any whitespace, those characters are replaced with a corresponding underscore character.
+The way the file is renamed to a partial name can be adjusted by providing a `rename` option. The function will receive the file path relative to the registered directory and without the file extension. If the returned value contains any whitespace, those characters are replaced with a corresponding underscore character.
 
 ```js
 var hbs = require('hbs')
 
-hbs.registerPartials(path.join(__dirname, '/views/partials'), {
-  rename: function (name) {
+hbs.registerPartials(path.join(__dirname, '/views/partials'), function (err) {
+  rename: function replacer(name) {
     // all non-word characters replaced with underscores
     return name.replace(/\W/g, '_')
   }
