@@ -11,6 +11,7 @@
   "main": "lib/hbs.js",
   "dependencies": {
     "handlebars": "4.7.7",
+    "uid-safe": "2.1.5",
     "walk": "2.3.15"
   },
   "devDependencies": {
@@ -28,8 +29,7 @@
     "README.md"
   ],
   "engines": {
-    "node": ">= 0.8",
-    "npm": "1.2.8000 || >= 1.4.16"
+    "node": ">= 0.10"
   },
   "scripts": {
     "lint": "eslint .",
