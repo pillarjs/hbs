@@ -10,13 +10,13 @@
   "repository": "pillarjs/hbs",
   "main": "lib/hbs.js",
   "dependencies": {
-    "handlebars": "4.7.7",
+    "handlebars": "4.7.8",
     "walk": "2.3.15"
   },
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-plugin-markdown": "2.2.1",
-    "mocha": "9.1.3",
+    "mocha": "9.2.2",
     "nyc": "15.1.0",
     "rimraf": "2.7.1",
     "supertest": "6.3.4"
