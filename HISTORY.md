@@ -1,10 +1,3 @@
-4.3.0
-==================
-
-  * Drop support for Express.js 2.x
-  * Drop support for Node.js 0.8
-  * Use `uid-safe` for async helpers tracking
-
 unreleased
 ==================
 
@@ -15,6 +8,9 @@ unreleased
     - Fix rollup warning when importing Handlebars as ESM
     - Fix bundler issue with webpack 5
     - Use https instead of git for mustache submodule
+  * Drop support for Express.js 2.x
+  * Drop support for Node.js 0.8
+  * Use `uid-safe` for async helpers tracking
 
 
 4.2.0 / 2021-11-16
