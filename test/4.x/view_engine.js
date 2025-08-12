@@ -1,13 +1,13 @@
-var path = require('path')
-var request = require('supertest')
-var utils = require('../support/utils')
+const path = require('path')
+const request = require('supertest')
+const utils = require('../support/utils')
 
-var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
+const FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
 // builtin
-var fs = require('fs');
+const fs = require('fs');
 
-var app = null
+let app = null
 
 suite('express 4.x view engine')
 
@@ -17,8 +17,8 @@ before(function () {
     return
   }
 
-  var express = require('express')
-  var hbs = require('../../')
+  const express = require('express')
+  const hbs = require('../../')
 
   app = express()
 

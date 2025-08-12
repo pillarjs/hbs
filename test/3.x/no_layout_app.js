@@ -1,14 +1,14 @@
-var path = require('path')
-var request = require('supertest')
-var utils = require('../support/utils')
+const path = require('path')
+const request = require('supertest')
+const utils = require('../support/utils')
 
-var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
+const FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
 // builtin
-var fs = require('fs');
-var root = process.cwd();
+const fs = require('fs');
+const root = process.cwd();
 
-var app = null
+let app = null
 
 suite('express 3.x no layout')
 
@@ -18,8 +18,8 @@ before(function () {
     return
   }
 
-  var express = require('express')
-  var hbs = require('../../')
+  const express = require('express')
+  const hbs = require('../../')
 
   app = express()
 
@@ -57,7 +57,7 @@ before(function () {
       title: 'Express Handlebars Test'
     }, function (error, body) {
       if (error) return next(error)
-      var file = path.join(root, 'test', '3.x', 'views', 'layout.hbs')
+      const file = path.join(root, 'test', '3.x', 'views', 'layout.hbs')
       if (hbs.cache[file]) {
         res.send(body)
       } else {

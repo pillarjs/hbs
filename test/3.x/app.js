@@ -1,15 +1,15 @@
-var path = require('path')
-var request = require('supertest')
-var utils = require('../support/utils')
+const path = require('path')
+const request = require('supertest')
+const utils = require('../support/utils')
 
-var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
+const FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
 // builtin
-var fs = require('fs');
-var assert = require('assert');
+const fs = require('fs');
+const assert = require('assert');
 
 // local
-var hbs = require('../../').create();
+const hbs = require('../../').create();
 
 hbs.registerHelper('make_error', function () {
   throw new TypeError('oops!')
@@ -24,9 +24,9 @@ hbs.registerHelper('link_to2', function(title, context) {
 });
 
 hbs.registerHelper('list', function(items, context) {
-  var out = '<ul class="' + (this.listClassName || '') + '">'
+  let out = '<ul class="' + (this.listClassName || '') + '">'
 
-  for(var i=0; i<items.length; ++i) {
+  for(let i=0; i<items.length; ++i) {
     out = out + "<li>" + context.fn(items[i]) + "</li>";
   }
   return out + "</ul>";
@@ -35,7 +35,7 @@ hbs.registerHelper('list', function(items, context) {
 hbs.registerPartial('link2', '<a href="/people/{{id}}">{{name}}</a>');
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'))
 
-var app = null
+let app = null
 
 before(function () {
   if (utils.nodeVersionCompare(10.0) >= 0) {
@@ -43,7 +43,7 @@ before(function () {
     return
   }
 
-  var express = require('express')
+  const express = require('express')
 
   app = express()
 

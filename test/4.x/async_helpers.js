@@ -1,13 +1,13 @@
-var path = require('path')
-var request = require('supertest')
-var utils = require('../support/utils')
+const path = require('path')
+const request = require('supertest')
+const utils = require('../support/utils')
 
-var FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
+const FIXTURES_DIR = path.join(__dirname, '..', 'fixtures')
 
 // builtin
-var fs = require('fs');
+const fs = require('fs');
 
-var app = null
+let app = null
 
 suite('express 4.x async helpers')
 
@@ -17,8 +17,8 @@ before(function () {
     return
   }
 
-  var express = require('express')
-  var hbs = require('../../').create()
+  const express = require('express')
+  const hbs = require('../../').create()
 
   app = express()
 
@@ -35,10 +35,10 @@ before(function () {
 
   // value for async helper
   // it will be called a few times from the template
-  var indx = 0
-  var vals = ['foo', 'bar', 'baz']
+  let indx = 0
+  const vals = ['foo', 'bar', 'baz']
   hbs.registerAsyncHelper('async', function (context, cb) {
-    var prefix = this.prefix || ''
+    const prefix = this.prefix || ''
 
     process.nextTick(function () {
       cb(prefix + vals[indx++ % 3])
@@ -53,16 +53,16 @@ before(function () {
 
   hbs.registerAsyncHelper('async-with-params', function (a, b, ctx, cb) {
     process.nextTick(function () {
-      var val = a + b
+      const val = a + b
       cb(val)
     })
   })
 
   // fake async helper, returns immediately
   // although a regular helper could have been used we should support this use case
-  var count = 0
+  let count = 0
   hbs.registerAsyncHelper('fake-async', function (context, cb) {
-    var val = 'instant' + count++
+    const val = 'instant' + count++
     cb(val)
   })
 

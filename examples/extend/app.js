@@ -1,8 +1,8 @@
-var express = require('express');
-var hbs = require('hbs');
-var path = require('path')
+const express = require('express');
+const hbs = require('hbs');
+const path = require('path')
 
-var app = express();
+const app = express();
 
 // set the view engine to use handlebars
 app.set('view engine', 'hbs');
@@ -10,10 +10,10 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-var blocks = {};
+const blocks = {};
 
 hbs.registerHelper('extend', function(name, context) {
-    var block = blocks[name];
+    const block = blocks[name];
     if (!block) {
         block = blocks[name] = [];
     }
@@ -22,7 +22,7 @@ hbs.registerHelper('extend', function(name, context) {
 });
 
 hbs.registerHelper('block', function(name) {
-    var val = (blocks[name] || []).join('\n');
+    const val = (blocks[name] || []).join('\n');
 
     // clear the block
     blocks[name] = [];
