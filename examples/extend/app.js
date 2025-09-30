@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 const blocks = {};
 
 hbs.registerHelper('extend', function(name, context) {
-    const block = blocks[name];
+    let block = blocks[name];
     if (!block) {
         block = blocks[name] = [];
     }
