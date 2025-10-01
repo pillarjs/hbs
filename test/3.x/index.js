@@ -1,7 +1,7 @@
-var exec = require('child_process').exec
-var path = require('path')
-var rimraf = require('rimraf')
-var utils = require('../support/utils')
+const exec = require('child_process').exec
+const path = require('path')
+const rimraf = require('rimraf')
+const utils = require('../support/utils')
 
 suite('express 3.x')
 
@@ -11,7 +11,7 @@ before(function (done) {
     return done()
   }
 
-  var env = utils.childEnvironment()
+  const env = utils.childEnvironment()
 
   this.timeout(30000)
   exec('npm install --prefix . express@~3.16.8', { cwd: __dirname, env: env }, function (err, stderr) {

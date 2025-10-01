@@ -1,6 +1,6 @@
-var path = require('path')
-var request = require('supertest')
-var utils = require('../support/utils')
+const path = require('path')
+const request = require('supertest')
+const utils = require('../support/utils')
 
 before(function () {
   if (utils.nodeVersionCompare(0.10) < 0) {
@@ -9,9 +9,9 @@ before(function () {
 })
 
 test('render waits on register partials', function (done) {
-  var express = require('express')
-  var app = express()
-  var hbs = require('../../').create()
+  const express = require('express')
+  const app = express()
+  const hbs = require('../../').create()
 
   app.engine('hbs', hbs.__express)
   app.engine('html', hbs.__express)
@@ -30,9 +30,9 @@ test('render waits on register partials', function (done) {
 })
 
 test('render waits on multiple register partials', function (done) {
-  var express = require('express')
-  var app = express()
-  var hbs = require('../../').create()
+  const express = require('express')
+  const app = express()
+  const hbs = require('../../').create()
 
   app.engine('hbs', hbs.__express)
   app.engine('html', hbs.__express)
@@ -52,15 +52,15 @@ test('render waits on multiple register partials', function (done) {
 })
 
 test('register partials callback', function (done) {
-  var hbs = require('../../').create()
+  const hbs = require('../../').create()
 
   hbs.registerPartials(path.join(__dirname, 'views', 'partials'), done)
 })
 
 test('register partials name', function (done) {
-  var express = require('express')
-  var app = express()
-  var hbs = require('../../').create()
+  const express = require('express')
+  const app = express()
+  const hbs = require('../../').create()
 
   hbs.registerPartials(path.join(__dirname, 'views', 'partials'), {
     rename: function (name) { return name.replace(/(^|\s)(\w)/g, function (s, p, c) { return p + c.toUpperCase() }) }

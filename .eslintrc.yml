@@ -1,6 +1,12 @@
 root: true
 extends:
   - plugin:markdown/recommended
+env:
+  es6: true
+  node: true
+parserOptions:
+  ecmaVersion: 2017
+  sourceType: script
 plugins:
   - markdown
 overrides:
@@ -8,11 +14,11 @@ overrides:
     processor: 'markdown/markdown'
 rules:
   eol-last: error
-  eqeqeq: ["error", "always", { "null": "ignore" }]
+  eqeqeq: ['error', 'always', { 'null': 'ignore' }]
   no-console: error
   no-mixed-spaces-and-tabs: error
-  no-multiple-empty-lines: ["error", { "max": 1, "maxEOF": 0 }]
+  no-multiple-empty-lines: ['error', { 'max': 1, 'maxEOF': 0 }]
   no-path-concat: error
-  no-redeclare: ["error", { "builtinGlobals": false }]
+  no-redeclare: ['error', { 'builtinGlobals': false }]
   no-trailing-spaces: error
-  one-var: ["error", { "initialized": "never" }]
+  one-var: ['error', { 'initialized': 'never' }]

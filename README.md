@@ -39,7 +39,7 @@ app.engine('html', require('hbs').__express);
 hbs exposes the `registerHelper` and `registerPartial` method from handlebars.
 
 ```javascript
-var hbs = require('hbs');
+const hbs = require('hbs');
 
 hbs.registerHelper('helper_name', function (options) { return 'helper value'; });
 hbs.registerPartial('partial_name', 'partial value');
@@ -48,7 +48,7 @@ hbs.registerPartial('partial_name', 'partial value');
 For convenience, `registerPartials` provides a quick way to load all partials from a specific directory:
 
 ```javascript
-var hbs = require('hbs');
+const hbs = require('hbs');
 
 hbs.registerPartials(__dirname + '/views/partials', function (err) {});
 ```
@@ -68,7 +68,7 @@ information.
 The way the file is renamed to a partial name can be adjusted by providing a `rename` option. The function will receive the file path relative to the registered directory and without the file extension. If the returned value contains any whitespace, those characters are replaced with a corresponding underscore character.
 
 ```js
-var hbs = require('hbs')
+const hbs = require('hbs')
 
 hbs.registerPartials(path.join(__dirname, '/views/partials'), {
   rename: function (name) {
@@ -85,10 +85,10 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'), {
 hbs has the ability to expose the application and request locals within any context inside a view. To enable this functionality, simply call the `localsAsTemplateData` method and pass in your Express application instance.
 
 ```javascript
-var hbs = require('hbs');
-var express = require('express');
+const hbs = require('hbs');
+const express = require('express');
 
-var app = express();
+const app = express();
 hbs.localsAsTemplateData(app);
 
 app.locals.foo = "bar";
@@ -121,10 +121,10 @@ hbs.handlebars === require('handlebars');
 You can create isolated instances of hbs using the `create()` function on the module object.
 
 ```
-var hbs = require('hbs');
+const hbs = require('hbs');
 
-var instance1 = hbs.create();
-var instance2 = hbs.create();
+const instance1 = hbs.create();
+const instance2 = hbs.create();
 
 app.engine('html', instance1.__express);
 app.engine('hbs', instance2.__express);
