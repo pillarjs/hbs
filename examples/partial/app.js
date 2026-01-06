@@ -1,11 +1,11 @@
-var fs = require('fs');
-var path = require('path')
+const fs = require('fs');
+const path = require('path')
 
 // 3rd party
-var express = require('express');
-var hbs = require('hbs');
+const express = require('express');
+const hbs = require('hbs');
 
-var app = express();
+const app = express();
 
 hbs.registerPartial('partial', fs.readFileSync(path.join(__dirname, 'views', 'partial.hbs'), 'utf8'))
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'))
