@@ -58,16 +58,16 @@ jobs:
           disable-npm-shrinkwrap: true
 
         - name: Node.js 18.x
-          node-version: "18.20"
+          node-version: "18"
 
         - name: Node.js 20.x
-          node-version: "20.19"
+          node-version: "20"
 
         - name: Node.js 22.x
-          node-version: "22.21"
+          node-version: "22"
 
         - name: Node.js 24.x
-          node-version: "24.12"
+          node-version: "24"
 
     steps:
     - uses: actions/checkout@v4
