@@ -22,30 +22,52 @@ jobs:
         - Node.js 12.x
         - Node.js 14.x
         - Node.js 16.x
+        - Node.js 18.x
+        - Node.js 20.x
+        - Node.js 22.x
+        - Node.js 24.x
 
         include:
         - name: Node.js 6.x
           node-version: "6.17"
           npm-i: mocha@6.2.2
           npm-rm: nyc
+          disable-npm-shrinkwrap: true
 
         - name: Node.js 8.x
           node-version: "8.17"
           npm-i: mocha@7.2.0 nyc@13.3.0
+          disable-npm-shrinkwrap: true
 
         - name: Node.js 10.x
           node-version: "10.24"
           npm-i: mocha@8.3.2 nyc@14.1.1
+          disable-npm-shrinkwrap: true
 
         - name: Node.js 12.x
           node-version: "12.22"
           npm-i: nyc@14.1.1
+          disable-npm-shrinkwrap: true
 
         - name: Node.js 14.x
           node-version: "14.18"
+          disable-npm-shrinkwrap: true
 
         - name: Node.js 16.x
           node-version: "16.13"
+          disable-npm-shrinkwrap: true
+
+        - name: Node.js 18.x
+          node-version: "18.20"
+
+        - name: Node.js 20.x
+          node-version: "20.19"
+
+        - name: Node.js 22.x
+          node-version: "22.21"
+
+        - name: Node.js 24.x
+          node-version: "24.12"
 
     steps:
     - uses: actions/checkout@v4
@@ -66,6 +88,7 @@ jobs:
 
     - name: Configure npm
       run: npm config set shrinkwrap false
+      if: matrix.disable-npm-shrinkwrap
 
     - name: Remove npm module(s) ${{ matrix.npm-rm }}
       run: npm rm --silent --save-dev ${{ matrix.npm-rm }}
