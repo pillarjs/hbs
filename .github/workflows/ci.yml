@@ -23,8 +23,11 @@ jobs:
         - Node.js 14.x
         - Node.js 16.x
         - Node.js 18.x
+        - Node.js 19.x
         - Node.js 20.x
+        - Node.js 21.x
         - Node.js 22.x
+        - Node.js 23.x
         - Node.js 24.x
 
         include:
@@ -60,11 +63,20 @@ jobs:
         - name: Node.js 18.x
           node-version: "18"
 
+        - name: Node.js 19.x
+          node-version: "19"
+
         - name: Node.js 20.x
           node-version: "20"
 
+        - name: Node.js 21.x
+          node-version: "21"
+
         - name: Node.js 22.x
           node-version: "22"
+
+        - name: Node.js 23.x
+          node-version: "23"
 
         - name: Node.js 24.x
           node-version: "24"
