@@ -15,148 +15,45 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        name:
-        - Node.js 6.x
-        - Node.js 8.x
-        - Node.js 10.x
-        - Node.js 12.x
-        - Node.js 14.x
-        - Node.js 16.x
-        - Node.js 18.x
-        - Node.js 19.x
-        - Node.js 20.x
-        - Node.js 21.x
-        - Node.js 22.x
-        - Node.js 23.x
-        - Node.js 24.x
-        - Node.js 25.x
-
-        include:
-        - name: Node.js 6.x
-          node-version: "6.17"
-          npm-i: mocha@6.2.2
-          npm-rm: nyc
-          disable-npm-shrinkwrap: true
-
-        - name: Node.js 8.x
-          node-version: "8.17"
-          npm-i: mocha@7.2.0 nyc@13.3.0
-          disable-npm-shrinkwrap: true
-
-        - name: Node.js 10.x
-          node-version: "10.24"
-          npm-i: mocha@8.3.2 nyc@14.1.1
-          disable-npm-shrinkwrap: true
-
-        - name: Node.js 12.x
-          node-version: "12.22"
-          npm-i: nyc@14.1.1
-          disable-npm-shrinkwrap: true
-
-        - name: Node.js 14.x
-          node-version: "14.18"
-          disable-npm-shrinkwrap: true
-
-        - name: Node.js 16.x
-          node-version: "16.13"
-          disable-npm-shrinkwrap: true
-
-        - name: Node.js 18.x
-          node-version: "18"
-
-        - name: Node.js 19.x
-          node-version: "19"
-
-        - name: Node.js 20.x
-          node-version: "20"
-
-        - name: Node.js 21.x
-          node-version: "21"
-
-        - name: Node.js 22.x
-          node-version: "22"
-
-        - name: Node.js 23.x
-          node-version: "23"
-
-        - name: Node.js 24.x
-          node-version: "24"
-
-        - name: Node.js 25.x
-          node-version: "25"
+        node-version:
+        - "18"
+        - "19"
+        - "20"
+        - "21"
+        - "22"
+        - "23"
+        - "24"
+        - "25"
 
     steps:
     - uses: actions/checkout@v4
 
     - name: Install Node.js ${{ matrix.node-version }}
-      shell: bash -eo pipefail -l {0}
-      run: |
-        nvm install --default ${{ matrix.node-version }}
-        if [[ "${{ matrix.node-version }}" == 0.* && "$(cut -d. -f2 <<< "${{ matrix.node-version }}")" -lt 10 ]]; then
-          nvm install --alias=npm 0.10
-          npm install -g npm@1.2.8000
-          NPM=$(which npm)
-          nvm use ${{ matrix.node-version }}
-          ln -fs "$NPM" "$(which npm)"
-          sed -i '1s;^.*$;'"$(printf '#!%q' "$(nvm which npm)")"';' "$(readlink -f "$(which npm)")"
-        fi
-        dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
-
-    - name: Configure npm
-      run: npm config set shrinkwrap false
-      if: matrix.disable-npm-shrinkwrap
-
-    - name: Remove npm module(s) ${{ matrix.npm-rm }}
-      run: npm rm --silent --save-dev ${{ matrix.npm-rm }}
-      if: matrix.npm-rm != ''
-
-    - name: Install npm module(s) ${{ matrix.npm-i }}
-      run: npm install --save-dev ${{ matrix.npm-i }}
-      if: matrix.npm-i != ''
-
-    - name: Setup Node.js version-specific dependencies
-      shell: bash
-      run: |
-        # eslint for linting
-        # - remove on Node.js < 10
-        if [[ "$(cut -d. -f1 <<< "${{ matrix.node-version }}")" -lt 10 ]]; then
-          node -pe 'Object.keys(require("./package").devDependencies).join("\n")' | \
-            grep -E '^eslint(-|$)' | \
-            sort -r | \
-            xargs -n1 npm rm --silent --save-dev
-        fi
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
 
     - name: Install Node.js dependencies
       run: npm install
 
     - name: List environment
-      id: list_env
       shell: bash
       run: |
         echo "node@$(node -v)"
         echo "npm@$(npm -v)"
         npm -s ls ||:
-        (npm -s ls --depth=0 ||:) | awk -F'[ @]' 'NR>1 && $2 { print "::set-output name=" $2 "::" $3 }'
 
     - name: Run tests
-      shell: bash
-      run: |
-        if npm -ps ls nyc | grep -q nyc; then
-          npm run test-ci
-        else
-          npm test
-        fi
+      run: npm run test-ci
 
     - name: Lint code
-      if: steps.list_env.outputs.eslint != ''
       run: npm run lint
 
     - name: Collect code coverage
       uses: coverallsapp/github-action@master
-      if: steps.list_env.outputs.nyc != ''
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: run-${{ matrix.test_number }}
+        flag-name: run-${{ matrix.node-version }}
         parallel: true
 
   coverage:
@@ -165,7 +62,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - name: Uploade code coverage
+    - name: Upload code coverage
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.github_token }}
