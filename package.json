@@ -14,12 +14,12 @@
     "walk": "2.3.15"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "7.32.0",
     "eslint-plugin-markdown": "2.2.1",
-    "mocha": "9.2.2",
-    "nyc": "15.1.0",
-    "rimraf": "2.7.1",
-    "supertest": "6.1.6"
+    "express": "^5.2.1",
+    "supertest": "6.1.6",
+    "vitest": "^4.0.18"
   },
   "files": [
     "lib/",
@@ -28,13 +28,12 @@
     "README.md"
   ],
   "engines": {
-    "node": ">= 0.8",
-    "npm": "1.2.8000 || >= 1.4.16"
+    "node": ">= 18"
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha --reporter spec --ui qunit --bail test/*/index.js",
-    "test-ci": "nyc --reporter=lcov --reporter=text npm test",
-    "test-cov": "nyc --reporter=html --reporter=text npm test"
+    "test": "vitest run",
+    "test-ci": "vitest run --coverage --coverage.reporter=lcov --coverage.reporter=text",
+    "test-cov": "vitest run --coverage --coverage.reporter=html --coverage.reporter=text"
   }
 }
