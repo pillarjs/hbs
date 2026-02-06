@@ -24,6 +24,9 @@ jobs:
         - "23"
         - "24"
         - "25"
+        express-version:
+        - "4"
+        - "5"
 
     steps:
     - uses: actions/checkout@v4
@@ -36,11 +39,15 @@ jobs:
     - name: Install Node.js dependencies
       run: npm install
 
+    - name: Install Express ${{ matrix.express-version }}
+      run: npm install express@${{ matrix.express-version }}
+
     - name: List environment
       shell: bash
       run: |
         echo "node@$(node -v)"
         echo "npm@$(npm -v)"
+        npm list express
         npm -s ls ||:
 
     - name: Run tests
@@ -54,7 +61,7 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: run-${{ matrix.node-version }}
+        flag-name: run-node${{ matrix.node-version }}-express${{ matrix.express-version }}
         parallel: true
 
   coverage:
