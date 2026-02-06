@@ -44,12 +44,13 @@ jobs:
         npm -s ls ||:
 
     - name: Run tests
-      run: npm run test-ci
+      run: ${{ matrix.node-version == '18' && 'npm test' || 'npm run test-ci' }}
 
     - name: Lint code
       run: npm run lint
 
     - name: Collect code coverage
+      if: matrix.node-version != '18'
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
