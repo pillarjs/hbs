@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   test:
+    name: Node.js ${{ matrix.node-version }} - Express ${{ matrix.express-version }}
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
