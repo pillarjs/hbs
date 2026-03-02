@@ -12,6 +12,9 @@ plugins:
 overrides:
   - files: '**/*.md'
     processor: 'markdown/markdown'
+  - files: '**/*.mjs'
+    parserOptions:
+      sourceType: module
 rules:
   eol-last: error
   eqeqeq: ['error', 'always', { 'null': 'ignore' }]
