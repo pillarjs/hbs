@@ -15,12 +15,12 @@
   },
   "devDependencies": {
     "@eslint/markdown": "^6.0.0",
-    "@vitest/coverage-v8": "~4.0.18",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "express": "^5.2.1",
     "neostandard": "^0.13.0",
     "supertest": "6.1.6",
-    "vitest": "~4.0.18"
+    "vitest": "^4.0.18"
   },
   "files": [
     "lib/",
@@ -30,6 +30,9 @@
   ],
   "engines": {
     "node": ">= 18"
+  },
+  "overrides": {
+    "vite": "^6.0.0"
   },
   "scripts": {
     "lint": "eslint .",
