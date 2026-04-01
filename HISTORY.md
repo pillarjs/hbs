@@ -1,13 +1,7 @@
-unreleased
+4.2.1 / 2026-04-01
 ==================
 
-  * deps: handlebars@4.7.8
-    - Make library compatible with workers
-    - Don't rely on Node.js global object
-    - Fix compiling of each block params in strict mode
-    - Fix rollup warning when importing Handlebars as ESM
-    - Fix bundler issue with webpack 5
-    - Use https instead of git for mustache submodule
+  * deps: handlebars@4.7.9
 
 4.2.0 / 2021-11-16
 ==================
