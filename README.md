@@ -24,14 +24,14 @@ $ npm install hbs
 Using *hbs* as the default view engine requires just one line of code in your app setup. This will render `.hbs` files when `res.render` is called.
 
 ```javascript
-app.set('view engine', 'hbs');
+app.set('view engine', 'hbs')
 ```
 
 To use a different extension (i.e. html) for your template files:
 
 ```javascript
-app.set('view engine', 'html');
-app.engine('html', require('hbs').__express);
+app.set('view engine', 'html')
+app.engine('html', require('hbs').__express)
 ```
 
 ## Helpers and Partials ##
@@ -39,18 +39,21 @@ app.engine('html', require('hbs').__express);
 hbs exposes the `registerHelper` and `registerPartial` method from handlebars.
 
 ```javascript
-const hbs = require('hbs');
+const hbs = require('hbs')
 
-hbs.registerHelper('helper_name', function (options) { return 'helper value'; });
-hbs.registerPartial('partial_name', 'partial value');
+hbs.registerHelper('helper_name', function (options) { return 'helper value' })
+hbs.registerPartial('partial_name', 'partial value')
 ```
 
 For convenience, `registerPartials` provides a quick way to load all partials from a specific directory:
 
 ```javascript
-const hbs = require('hbs');
+const path = require('path')
+const hbs = require('hbs')
 
-hbs.registerPartials(__dirname + '/views/partials', function (err) {});
+hbs.registerPartials(path.join(__dirname, 'views/partials'), function (err) {
+  if (err) throw err
+})
 ```
 
 Partials that are loaded from a directory are named based on their filename, where spaces and hyphens are replaced with an underscore character:
@@ -85,13 +88,13 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'), {
 hbs has the ability to expose the application and request locals within any context inside a view. To enable this functionality, simply call the `localsAsTemplateData` method and pass in your Express application instance.
 
 ```javascript
-const hbs = require('hbs');
-const express = require('express');
+const hbs = require('hbs')
+const express = require('express')
 
-const app = express();
-hbs.localsAsTemplateData(app);
+const app = express()
+hbs.localsAsTemplateData(app)
 
-app.locals.foo = "bar";
+app.locals.foo = 'bar'
 ```
 
 The local data can then be accessed using the `@property` syntax:

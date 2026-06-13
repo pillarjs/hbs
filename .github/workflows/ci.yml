@@ -55,6 +55,7 @@ jobs:
       run: ${{ matrix.node-version == '18' && 'npm test' || 'npm run test-ci' }}
 
     - name: Lint code
+      if: matrix.node-version >= '22'
       run: npm run lint
 
     - name: Collect code coverage
