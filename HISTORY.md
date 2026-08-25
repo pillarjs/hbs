@@ -1,3 +1,8 @@
+4.3.0
+=====
+
+- Fix [CVE-2026-16231](https://www.cve.org/CVERecord?id=CVE-2026-16231) ([GHSA-rg36-rxv9-2m9q](https://github.com/pillarjs/hbs/security/advisories/GHSA-rg36-rxv9-2m9q))
+
 4.2.1
 =====
 
