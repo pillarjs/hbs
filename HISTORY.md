@@ -1,3 +1,9 @@
+4.3.1
+=====
+
+- Fix [CVE-2026-87123](https://www.cve.org/CVERecord?id=CVE-2026-87123) ([GHSA-3c55-w9jx-p5jr](https://github.com/pillarjs/hbs/security/advisories/GHSA-3c55-w9jx-p5jr))
+- fix treat async substitution throws as render errors
+
 4.3.0
 =====
 
