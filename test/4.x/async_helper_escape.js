@@ -97,6 +97,63 @@ test('async helper non-string values keep their pre-escaping text output', funct
   })
 })
 
+test('async helper with non-callable toHTML is a render error, not a process crash (uncached)', function (done) {
+  var hbs = require('../../').create()
+  var payload = JSON.parse('{"toHTML":"x"}')
+  hbs.registerAsyncHelper('bad', function (_opts, cb) {
+    process.nextTick(function () {
+      cb(payload)
+    })
+  })
+  render(hbs, makeView('async-bad-tohtml.hbs', '{{bad}}'), function (err) {
+    assert.ok(err, 'expected a render error instead of an uncaught throw')
+    assert.ok(/is not a function/.test(err.message), err.message)
+    done()
+  })
+})
+
+test('async helper with non-callable toHTML is a render error, not a process crash (cached)', function (done) {
+  var hbs = require('../../').create()
+  var payload = JSON.parse('{"toHTML":"x"}')
+  hbs.registerAsyncHelper('bad', function (_opts, cb) {
+    process.nextTick(function () {
+      cb(payload)
+    })
+  })
+  var view = makeView('async-bad-tohtml-cached.hbs', '{{bad}}')
+  render(hbs, view, { cache: true }, function (err) {
+    assert.ok(err, 'expected a render error on the uncached path')
+    assert.ok(hbs.cache[view], 'expected first render to cache the template')
+    render(hbs, view, { cache: true }, function (err2) {
+      assert.ok(err2, 'expected a render error on the cached path')
+      assert.ok(/is not a function/.test(err2.message), err2.message)
+      done()
+    })
+  })
+})
+
+test('async helper with non-callable toHTML is a render error, not a process crash (layout)', function (done) {
+  var hbs = require('../../').create()
+  var payload = JSON.parse('{"toHTML":"x"}')
+  hbs.registerAsyncHelper('bad', function (_opts, cb) {
+    process.nextTick(function () {
+      cb(payload)
+    })
+  })
+  var layout = makeView('layout-bad-tohtml.hbs', '<html><body>{{{body}}}{{bad}}</body></html>')
+  var view = makeView('async-bad-tohtml-layout.hbs', 'ok')
+  hbs.__express(view, {
+    settings: {
+      views: tmpDir,
+      'view options': { layout: path.basename(layout, '.hbs') }
+    }
+  }, function (err) {
+    assert.ok(err, 'expected a render error on the layout path')
+    assert.ok(/is not a function/.test(err.message), err.message)
+    done()
+  })
+})
+
 test('async helper output is HTML-escaped by {{...}} (layout path)', function (done) {
   var hbs = require('../../').create()
   hbs.registerAsyncHelper('userBio', function (_opts, cb) { cb(PAYLOAD) })
