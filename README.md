@@ -115,6 +115,32 @@ If you wish to use handlebars methods like `SafeString` please do so on this pro
 hbs.handlebars === require('handlebars');
 ```
 
+## Compile options ##
+
+Options for [`handlebars.compile()`](https://handlebarsjs.com/api-reference/compilation.html)
+(such as `strict`, `noEscape` or `preventIndent`) can be set per instance. They apply to
+every view and layout compiled by that instance.
+
+```
+var hbs = require('hbs');
+
+var instance = hbs.create(null, {
+  compileOptions: { strict: true }
+});
+
+app.engine('hbs', instance.__express);
+```
+
+Note that `noEscape: true` disables HTML escaping for every `{{expression}}` rendered by the
+instance, so only use it when the data is trusted.
+
+The options are also exposed as the `compileOptions` property, which can be changed at any
+time (compiled templates already in the cache are not affected):
+
+```
+hbs.compileOptions = { noEscape: true };
+```
+
 ## Recipes ##
 
 ### more than one instance ###
