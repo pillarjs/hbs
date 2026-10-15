@@ -208,6 +208,17 @@ top level: {{@foo}}
 ```
 Note: In partials and templates, local data can be accessed without using `@` prefix.
 
+## Reserved render data keys ##
+
+Express reserves a few keys in the data you pass to `res.render`, because it uses them internally. hbs in particular reads the views directory from Express's `settings` to locate layouts and partials. Avoid using these keys as your own template data, since they collide with Express:
+
+- `settings`
+- `cache`
+- `layout`
+- `_locals`
+
+If a `settings` property in your render data overwrites Express's, hbs cannot resolve your layout and throws a descriptive error. Rename the conflicting property.
+
 ## handlebars ##
 
 The handlebars require used by hbs can be accessed via the `handlebars` property on the `hbs` module.
