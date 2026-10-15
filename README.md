@@ -98,6 +98,37 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'), {
 
 **Note:** This method is async; meaning that the directory is walked in a non-blocking manner to app startup.
 
+## Template inheritance ##
+
+Handlebars supports template inheritance natively through [partial blocks](https://handlebarsjs.com/guide/partials.html#partial-blocks) and [inline partials](https://handlebarsjs.com/guide/partials.html#inline-partials), so you can build reusable, nested layouts without any extra hbs feature. Register your base layouts as partials, expose override points with `{{#> block}}`, and let child views fill them with `{{#*inline "block"}}`.
+
+Register a `base` layout as a partial (for example from your partials directory, see [Helpers and Partials](#helpers-and-partials)):
+
+```handlebars
+<html>
+  <head><title>{{title}}</title></head>
+  <body>
+    <main>{{#> content}}Default content{{/content}}</main>
+  </body>
+</html>
+```
+
+A child view inherits it and overrides the `content` block:
+
+```handlebars
+{{#> base title="Home"}}
+  {{#*inline "content"}}<h1>Welcome {{name}}</h1>{{/inline}}
+{{/base}}
+```
+
+Render the child without hbs's automatic layout so it is not wrapped twice:
+
+```javascript
+res.render('home', { layout: false, name: 'Alan' });
+```
+
+Blocks a child does not override keep the parent default, and because partials can include other partials, layouts nest to any depth.
+
 ## Exposing locals as template data ##
 
 hbs has the ability to expose the application and request locals within any context inside a view. To enable this functionality, simply call the `localsAsTemplateData` method and pass in your Express application instance.
