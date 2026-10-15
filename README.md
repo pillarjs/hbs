@@ -34,6 +34,24 @@ app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
 ```
 
+## Security ##
+
+hbs is a thin wrapper around [handlebars](https://handlebarsjs.com/), so its
+[prototype-access security options](https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access)
+apply. Two points are worth calling out:
+
+- **Prototype access.** For backward compatibility, hbs 4.x renders with
+  `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` set to `true`,
+  which is less strict than handlebars' own defaults (`false`). Unless your
+  templates need to read inherited (prototype) members from the data, restore the
+  safer defaults by setting both to `false` through [Runtime options](#runtime-options).
+  These defaults are expected to change in the next major version of hbs.
+- **HTML escaping.** `{{expression}}` output is HTML-escaped by default. Do not
+  enable `noEscape` (see [Compile options](#compile-options)) for untrusted data.
+
+In all cases, treat both the template and the template context as trusted input:
+do not compile templates from, or render untrusted data through, untrusted sources.
+
 ## Helpers and Partials ##
 
 hbs exposes the `registerHelper` and `registerPartial` method from handlebars.
@@ -140,6 +158,51 @@ time (compiled templates already in the cache are not affected):
 ```
 hbs.compileOptions = { noEscape: true };
 ```
+
+## Runtime options ##
+
+[Runtime options](https://handlebarsjs.com/api-reference/runtime-options.html) passed to the
+compiled template at render time can be set per instance. The most relevant ones are the
+prototype-access controls.
+
+For backward compatibility, hbs renders with `allowProtoMethodsByDefault: true` and
+`allowProtoPropertiesByDefault: true`, which is less strict than handlebars' own defaults
+(`false`). If your templates do not need to read inherited (prototype) properties or methods
+from the data, you can restore the safer handlebars defaults:
+
+```
+var hbs = require('hbs');
+
+var instance = hbs.create(null, {
+  runtimeOptions: {
+    allowProtoMethodsByDefault: false,
+    allowProtoPropertiesByDefault: false
+  }
+});
+
+app.engine('hbs', instance.__express);
+```
+
+To keep the safer defaults but still allow a few known inherited members, use handlebars'
+`allowedProtoProperties` / `allowedProtoMethods` allowlists instead of re-enabling everything:
+
+```
+hbs.create(null, {
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: false,
+    allowedProtoProperties: { myField: true }
+  }
+});
+```
+
+As with `compileOptions`, the options are exposed as the `runtimeOptions` property and can be
+changed at any time:
+
+```
+hbs.runtimeOptions = { allowProtoPropertiesByDefault: false };
+```
+
+Regardless of these options, do not render untrusted data as the template context.
 
 ## Recipes ##
 
