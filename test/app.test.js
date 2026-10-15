@@ -1,5 +1,6 @@
 const path = require('node:path')
 const fs = require('node:fs')
+const assert = require('node:assert')
 const request = require('supertest')
 const express = require('express')
 const hbs = require('../').create()
@@ -32,7 +33,7 @@ hbs.registerPartials(path.join(__dirname, 'views', 'partials'))
 
 function shouldHaveFirstLineEqual (str) {
   return function (res) {
-    expect(res.text.split(/\r?\n/)[0]).toBe(str)
+    assert.strictEqual(res.text.split(/\r?\n/)[0], str)
   }
 }
 
@@ -52,7 +53,7 @@ Person.prototype.name = function name () {
 describe('express 4.x', () => {
   let app
 
-  beforeAll(() => {
+  before(() => {
     app = express()
 
     // manually set render engine, under normal circumstances this
@@ -219,7 +220,7 @@ describe('express 4.x', () => {
     })
   })
 
-  test('index', async () => {
+  it('index', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'index.html'),
       'utf8'
@@ -227,7 +228,7 @@ describe('express 4.x', () => {
     await request(app).get('/').expect(expected)
   })
 
-  test('helper error', async () => {
+  it('helper error', async () => {
     await request(app)
       .get('/helper-error')
       .expect(500)
@@ -240,7 +241,7 @@ describe('express 4.x', () => {
       )
   })
 
-  test('partials', async () => {
+  it('partials', async () => {
     await request(app)
       .get('/partials')
       .expect(
@@ -250,7 +251,7 @@ describe('express 4.x', () => {
       )
   })
 
-  test('html extension', async () => {
+  it('html extension', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'index.html'),
       'utf8'
@@ -258,7 +259,7 @@ describe('express 4.x', () => {
     await request(app).get('/html').expect(expected)
   })
 
-  test('syntax error', async () => {
+  it('syntax error', async () => {
     await request(app)
       .get('/syntax-error')
       .expect(500)
@@ -271,7 +272,7 @@ describe('express 4.x', () => {
       )
   })
 
-  test('syntax error cached', async () => {
+  it('syntax error cached', async () => {
     await request(app)
       .get('/syntax-error')
       .expect(500)
@@ -284,7 +285,7 @@ describe('express 4.x', () => {
       )
   })
 
-  test('syntax error layout', async () => {
+  it('syntax error layout', async () => {
     await request(app)
       .get('/syntax-error-layout')
       .expect(500)
@@ -297,7 +298,7 @@ describe('express 4.x', () => {
       )
   })
 
-  test('escape for frontend', async () => {
+  it('escape for frontend', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'escape.html'),
       'utf8'
@@ -305,7 +306,7 @@ describe('express 4.x', () => {
     await request(app).get('/escape').expect(expected)
   })
 
-  test('response locals', async () => {
+  it('response locals', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'locals.html'),
       'utf8'
@@ -313,7 +314,7 @@ describe('express 4.x', () => {
     await request(app).get('/locals').expect(expected)
   })
 
-  test('response locals cached', async () => {
+  it('response locals cached', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'locals.html'),
       'utf8'
@@ -322,7 +323,7 @@ describe('express 4.x', () => {
     await request(app).get('/locals-cached').expect(expected)
   })
 
-  test('response locals model', async () => {
+  it('response locals model', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'locals.html'),
       'utf8'
@@ -330,7 +331,7 @@ describe('express 4.x', () => {
     await request(app).get('/locals-model').expect(expected)
   })
 
-  test('response globals', async () => {
+  it('response globals', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'globals.html'),
       'utf8'
@@ -338,7 +339,7 @@ describe('express 4.x', () => {
     await request(app).get('/globals').expect(expected)
   })
 
-  test('multiple views directories', async () => {
+  it('multiple views directories', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'index_no_layout.html'),
       'utf8'
@@ -346,20 +347,20 @@ describe('express 4.x', () => {
     await request(app).get('/secondary').expect(expected)
   })
 
-  test('layout does not exist', async () => {
+  it('layout does not exist', async () => {
     await request(app)
       .get('/layout-no-exist')
       .expect(500)
       .expect(/Error: ENOENT.*noexist_layout\.hbs/)
   })
 
-  test('app.render', async () => {
+  it('app.render', async () => {
     const str = await new Promise((resolve, reject) => {
       app.render('blank', (err, str) => {
         if (err) return reject(err)
         resolve(str)
       })
     })
-    expect(str).toMatch(/ {2}index body :\)/)
+    assert.match(str, / {2}index body :\)/)
   })
 })

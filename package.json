@@ -15,12 +15,11 @@
   },
   "devDependencies": {
     "@eslint/markdown": "^6.0.0",
-    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "express": "^5.2.1",
+    "mocha": "^10.8.2",
     "neostandard": "^0.13.0",
-    "supertest": "6.1.6",
-    "vitest": "^4.0.18"
+    "supertest": "6.1.6"
   },
   "files": [
     "lib/",
@@ -31,13 +30,8 @@
   "engines": {
     "node": ">= 18"
   },
-  "overrides": {
-    "vite": "^6.0.0"
-  },
   "scripts": {
     "lint": "eslint .",
-    "test": "vitest run",
-    "test-ci": "vitest run --coverage --coverage.reporter=lcov --coverage.reporter=text",
-    "test-cov": "vitest run --coverage --coverage.reporter=html --coverage.reporter=text"
+    "test": "mocha \"test/*.test.js\""
   }
 }

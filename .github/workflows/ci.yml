@@ -11,7 +11,6 @@ jobs:
   test:
     name: Node.js ${{ matrix.node-version }} - Express ${{ matrix.express-version }}
     permissions:
-      checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
     runs-on: ubuntu-latest
     strategy:
@@ -54,28 +53,8 @@ jobs:
         npm -s ls ||:
 
     - name: Run tests
-      run: ${{ matrix.node-version == '18' && 'npm test' || 'npm run test-ci' }}
+      run: npm test
 
     - name: Lint code
       if: matrix.node-version >= '22'
       run: npm run lint
-
-    - name: Collect code coverage
-      if: matrix.node-version != '18'
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: run-node${{ matrix.node-version }}-express${{ matrix.express-version }}
-        parallel: true
-
-  coverage:
-    permissions:
-      checks: write  # for coverallsapp/github-action to create new checks
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - name: Upload code coverage
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
-        parallel-finished: true
