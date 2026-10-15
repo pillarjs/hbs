@@ -34,6 +34,24 @@ app.set('view engine', 'html')
 app.engine('html', require('hbs').__express)
 ```
 
+## Security ##
+
+hbs is a thin wrapper around [handlebars](https://handlebarsjs.com/), so its
+[prototype-access security options](https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access)
+apply. Two points are worth calling out:
+
+- **Prototype access.** hbs renders with handlebars' safe prototype-access
+  defaults: `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` are
+  both `false`, so inherited (prototype) members of the data are not readable
+  from templates. If your templates need to read inherited members, opt in
+  through [Runtime options](#runtime-options). (hbs 4.x set both to `true`; 5.0
+  restores the safer handlebars defaults.)
+- **HTML escaping.** `{{expression}}` output is HTML-escaped by default. Do not
+  enable `noEscape` (see [Compile options](#compile-options)) for untrusted data.
+
+In all cases, treat both the template and the template context as trusted input:
+do not compile templates from, or render untrusted data through, untrusted sources.
+
 ## Helpers and Partials ##
 
 hbs exposes the `registerHelper` and `registerPartial` method from handlebars.

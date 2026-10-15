@@ -322,12 +322,14 @@ describe('express 4.x', () => {
     await request(app).get('/locals-cached').expect(expected)
   })
 
-  test('response locals model', async () => {
-    const expected = fs.readFileSync(
-      path.join(FIXTURES_DIR, 'locals.html'),
-      'utf8'
-    )
-    await request(app).get('/locals-model').expect(expected)
+  // Prototype method access (Person.prototype.name) is blocked by the
+  // secure defaults, so the inherited kid names resolve to empty. Apps that
+  // need prototype access can opt back in via the `runtimeOptions` instance
+  // option (see test/runtime_options.test.js).
+  test('response locals model blocks prototype method access by default', async () => {
+    await request(app)
+      .get('/locals-model')
+      .expect('Alan has a kid named .\nAlan has a kid named .\n')
   })
 
   test('response globals', async () => {
