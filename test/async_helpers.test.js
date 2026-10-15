@@ -58,6 +58,21 @@ describe('express 4.x async helpers', () => {
       cb(val)
     })
 
+    hbs.registerAsyncHelper('async-payload', function (context, cb) {
+      const val = '<script>alert(document.cookie)</script>'
+
+      process.nextTick(function () {
+        cb(val)
+      })
+    })
+
+    // resolves to whatever it is given, to reach the non-string values
+    hbs.registerAsyncHelper('async-echo', function (value, context, cb) {
+      process.nextTick(function () {
+        cb(value)
+      })
+    })
+
     app.get('/', function (req, res) {
       res.render('async', {
         layout: false,
@@ -84,6 +99,18 @@ describe('express 4.x async helpers', () => {
     app.get('/layout-with-async', function (req, res) {
       res.render('async', {
         layout: 'layout_async',
+      })
+    })
+
+    app.get('/async-escape', function (req, res) {
+      res.render('async-escape', {
+        layout: false,
+      })
+    })
+
+    app.get('/async-non-string', function (req, res) {
+      res.render('async-non-string', {
+        layout: false,
       })
     })
   })
@@ -134,5 +161,18 @@ describe('express 4.x async helpers', () => {
       'utf8'
     )
     await request(app).get('/layout-with-async').expect(expected)
+  })
+
+  // @see https://github.com/pillarjs/hbs/security/advisories/GHSA-rg36-rxv9-2m9q
+  test('async helper output is HTML-escaped', async () => {
+    await request(app)
+      .get('/async-escape')
+      .expect('&lt;script&gt;alert(document.cookie)&lt;/script&gt;')
+  })
+
+  test('async helper non-string values keep their text output', async () => {
+    await request(app)
+      .get('/async-non-string')
+      .expect('[null][undefined][false][0]')
   })
 })
