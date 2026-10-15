@@ -15,6 +15,7 @@ jobs:
       contents: read  # for actions/checkout to fetch code
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node-version:
         - "18.0.0"
