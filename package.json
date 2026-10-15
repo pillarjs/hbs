@@ -16,7 +16,7 @@
   "devDependencies": {
     "@eslint/markdown": "^6.0.0",
     "eslint": "^9.0.0",
-    "express": "^5.2.1",
+    "express": "5",
     "mocha": "^10.8.2",
     "neostandard": "^0.13.0",
     "supertest": "6.1.6"
