@@ -34,6 +34,24 @@ app.set('view engine', 'html')
 app.engine('html', require('hbs').__express)
 ```
 
+## Security ##
+
+hbs is a thin wrapper around [handlebars](https://handlebarsjs.com/), so its
+[prototype-access security options](https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access)
+apply. Two points are worth calling out:
+
+- **Prototype access.** hbs renders with handlebars' safe prototype-access
+  defaults: `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` are
+  both `false`, so inherited (prototype) members of the data are not readable
+  from templates. If your templates need to read inherited members, opt in
+  through [Runtime options](#runtime-options). (hbs 4.x set both to `true`; 5.0
+  restores the safer handlebars defaults.)
+- **HTML escaping.** `{{expression}}` output is HTML-escaped by default. Do not
+  enable `noEscape` (see [Compile options](#compile-options)) for untrusted data.
+
+In all cases, treat both the template and the template context as trusted input:
+do not compile templates from, or render untrusted data through, untrusted sources.
+
 ## Helpers and Partials ##
 
 hbs exposes the `registerHelper` and `registerPartial` method from handlebars.
@@ -117,6 +135,76 @@ If you wish to use handlebars methods like `SafeString` please do so on this pro
 // hbs.handlebars is the handlebars module
 hbs.handlebars === require('handlebars');
 ```
+
+## Compile options ##
+
+Options for [`handlebars.compile()`](https://handlebarsjs.com/api-reference/compilation.html)
+(such as `strict`, `noEscape` or `preventIndent`) can be set per instance. They apply to
+every view and layout compiled by that instance.
+
+```js
+const hbs = require('hbs')
+
+const instance = hbs.create(null, {
+  compileOptions: { strict: true },
+})
+
+app.engine('hbs', instance.__express)
+```
+
+Note that `noEscape: true` disables HTML escaping for every `{{expression}}` rendered by the
+instance, so only use it when the data is trusted.
+
+The options are also exposed as the `compileOptions` property, which can be changed at any
+time (compiled templates already in the cache are not affected):
+
+```js
+hbs.compileOptions = { noEscape: true }
+```
+
+## Runtime options ##
+
+[Runtime options](https://handlebarsjs.com/api-reference/runtime-options.html) passed to the
+compiled template at render time can be set per instance. The most relevant ones are the
+prototype-access controls.
+
+hbs renders with handlebars' safe prototype-access defaults
+(`allowProtoMethodsByDefault: false` and `allowProtoPropertiesByDefault: false`). If your
+templates need to read inherited (prototype) properties or methods from the data, opt in per
+instance:
+
+```js
+const hbs = require('hbs')
+
+const instance = hbs.create(null, {
+  runtimeOptions: {
+    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: true,
+  },
+})
+
+app.engine('hbs', instance.__express)
+```
+
+To allow only a few known inherited members instead of re-enabling everything, use
+handlebars' `allowedProtoProperties` / `allowedProtoMethods` allowlists:
+
+```js
+hbs.create(null, {
+  runtimeOptions: {
+    allowedProtoProperties: { myField: true },
+  },
+})
+```
+
+As with `compileOptions`, the options are exposed as the `runtimeOptions` property and can be
+changed at any time:
+
+```js
+hbs.runtimeOptions = { allowProtoPropertiesByDefault: true }
+```
+
+Regardless of these options, do not render untrusted data as the template context.
 
 ## Recipes ##
 
