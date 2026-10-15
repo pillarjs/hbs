@@ -1,34 +1,54 @@
-unreleased
-==================
+5.0.0
+=====
 
-  * deps: handlebars@4.7.8
-    - Make library compatible with workers
-    - Don't rely on Node.js global object
-    - Fix compiling of each block params in strict mode
-    - Fix rollup warning when importing Handlebars as ESM
-    - Fix bundler issue with webpack 5
-    - Use https instead of git for mustache submodule
+- BREAKING: prototype-access is now disabled by default. `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` default to `false`, so templates no longer read inherited (prototype) members of the data. Opt back in per instance via `runtimeOptions`.
+- BREAKING: require Node.js >= 18
+- BREAKING: target Express 5 and remove the legacy Express 2.x `compile()` engine method
 
-4.2.0 / 2021-11-16
-==================
+4.4.0
+=====
+
+- deps: handlebars@4.7.10 ([#283](https://github.com/pillarjs/hbs/pull/283))
+  - addresses [CVE-2026-106445](https://www.cve.org/CVERecord?id=CVE-2026-106445) ([GHSA-p8wg-vrv2-v86f](https://github.com/advisories/GHSA-p8wg-vrv2-v86f)), [GHSA-8r5x-fm3f-whwj](https://github.com/advisories/GHSA-8r5x-fm3f-whwj), and [GHSA-xw65-4hp5-5hc7](https://github.com/advisories/GHSA-xw65-4hp5-5hc7)
+- Add `compileOptions` instance option forwarded to `handlebars.compile()` ([#268](https://github.com/pillarjs/hbs/pull/268))
+- Add `runtimeOptions` instance option forwarded to the compiled template at render time. This can restore handlebars' safer prototype-access defaults by setting `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` to `false` ([#284](https://github.com/pillarjs/hbs/pull/284))
+
+4.3.1
+=====
+
+- Fix [CVE-2026-87123](https://www.cve.org/CVERecord?id=CVE-2026-87123) ([GHSA-3c55-w9jx-p5jr](https://github.com/pillarjs/hbs/security/advisories/GHSA-3c55-w9jx-p5jr))
+- fix treat async substitution throws as render errors
+
+4.3.0
+=====
+
+- Fix [CVE-2026-16231](https://www.cve.org/CVERecord?id=CVE-2026-16231) ([GHSA-rg36-rxv9-2m9q](https://github.com/pillarjs/hbs/security/advisories/GHSA-rg36-rxv9-2m9q))
+
+4.2.1
+=====
+
+  * deps: handlebars@4.7.9
+
+4.2.0
+=====
 
   * Add `rename` option to `registerPartials`
   * Ensure all partials are registered before rendering
   * Fix function context in async helpers
   * deps: walk@2.3.15
 
-4.1.2 / 2021-04-15
-==================
+4.1.2
+=====
 
   * deps: handlebars@4.7.7
 
-4.1.1 / 2020-04-03
-==================
+4.1.1
+=====
 
   * deps: handlebars@4.7.6
 
-4.1.0 / 2020-01-14
-==================
+4.1.0
+=====
 
   * deps: handlebars@4.5.3
     - Add `handlebars.parseWithoutProcessing`
@@ -39,15 +59,15 @@ unreleased
     - Fix work-around for `constructor` blocking
     - Validate arguments to `#if`, `#unless` and `#with` helpers
 
-4.0.6 / 2019-10-09
-==================
+4.0.6
+=====
 
   * deps: handlebars@4.3.5
     - Fix error object inheritance
     - Fix work-around for `constructor` blocking
 
-4.0.5 / 2019-09-27
-==================
+4.0.5
+=====
 
   * Fix async helpers not working when cache enabled
   * Fix handling of exceptions from layout
@@ -57,115 +77,115 @@ unreleased
     - Fix work-around for `constructor` blocking
   * deps: walk@2.3.14
 
-4.0.4 / 2019-04-14
-==================
+4.0.4
+=====
 
   * deps: handlebars@4.0.14
     - Block `constructor` property using `lookup`
 
-4.0.3 / 2019-03-01
-==================
+4.0.3
+=====
 
   * Fix path for partials multiple dirs deep on Windows
 
-4.0.2 / 2019-02-18
-==================
+4.0.2
+=====
 
   * deps: handlebars@4.0.13
 
-4.0.1 / 2016-09-18
-==================
+4.0.1
+=====
 
   * Support params for async helper
   * deps: handlebars@4.0.5
   * deps: walk@2.3.9
 
-4.0.0 / 2015-11-02
-==================
+4.0.0
+=====
 
   * Fix caching of non default filename layouts
   * deps: handlebars@4.0.3
 
-3.1.1 / 2015-09-11
-==================
+3.1.1
+=====
 
   * Fix `localsAsTemplateData` when cache is enabled
 
-3.1.0 / 2015-06-10
-==================
+3.1.0
+=====
 
   * Make `@data` available to layouts
 
-3.0.1 / 2015-03-12
-==================
+3.0.1
+=====
 
   * Fix using custom extensions when using view engine layouts
 
-3.0.0 / 2015-03-09
-==================
+3.0.0
+=====
 
   * deps: handlebars@3.0.0
 
-2.9.0 / 2015-03-06
-==================
+2.9.0
+=====
 
   * Scope internal async tracker to per middleware
   * Support multiple view folders from Express
 
-2.8.0 / 2014-12-26
-==================
+2.8.0
+=====
 
   * Scope internal async tracker to per hbs instance
   * deps: handlebars@2.0.0
 
-2.7.0 / 2014-06-02
-==================
+2.7.0
+=====
 
   * Fix registering directories of partials on Windows
   * Add API to expose locals as template data
 
-2.6.0 / 2014-04-06
-==================
+2.6.0
+=====
 
   * Fix support for custom handlebars instance
 
-2.5.0 / 2014-02-19
-==================
+2.5.0
+=====
 
   * deps: handlebars@1.3.0
 
-2.4.0 / 2013-09-13
-==================
+2.4.0
+=====
 
   * Add support for multi-level partial paths
 
-2.3.1 / 2013-08-01
-==================
+2.3.1
+=====
 
   * deps: after@0.8.1
   * deps: handlebars@1.0.12
 
-2.3.0 / 2013-05-30
-==================
+2.3.0
+=====
 
   * Add `registerPartials`
 
-2.1.0 / 2013-03-19
-==================
+2.1.0
+=====
 
   * Add `create` for multiple instances
 
-2.0.2 / 2013-02-21
-==================
+2.0.2
+=====
 
   * deps: handlebars@1.0.9
 
-2.0.1 / 2012-11-30
-==================
+2.0.1
+=====
 
   * Ignore layout error when not using layout
 
-2.0.0 / 2012-11-21
-==================
+2.0.0
+=====
 
   * deps: handlebars@1.0.7
