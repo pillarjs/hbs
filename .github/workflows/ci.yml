@@ -17,6 +17,7 @@ jobs:
     strategy:
       matrix:
         node-version:
+        - "18.0.0"
         - "18"
         - "19"
         - "20"
