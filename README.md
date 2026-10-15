@@ -144,6 +144,50 @@ time (compiled templates already in the cache are not affected):
 hbs.compileOptions = { noEscape: true }
 ```
 
+## Runtime options ##
+
+[Runtime options](https://handlebarsjs.com/api-reference/runtime-options.html) passed to the
+compiled template at render time can be set per instance. The most relevant ones are the
+prototype-access controls.
+
+hbs renders with handlebars' safe prototype-access defaults
+(`allowProtoMethodsByDefault: false` and `allowProtoPropertiesByDefault: false`). If your
+templates need to read inherited (prototype) properties or methods from the data, opt in per
+instance:
+
+```js
+const hbs = require('hbs')
+
+const instance = hbs.create(null, {
+  runtimeOptions: {
+    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: true,
+  },
+})
+
+app.engine('hbs', instance.__express)
+```
+
+To allow only a few known inherited members instead of re-enabling everything, use
+handlebars' `allowedProtoProperties` / `allowedProtoMethods` allowlists:
+
+```js
+hbs.create(null, {
+  runtimeOptions: {
+    allowedProtoProperties: { myField: true },
+  },
+})
+```
+
+As with `compileOptions`, the options are exposed as the `runtimeOptions` property and can be
+changed at any time:
+
+```js
+hbs.runtimeOptions = { allowProtoPropertiesByDefault: true }
+```
+
+Regardless of these options, do not render untrusted data as the template context.
+
 ## Recipes ##
 
 ### more than one instance ###
