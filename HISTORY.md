@@ -1,3 +1,11 @@
+4.4.0
+=====
+
+- deps: handlebars@4.7.10 ([#283](https://github.com/pillarjs/hbs/pull/283))
+  - addresses [CVE-2026-106445](https://www.cve.org/CVERecord?id=CVE-2026-106445) ([GHSA-p8wg-vrv2-v86f](https://github.com/advisories/GHSA-p8wg-vrv2-v86f)), [GHSA-8r5x-fm3f-whwj](https://github.com/advisories/GHSA-8r5x-fm3f-whwj), and [GHSA-xw65-4hp5-5hc7](https://github.com/advisories/GHSA-xw65-4hp5-5hc7)
+- Add `compileOptions` instance option forwarded to `handlebars.compile()` ([#268](https://github.com/pillarjs/hbs/pull/268))
+- Add `runtimeOptions` instance option forwarded to the compiled template at render time. This can restore handlebars' safer prototype-access defaults by setting `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` to `false` ([#284](https://github.com/pillarjs/hbs/pull/284))
+
 4.3.1
 =====
 
