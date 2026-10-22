@@ -4,7 +4,7 @@ const express = require('express')
 const hbsFactory = require('../')
 
 describe('register partials', () => {
-  test('render waits on register partials', async () => {
+  it('render waits on register partials', async () => {
     const app = express()
     const hbs = hbsFactory.create()
 
@@ -25,7 +25,7 @@ describe('register partials', () => {
       )
   })
 
-  test('render waits on multiple register partials', async () => {
+  it('render waits on multiple register partials', async () => {
     const app = express()
     const hbs = hbsFactory.create()
 
@@ -47,7 +47,7 @@ describe('register partials', () => {
       )
   })
 
-  test('register partials callback', async () => {
+  it('register partials callback', async () => {
     const hbs = hbsFactory.create()
 
     await new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ describe('register partials', () => {
     })
   })
 
-  test('register partials name', async () => {
+  it('register partials name', async () => {
     const app = express()
     const hbs = hbsFactory.create()
 
