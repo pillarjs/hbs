@@ -9,7 +9,7 @@ const FIXTURES_DIR = path.join(__dirname, 'fixtures')
 describe('express 4.x async helpers', () => {
   let app
 
-  beforeAll(() => {
+  before(() => {
     const hbs = hbsFactory.create()
 
     app = express()
@@ -115,7 +115,7 @@ describe('express 4.x async helpers', () => {
     })
   })
 
-  test('index', async () => {
+  it('index', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'async.html'),
       'utf8'
@@ -123,7 +123,7 @@ describe('express 4.x async helpers', () => {
     await request(app).get('/').expect(expected)
   })
 
-  test('async', async () => {
+  it('async', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'fake-async.html'),
       'utf8'
@@ -131,7 +131,7 @@ describe('express 4.x async helpers', () => {
     await request(app).get('/fake-async').expect(expected)
   })
 
-  test('cached', async () => {
+  it('cached', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'async.html'),
       'utf8'
@@ -139,7 +139,7 @@ describe('express 4.x async helpers', () => {
     await request(app).get('/').expect(expected)
   })
 
-  test('async-with-params', async () => {
+  it('async-with-params', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'async-with-params.html'),
       'utf8'
@@ -147,7 +147,7 @@ describe('express 4.x async helpers', () => {
     await request(app).get('/async-with-params').expect(expected)
   })
 
-  test('async-with-layout', async () => {
+  it('async-with-layout', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'async-with-layout.html'),
       'utf8'
@@ -155,7 +155,7 @@ describe('express 4.x async helpers', () => {
     await request(app).get('/async-with-layout').expect(expected)
   })
 
-  test('layout-with-async', async () => {
+  it('layout-with-async', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'layout-with-async.html'),
       'utf8'
@@ -164,13 +164,13 @@ describe('express 4.x async helpers', () => {
   })
 
   // @see https://github.com/pillarjs/hbs/security/advisories/GHSA-rg36-rxv9-2m9q
-  test('async helper output is HTML-escaped', async () => {
+  it('async helper output is HTML-escaped', async () => {
     await request(app)
       .get('/async-escape')
       .expect('&lt;script&gt;alert(document.cookie)&lt;/script&gt;')
   })
 
-  test('async helper non-string values keep their text output', async () => {
+  it('async helper non-string values keep their text output', async () => {
     await request(app)
       .get('/async-non-string')
       .expect('[null][undefined][false][0]')

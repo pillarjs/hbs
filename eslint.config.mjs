@@ -16,14 +16,11 @@ export default [
     languageOptions: {
       globals: {
         describe: 'readonly',
-        test: 'readonly',
         it: 'readonly',
-        expect: 'readonly',
-        beforeAll: 'readonly',
-        afterAll: 'readonly',
+        before: 'readonly',
+        after: 'readonly',
         beforeEach: 'readonly',
-        afterEach: 'readonly',
-        vi: 'readonly'
+        afterEach: 'readonly'
       }
     }
   },
