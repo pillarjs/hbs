@@ -4,7 +4,6 @@
 [![NPM Downloads][npm-downloads-image]][npm-url]
 [![Linux Build][github-actions-ci-image]][github-actions-ci-url]
 [![Windows Build][appveyor-image]][appveyor-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
 
 [Express.js](https://expressjs.com/) view engine for
 [handlebars.js](https://handlebarsjs.com/)
@@ -150,8 +149,6 @@ See examples/extend for a working example. Note how the index.hbs file defines e
 
 [appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/nodejs-hbs/master?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/dougwilson/nodejs-hbs
-[coveralls-image]: https://badgen.net/coveralls/c/github/pillarjs/hbs/master
-[coveralls-url]: https://coveralls.io/r/pillarjs/hbs?branch=master
 [github-actions-ci-image]: https://badgen.net/github/checks/pillarjs/hbs/master?label=linux
 [github-actions-ci-url]: https://github.com/pillarjs/hbs/actions?query=workflow%3Aci
 [node-image]: https://badgen.net/npm/node/hbs

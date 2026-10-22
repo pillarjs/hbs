@@ -9,7 +9,7 @@ const FIXTURES_DIR = path.join(__dirname, 'fixtures')
 describe('express 4.x view engine', () => {
   let app
 
-  beforeAll(() => {
+  before(() => {
     app = express()
 
     // manually set render engine, under normal circumstances this
@@ -38,7 +38,7 @@ describe('express 4.x view engine', () => {
     })
   })
 
-  test('index', async () => {
+  it('index', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'index_no_layout.html'),
       'utf8'
@@ -46,7 +46,7 @@ describe('express 4.x view engine', () => {
     await request(app).get('/').expect(expected)
   })
 
-  test('index w/layout', async () => {
+  it('index w/layout', async () => {
     const expected = fs.readFileSync(
       path.join(FIXTURES_DIR, 'index_no_layout.html'),
       'utf8'
