@@ -7,7 +7,7 @@ const hbsFactory = require('../')
 describe('template inheritance (#119)', () => {
   let app
 
-  beforeAll(() => {
+  before(() => {
     const hbs = hbsFactory.create()
 
     // a reusable base layout registered as a partial, with an override block
@@ -53,7 +53,7 @@ describe('template inheritance (#119)', () => {
     })
   })
 
-  test('a child view overrides a parent block', async () => {
+  it('a child view overrides a parent block', async () => {
     await request(app)
       .get('/home')
       .expect(200, [
@@ -64,7 +64,7 @@ describe('template inheritance (#119)', () => {
       ].join('\n'))
   })
 
-  test('an unoverridden block keeps the parent default', async () => {
+  it('an unoverridden block keeps the parent default', async () => {
     await request(app)
       .get('/default')
       .expect(200, [
@@ -75,7 +75,7 @@ describe('template inheritance (#119)', () => {
       ].join('\n'))
   })
 
-  test('layouts nest more than one level deep', async () => {
+  it('layouts nest more than one level deep', async () => {
     await request(app)
       .get('/nested')
       .expect(200, [
@@ -86,7 +86,7 @@ describe('template inheritance (#119)', () => {
       ].join('\n'))
   })
 
-  test('without layout: false the page is wrapped by the automatic layout too', async () => {
+  it('without layout: false the page is wrapped by the automatic layout too', async () => {
     await request(app)
       .get('/wrapped')
       .expect(200, [
