@@ -210,12 +210,12 @@ Note: In partials and templates, local data can be accessed without using `@` pr
 
 ## Reserved render data keys ##
 
-Express reserves a few keys in the data you pass to `res.render`, because it uses them internally. hbs in particular reads the views directory from Express's `settings` to locate layouts and partials. Avoid using these keys as your own template data, since they collide with Express:
+A few keys in the data you pass to `res.render` are used internally by Express or by hbs, so avoid using them as your own template data:
 
-- `settings`
-- `cache`
-- `layout`
-- `_locals`
+- `settings`: Express's application settings; hbs reads the views directory from it to locate layouts.
+- `cache`: Express's view-cache flag.
+- `_locals`: Express's per-request locals.
+- `layout`: hbs's [layout](#layouts) option.
 
 If a `settings` property in your render data overwrites Express's, hbs cannot resolve your layout and throws a descriptive error. Rename the conflicting property.
 
