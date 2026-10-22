@@ -1,3 +1,13 @@
+4.4.0
+=====
+
+- deps: handlebars@4.7.10 ([#283](https://github.com/pillarjs/hbs/pull/283))
+  - addresses [CVE-2026-106445](https://www.cve.org/CVERecord?id=CVE-2026-106445) ([GHSA-p8wg-vrv2-v86f](https://github.com/advisories/GHSA-p8wg-vrv2-v86f)), [GHSA-8r5x-fm3f-whwj](https://github.com/advisories/GHSA-8r5x-fm3f-whwj), and [GHSA-xw65-4hp5-5hc7](https://github.com/advisories/GHSA-xw65-4hp5-5hc7)
+- Add `compileOptions` instance option forwarded to `handlebars.compile()` ([#268](https://github.com/pillarjs/hbs/pull/268))
+- Add `runtimeOptions` instance option forwarded to the compiled template at render time. This can restore handlebars' safer prototype-access defaults by setting `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` to `false` ([#284](https://github.com/pillarjs/hbs/pull/284))
+- Fix: throw a descriptive error when a `settings` render local shadows Express settings instead of a cryptic path error ([#291](https://github.com/pillarjs/hbs/pull/291))
+- Document the `layout` option, template inheritance via handlebars partial blocks, and the reserved render data keys ([#291](https://github.com/pillarjs/hbs/pull/291), [#294](https://github.com/pillarjs/hbs/pull/294))
+
 4.3.1
 =====
 
