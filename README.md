@@ -98,6 +98,92 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'), {
 
 **Note:** This method is async; meaning that the directory is walked in a non-blocking manner to app startup.
 
+## Layouts ##
+
+When a `layout` file with the same extension as the view (for example `views/layout.hbs`) exists in one of your `views` directories, hbs renders the view first and then renders the layout with the view's output available as `body`. Use the triple-stash so the HTML is not escaped:
+
+```handlebars
+<html>
+  <head><title>{{title}}</title></head>
+  <body>{{{body}}}</body>
+</html>
+```
+
+The layout receives the same locals as the view, so `title` above can be set from `res.render`. If no default layout file exists the view is rendered on its own.
+
+The `layout` option controls this behaviour. It can be set per render, or app-wide through Express' `view options`; a value given to `res.render` wins over the app-wide one.
+
+```javascript
+// use views/admin.hbs as the layout for this render
+res.render('dashboard', { layout: 'admin' });
+
+// render this view without any layout
+res.render('home', { layout: false });
+
+// turn the automatic layout off for every view
+app.set('view options', { layout: false });
+
+// use views/main.hbs as the layout for every view
+app.set('view options', { layout: 'main' });
+```
+
+A layout name is resolved relative to each `views` directory, and the view extension is appended unless the name already has one. Asking for a layout that does not exist is a render error, while a missing default `layout` file is silently skipped.
+
+## Template inheritance ##
+
+Handlebars supports template inheritance natively through [partial blocks](https://handlebarsjs.com/guide/partials.html#partial-blocks) and [inline partials](https://handlebarsjs.com/guide/partials.html#inline-partials), so you can build reusable, nested layouts without any extra hbs feature. Register your base layouts as partials, expose override points with `{{#> block}}`, and let child views fill them with `{{#*inline "block"}}`.
+
+Register a `base` layout as a partial (for example from your partials directory, see [Helpers and Partials](#helpers-and-partials)):
+
+```handlebars
+<html>
+  <head><title>{{title}}</title></head>
+  <body>
+    <main>{{#> content}}Default content{{/content}}</main>
+  </body>
+</html>
+```
+
+A child view inherits it and overrides the `content` block:
+
+```handlebars
+{{#> base title="Home"}}
+  {{#*inline "content"}}<h1>Welcome {{name}}</h1>{{/inline}}
+{{/base}}
+```
+
+A child that inherits from a partial layout already renders the whole page, so turn the automatic [layout](#layouts) off to avoid wrapping it twice, either per render:
+
+```javascript
+res.render('home', { layout: false, name: 'Alan' });
+```
+
+or for the whole app:
+
+```javascript
+app.set('view options', { layout: false });
+```
+
+Blocks a child does not override keep the parent default, and because partials can include other partials, layouts nest to any depth. For example, a `two-column` partial can inherit from `base`, fill its `content` block and expose `sidebar` and `main` blocks of its own:
+
+```handlebars
+{{#> base}}
+  {{#*inline "content"}}
+    <aside>{{#> sidebar}}Default sidebar{{/sidebar}}</aside>
+    <section>{{#> main}}{{/main}}</section>
+  {{/inline}}
+{{/base}}
+```
+
+A view can then inherit from `two-column` and fill those blocks:
+
+```handlebars
+{{#> two-column title="Docs"}}
+  {{#*inline "sidebar"}}<nav>Docs menu</nav>{{/inline}}
+  {{#*inline "main"}}<h1>Welcome {{name}}</h1>{{/inline}}
+{{/two-column}}
+```
+
 ## Exposing locals as template data ##
 
 hbs has the ability to expose the application and request locals within any context inside a view. To enable this functionality, simply call the `localsAsTemplateData` method and pass in your Express application instance.
@@ -222,7 +308,7 @@ app.engine('hbs', instance2.__express);
 Each instance has the same methods/properties as the `hbs` module object. The module object is actually just an instance created for you automatically.
 
 ### extra scripts or styles ##
-Sometimes it is useful to have custom scripts or stylesheets on your pages. Handlebars does not provide a way to import or extend a template, but through the use of helpers you can create a similar result.
+Sometimes it is useful to have custom scripts or stylesheets on your pages. If your layout is a partial, use a partial block for this (see [Template inheritance](#template-inheritance)). If you rely on hbs's automatic layout instead, the layout is not a partial, so a pair of helpers can create a similar result.
 
 We can take advantage of the fact that our body template is processed before the layout template. Knowing this, we can create two helpers `block` and `extend` which can be used to 'inject' custom stylesheets or scripts into the layout template. The `block` helper will act as a placeholder for values specified in earlier `extend` helpers.
 
