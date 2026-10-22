@@ -7,7 +7,7 @@ const hbsFactory = require('../')
 describe('settings collision (#153)', () => {
   let app
 
-  beforeAll(() => {
+  before(() => {
     const hbs = hbsFactory.create()
 
     app = express()
@@ -30,11 +30,11 @@ describe('settings collision (#153)', () => {
     })
   })
 
-  test('a "settings" local yields a descriptive error when a layout is needed', async () => {
+  it('a "settings" local yields a descriptive error when a layout is needed', async () => {
     await request(app).get('/collision').expect(500, /reserved "settings"/)
   })
 
-  test('a "settings" local still renders when no layout is used', async () => {
+  it('a "settings" local still renders when no layout is used', async () => {
     await request(app).get('/no-layout').expect(200, '  index body :)')
   })
 })
