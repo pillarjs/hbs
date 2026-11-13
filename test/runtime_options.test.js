@@ -1,4 +1,5 @@
 const path = require('node:path')
+const assert = require('node:assert')
 const request = require('supertest')
 const express = require('express')
 const hbsFactory = require('../')
@@ -25,26 +26,26 @@ function createApp (instance) {
 }
 
 describe('runtime options', () => {
-  test('runtimeOptions defaults to an empty object', () => {
-    expect(hbsFactory.runtimeOptions).toEqual({})
-    expect(hbsFactory.create().runtimeOptions).toEqual({})
-    expect(hbsFactory.create(null, {}).runtimeOptions).toEqual({})
+  it('runtimeOptions defaults to an empty object', () => {
+    assert.deepStrictEqual(hbsFactory.runtimeOptions, {})
+    assert.deepStrictEqual(hbsFactory.create().runtimeOptions, {})
+    assert.deepStrictEqual(hbsFactory.create(null, {}).runtimeOptions, {})
   })
 
-  test('runtimeOptions is taken from create()', () => {
+  it('runtimeOptions is taken from create()', () => {
     const instance = hbsFactory.create(null, {
       runtimeOptions: { allowProtoPropertiesByDefault: true },
     })
-    expect(instance.runtimeOptions).toEqual({ allowProtoPropertiesByDefault: true })
+    assert.deepStrictEqual(instance.runtimeOptions, { allowProtoPropertiesByDefault: true })
   })
 
   // hbs now keeps handlebars' safe prototype-access defaults (false)
-  test('prototype property access is blocked by default', async () => {
+  it('prototype property access is blocked by default', async () => {
     const app = createApp(hbsFactory.create())
     await request(app).get('/proto').expect(200, '<p></p>\n')
   })
 
-  test('runtimeOptions can opt back into prototype property access', async () => {
+  it('runtimeOptions can opt back into prototype property access', async () => {
     const app = createApp(hbsFactory.create(null, {
       runtimeOptions: { allowProtoPropertiesByDefault: true },
     }))

@@ -23,7 +23,7 @@ const hbsFactory = require('../')
 describe('async helper output escaping (GHSA-3c55-w9jx-p5jr)', () => {
   let app
 
-  beforeAll(() => {
+  before(() => {
     const hbs = hbsFactory.create()
 
     app = express()
@@ -64,7 +64,7 @@ describe('async helper output escaping (GHSA-3c55-w9jx-p5jr)', () => {
   // handlebars 4.7.10 escapes the JSON-sourced `toHTML` key as a plain object
   // instead of invoking it, so the advisory payload renders safely and the
   // process does not crash
-  test('a non-callable toHTML async value renders safely without crashing', async () => {
+  it('a non-callable toHTML async value renders safely without crashing', async () => {
     await request(app)
       .get('/async-tohtml')
       .expect(200, '[object Object]\n')
@@ -72,7 +72,7 @@ describe('async helper output escaping (GHSA-3c55-w9jx-p5jr)', () => {
 
   // even if escaping throws during async substitution, the promise .catch turns
   // it into a handled render error rather than an uncaught exception
-  test('a throw during async substitution becomes a handled render error', async () => {
+  it('a throw during async substitution becomes a handled render error', async () => {
     await request(app)
       .get('/async-throwing')
       .expect(500, /boom/)

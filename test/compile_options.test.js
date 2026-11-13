@@ -1,4 +1,5 @@
 const path = require('node:path')
+const assert = require('node:assert')
 const request = require('supertest')
 const express = require('express')
 const hbsFactory = require('../')
@@ -36,38 +37,38 @@ function createApp (instance) {
 }
 
 describe('compile options', () => {
-  test('compileOptions defaults to an empty object', () => {
-    expect(hbsFactory.compileOptions).toEqual({})
-    expect(hbsFactory.create().compileOptions).toEqual({})
-    expect(hbsFactory.create(null, {}).compileOptions).toEqual({})
+  it('compileOptions defaults to an empty object', () => {
+    assert.deepStrictEqual(hbsFactory.compileOptions, {})
+    assert.deepStrictEqual(hbsFactory.create().compileOptions, {})
+    assert.deepStrictEqual(hbsFactory.create(null, {}).compileOptions, {})
   })
 
-  test('compileOptions is taken from create()', () => {
+  it('compileOptions is taken from create()', () => {
     const instance = hbsFactory.create(null, { compileOptions: { strict: true } })
-    expect(instance.compileOptions).toEqual({ strict: true })
+    assert.deepStrictEqual(instance.compileOptions, { strict: true })
   })
 
-  test('noEscape renders raw html', async () => {
+  it('noEscape renders raw html', async () => {
     const app = createApp(hbsFactory.create(null, { compileOptions: { noEscape: true } }))
     await request(app).get('/no-escape').expect(200, '<p><b>bold</b></p>\n')
   })
 
-  test('default instance still escapes html', async () => {
+  it('default instance still escapes html', async () => {
     const app = createApp(hbsFactory.create())
     await request(app).get('/no-escape').expect(200, '<p>&lt;b&gt;bold&lt;/b&gt;</p>\n')
   })
 
-  test('strict renders when the field is present', async () => {
+  it('strict renders when the field is present', async () => {
     const app = createApp(hbsFactory.create(null, { compileOptions: { strict: true } }))
     await request(app).get('/strict/present').expect(200, '<p>ok</p>\n')
   })
 
-  test('strict errors when the field is missing', async () => {
+  it('strict errors when the field is missing', async () => {
     const app = createApp(hbsFactory.create(null, { compileOptions: { strict: true } }))
     await request(app).get('/strict/missing').expect(500, /"value" not defined/)
   })
 
-  test('strict applies to layouts too', async () => {
+  it('strict applies to layouts too', async () => {
     const app = createApp(hbsFactory.create(null, { compileOptions: { strict: true } }))
     await request(app).get('/strict/layout').expect(500, /"title" not defined/)
   })
