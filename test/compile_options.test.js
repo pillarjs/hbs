@@ -29,7 +29,7 @@ function createApp (instance) {
     res.render('strict', { layout: 'layout', value: 'ok' })
   })
 
-  app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  app.use((err, req, res, next) => {
     res.status(500).send(err.message)
   })
 

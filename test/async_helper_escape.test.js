@@ -56,7 +56,7 @@ describe('async helper output escaping (GHSA-3c55-w9jx-p5jr)', () => {
       res.render('async-throwing', { layout: false })
     })
 
-    app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    app.use((err, req, res, next) => {
       res.status(500).send(err.message)
     })
   })

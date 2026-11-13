@@ -29,7 +29,7 @@ function createApp (instance) {
     })
   })
 
-  app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  app.use((err, req, res, next) => {
     res.status(500).send(err.message)
   })
 
@@ -37,6 +37,7 @@ function createApp (instance) {
 }
 
 // Run `fn` while collecting everything handlebars writes to console.error.
+/* eslint-disable no-console */
 async function captureConsoleErrors (fn) {
   const original = console.error
   const messages = []
@@ -51,6 +52,7 @@ async function captureConsoleErrors (fn) {
 
   return messages
 }
+/* eslint-enable no-console */
 
 describe('runtime options', () => {
   it('runtimeOptions defaults to an empty object', () => {
