@@ -4,6 +4,8 @@
 - BREAKING: prototype-access is now disabled by default. hbs no longer sets `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` to `true`, so handlebars' defaults apply: templates no longer read inherited (prototype) members of the data, and handlebars logs a warning the first time a lookup of a given property is blocked. Opt back in per instance via `runtimeOptions`.
 - BREAKING: require Node.js >= 18
 - BREAKING: target Express 5 and remove the legacy Express 2.x `compile()` engine method
+- BREAKING: remove the deprecated `hbs.SafeString` and `hbs.Utils` aliases. Use `hbs.handlebars.SafeString` and `hbs.handlebars.Utils` instead.
+- BREAKING: async helper callbacks called with two arguments are now error-first (`cb(err, result)`), so a truthy first argument fails the render. Callbacks called with a single argument (`cb(result)`) are unchanged.
 
 4.4.0
 =====
