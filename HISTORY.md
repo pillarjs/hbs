@@ -1,7 +1,7 @@
 5.0.0
 =====
 
-- BREAKING: prototype-access is now disabled by default. `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` default to `false`, so templates no longer read inherited (prototype) members of the data. Opt back in per instance via `runtimeOptions`.
+- BREAKING: prototype-access is now disabled by default. hbs no longer sets `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` to `true`, so handlebars' defaults apply: templates no longer read inherited (prototype) members of the data, and handlebars logs a warning the first time a lookup of a given property is blocked. Opt back in per instance via `runtimeOptions`.
 - BREAKING: require Node.js >= 18
 - BREAKING: target Express 5 and remove the legacy Express 2.x `compile()` engine method
 

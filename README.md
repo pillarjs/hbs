@@ -39,11 +39,12 @@ hbs is a thin wrapper around [handlebars](https://handlebarsjs.com/), so its
 [prototype-access security options](https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access)
 apply. Two points are worth calling out:
 
-- **Prototype access.** hbs renders with handlebars' safe prototype-access
-  defaults: `allowProtoMethodsByDefault` and `allowProtoPropertiesByDefault` are
-  both `false`, so inherited (prototype) members of the data are not readable
-  from templates. If your templates need to read inherited members, opt in
-  through [Runtime options](#runtime-options). (hbs 4.x set both to `true`; 5.0
+- **Prototype access.** hbs does not set `allowProtoMethodsByDefault` or
+  `allowProtoPropertiesByDefault`, so handlebars' own defaults apply: inherited
+  (prototype) members of the data are not readable from templates, and
+  handlebars logs a warning the first time a lookup of a given property is
+  blocked. If your templates need to read inherited members, opt in through
+  [Runtime options](#runtime-options). (hbs 4.x set both to `true`; 5.0
   restores the safer handlebars defaults.)
 - **HTML escaping.** `{{expression}}` output is HTML-escaped by default. Do not
   enable `noEscape` (see [Compile options](#compile-options)) for untrusted data.
@@ -167,10 +168,13 @@ hbs.compileOptions = { noEscape: true }
 compiled template at render time can be set per instance. The most relevant ones are the
 prototype-access controls.
 
-hbs renders with handlebars' safe prototype-access defaults
-(`allowProtoMethodsByDefault: false` and `allowProtoPropertiesByDefault: false`). If your
-templates need to read inherited (prototype) properties or methods from the data, opt in per
-instance:
+hbs sets none of them itself, so handlebars' safe prototype-access defaults apply: inherited
+(prototype) properties and methods of the data are blocked, and handlebars logs a warning to
+the console the first time a lookup of a given property is blocked. Setting
+`allowProtoMethodsByDefault` or `allowProtoPropertiesByDefault` to any value, including
+`false`, disables that warning.
+
+If your templates need to read inherited members, opt in per instance:
 
 ```js
 const hbs = require('hbs')
