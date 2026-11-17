@@ -18,6 +18,15 @@ function createApp (instance) {
     })
   })
 
+  // Calls an inherited method, which handlebars gates with the method options
+  // (allowProtoMethodsByDefault), not the property ones.
+  app.get('/proto-method', (req, res) => {
+    res.render('proto-method', {
+      layout: false,
+      value: Object.create({ greet () { return 'PROTO' } }),
+    })
+  })
+
   // Reads an inherited property whose name comes from the URL. handlebars
   // logs its "access denied" warning only once per property name per process,
   // so each warning test needs a property name no other test has used.
@@ -118,6 +127,11 @@ describe('runtime options', () => {
 
     try {
       await request(app).get('/proto').expect(200, '<p></p>\n')
+      // The method option is only read for methods, so render one too.
+      // The blocked call logs a handlebars warning, kept out of the output.
+      await captureConsoleErrors(async () => {
+        await request(app).get('/proto-method').expect(200, '<p></p>\n')
+      })
     } finally {
       polluted.forEach((key) => { delete Object.prototype[key] })
     }
@@ -128,5 +142,12 @@ describe('runtime options', () => {
       runtimeOptions: { allowProtoPropertiesByDefault: true },
     }))
     await request(app).get('/proto').expect(200, '<p>PROTO</p>\n')
+  })
+
+  it('runtimeOptions can opt back into prototype method access', async () => {
+    const app = createApp(hbsFactory.create(null, {
+      runtimeOptions: { allowProtoMethodsByDefault: true },
+    }))
+    await request(app).get('/proto-method').expect(200, '<p>PROTO</p>\n')
   })
 })
